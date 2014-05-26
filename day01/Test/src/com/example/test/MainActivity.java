@@ -10,12 +10,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * 
+ * @author Administrator
+ * 
+ */
 
 public class MainActivity extends Activity implements OnClickListener{
 	private TextView tv_background;
 	private Button bt_blue,bt_red;
-	
-	
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +29,6 @@ public class MainActivity extends Activity implements OnClickListener{
         bt_red = (Button) findViewById(R.id.bt_red);
         bt_blue.setOnClickListener(this);
         bt_red.setOnClickListener(this);
-        
     }
 
     
@@ -36,11 +39,6 @@ public class MainActivity extends Activity implements OnClickListener{
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
-    
-    
-
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -49,7 +47,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		case R.id.action_search:
 			Toast.makeText(this, "点击了搜索", Toast.LENGTH_SHORT).show();
 			break;
-
 		case R.id.action_refresh:
 			Toast.makeText(this, "点击了刷新", Toast.LENGTH_SHORT).show();
 			break;

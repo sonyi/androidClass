@@ -38,6 +38,8 @@
      (2).drawable 可绘制资源
         图片资源
         形状与selector等
+		
+	 (4).id资源
 
      (3).layout 布局资源
         描述UI界面的布局
