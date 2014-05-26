@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HelloAndroid</string>
+    <string name="action_settings">设置</string>
+    <string name="action_search">搜索</string>
+    <string name="action_refresh">刷新</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="text_example">测试而已</string>
+    
+</resources>

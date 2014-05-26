@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/tv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/bt_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_background"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="137dp"
+        android:text="@string/bt_blue" />
+
+    <Button
+        android:id="@+id/bt_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/bt_blue"
+        android:layout_below="@+id/bt_blue"
+        android:layout_marginTop="39dp"
+        android:text="@string/bt_red" />
+
+</RelativeLayout>

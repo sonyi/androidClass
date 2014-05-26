@@ -1,0 +1,51 @@
+一.android 体系结构
+
+1.ARM
+
+2.Linux 
+
+3.library
+
+4.android framework
+
+5.application
+
+二.开发环境
+
+1.android SDK
+   a.aapt 
+   b.adb (android debug bridge)
+   ...
+
+  
+2.ADT (android developer tools)
+  整合进eclipse
+
+3.AVD (android virtual device)
+
+三.android资源管理
+   a.res目录中包含各种类型的资源文件
+
+   b.ADT工具会将res目录中特点类型的资源在R文件中生成一个整形常量，特点资源类型对应R中的一个内部类.
+
+   c.android中的资源类型：
+     (1).values:
+        尺寸(dimen) 
+        颜色(color) 
+        字符串(string)
+        样式（styles)
+  
+     (2).drawable 可绘制资源
+        图片资源
+        形状与selector等
+
+     (3).layout 布局资源
+        描述UI界面的布局
+
+     (4).anim 动画资源 Tween动画
+
+     (5).menu 菜单资源
+        
+    
+   
+ 

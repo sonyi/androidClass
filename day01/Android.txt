@@ -1,0 +1,15 @@
+一、android 体系架构
+ 1.ARM
+ 2.Linux
+ 3,library
+ 4.android framework
+ 5.application
+ 
+ 二、开发环境
+ 1.android SDK
+	a.aapt
+	b.adb(android debug bridge)
+	
+ 2.ADT (android developer tools)
+	
+3.AVD (Android Virtual Devices)
