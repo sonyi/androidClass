@@ -1,0 +1,55 @@
+1.线性布局 LinearLayout (重点)
+
+  默认是横向，从左往右排版控件
+
+  android:orientation="vertical"
+
+2.相对布局  (重点)
+  a.相对于其它同级控件的排版方式
+    android:layout_toLeftOf
+    android:layout_toRightOf
+    android:layout_above
+    android:layout_below
+    
+    以上属性的取值都是其它控件的id  
+
+  b.相对应其它同级控件的对齐方式
+    android:layout_alignBaseLine
+    android:layout_alignLeft
+    android:layout_alignRight
+    android:layout_alignTop
+    android:layout_alignBottom
+
+    以上属性的取值都是其它控件的id 
+
+  c.相对于父容器的位置
+    android:layout_alignParentLeft
+    android:layout_alignParentRight
+    android:layout_alignParentTop
+    android:layout_alignParentBottom
+
+    android:layout_centerHorizontal
+    android:layout_centerVertical
+    android:layout_centerInParent
+
+    以上取值都是true或false
+
+3.表格布局
+     TableLayou TableRow
+
+4.网格布局 GridLayout
+  orientation为水平时，设置列数才起作用,column_span起作用
+             为垂直时，设置行数才起作用,row_span起作用
+
+5.FrameLayout
+
+6.绝对布局 （过时了）
+
+7.日志和LogCat的使用(重点)
+
+8.Activity的生命周期  (非常重点)
+
+9.Activity间的跳转传值 (重点)
+  a.显式Intent
+  b.Intent传递数据
+    Bundle传递键值对数据 putExtra()
