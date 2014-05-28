@@ -1,0 +1,33 @@
+注意：控件的样式，布局，优先考虑使用布局资源文件。
+      Java代码中只关注控件的内容和数据
+
+1.TextView
+  
+2.EditText
+  singleLine
+  maxLength
+  lines
+  hint
+  inputType
+  ....   
+
+3.shape和selector (Drawable)
+
+4.Button
+
+5.事件分发机制
+  *onTouch() -> 其它事件处理方法
+  一般事件处理方法中，返回值为boolean的意义是：
+  true:表示当前方法拦截了事件，事件处理不再向下传递
+  false:在执行完当前事件处理方法后，事件处理还要继续向下传递
+
+6.焦点变更事件
+  a.控件标签中包含requestFocus标签获得焦点
+  b.或者在代码中调用控件的requestFocus()方法获得焦点
+  c.onFocusChange方法，重要的是第二个参数hasFocus标识焦点改变之后，是否有焦点
+
+6.AutoCompleteTextView
+  a.数据适配器
+    ArrayAdapter:
+    两要素：(1) 视图项item的布局资源
+           (2) 数据源：线性结构的集合 数组，List

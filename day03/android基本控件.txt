@@ -1,0 +1,32 @@
+1．文本类：
+  TextView、EditText、AutoCompleteTextView(支持自动完成功能的可编辑文本控件)、
+  MultAutoCompletTextView(支持自动完成功能的可编辑文本控件，允许输入多值（多值之间会自动地用指定的分隔符分开）) 、
+  (TextSwitcher) 、ExtractEditText、CheckedTextView(可选择的文本控件，在ListView中很有用)、Chronometer(计时器控件)
+
+2．按钮类：
+Button(按钮)、CheckBox(复选框)、RadioButton(单选钮)(RadioGroup) 、ToggleButton(双状态按钮控件) 、(ImageButton )
+CompoundButton、switch
+
+3．图片类：
+ImageView、ZoomButton、ImageButton、(ImageSwitcher )
+
+4．时间控件：
+DigitalClock（电子表控件）、AnalogClock（钟表（带表盘的那种）控件）、TimePicker(时间选择控件)、DatePicker(日期选择控件)
+
+5．进度显示：
+ProgressBar(进度条控件)、AbsSeekBar、SeekBar(可拖动的进度条控件)、RatingBar(评分控件)
+
+6．Dialog对话框
+CharacherPickerDialog、AlertDialog、DatePickerDialog、ProgressDialog、TimePickerDialog
+ 
+第二部分，布局类
+1．布局类：
+AbsoluteLayout (里面可以放多个控件，并且可以自己定义控件的x,y的位置)、
+LinearLayout(里面可以放多个控件，但是一行只能放一个控件)、RadioGroup 、
+TableLayout  TableRow(这个要和TableRow配合使用，很像html里面的table)、
+RelativeLayout (里面可以放多个控件，不过控件的位置都是相对位置)、
+FrameLayout(里面只可以有一个控件，并且不能设计这个控件的位置，控件会放到左上角)
+2．需要适配器的布局类：
+AdapterView、AbsListView、GridView、ListView、AbsSpinner、Gallery 、Spinner（下拉框控件）
+3．滚动条：
+HorizontalScrollView、ScrollView(滚动条控件)

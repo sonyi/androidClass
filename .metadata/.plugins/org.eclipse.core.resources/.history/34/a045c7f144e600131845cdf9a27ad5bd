@@ -1,0 +1,68 @@
+package com.example.test;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+	private AutoCompleteTextView etPhone;
+	private Button btOk,btQuit;
+	private EditText etPassword;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		btOk = (Button) findViewById(R.id.id_ok);
+		btQuit = (Button) findViewById(R.id.id_quit);
+		etPhone = (AutoCompleteTextView) findViewById(R.id.et_phone);
+		etPassword = (EditText) findViewById(R.id.et_password);
+		
+		String[] phoneNumbers = new String[]{"13656012580","13954851326","15015497325","13818425975",
+				"15025978136","13642587161"};
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, phoneNumbers);
+		etPhone.setAdapter(adapter);
+		btOk.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Toast.makeText(MainActivity.this, "点击事件", Toast.LENGTH_SHORT).show();	
+			}
+		});
+		
+		etPhone.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				if(!hasFocus){
+					String phoneNumber = etPhone.getText().toString();
+					if(phoneNumber.length() < 11){
+						Toast.makeText(MainActivity.this, "号码长度不够", Toast.LENGTH_SHORT).show();
+						etPhone.requestFocus();
+					}
+				}
+			}
+		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	
+
+}
