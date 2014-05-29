@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">计算器</string>
+    <string name="action_settings">设置</string>
+    <string name="name_ms">MS</string>
+    <string name="name_mr">MR</string>
+    <string name="name_mc">MC</string>
+    <string name="name_m1">M+</string>
+    <string name="name_m2">M-</string>
+    <string name="name_c">C</string>
+    <string name="name_ce">CE</string>
+    <string name="name_quit">←</string>
+    <string name="name_mark">±</string>
+    <string name="name_sqre">√</string>
+    <string name="name_9">9</string>
+    <string name="name_8">8</string>
+    <string name="name_7">7</string>
+    <string name="name_sub">/</string>
+    <string name="name_spare">%</string>
+    <string name="name_4">4</string>
+    <string name="name_5">5</string>
+    <string name="name_6">6</string>
+    <string name="name_mul">*</string>
+    <string name="name_fra">1/x</string>
+    <string name="name_1">1</string>
+    <string name="name_2">2</string>
+    <string name="name_3">3</string>
+    <string name="name_del">-</string>
+    <string name="name_equ">=</string>
+    <string name="name_0">0</string>
+    <string name="name_dot">.</string>
+    <string name="name_add">+</string>
+
+</resources>

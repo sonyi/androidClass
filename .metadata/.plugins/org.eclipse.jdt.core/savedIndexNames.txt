@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INDEX VERSION 1.126+E:\workspace\androidClass\.metadata\.plugins\org.eclipse.jdt.core
 3998231377.index
 2030945063.index
@@ -7,3 +8,24 @@ INDEX VERSION 1.126+E:\workspace\androidClass\.metadata\.plugins\org.eclipse.jdt
 86960992.index
 2479151037.index
 1421069937.index
+=======
+INDEX VERSION 1.126+E:\Workspace\androidClass\.metadata\.plugins\org.eclipse.jdt.core
+864176106.index
+416632718.index
+2030945063.index
+1271926203.index
+2817068641.index
+3328685790.index
+3153549327.index
+3031762764.index
+3061981817.index
+1376761922.index
+2337060798.index
+1657330681.index
+2549781455.index
+3921618217.index
+3049978275.index
+114713860.index
+2823674387.index
+174521981.index
+>>>>>>> 353b9ac59847f970a9393c2c1a2a3578ef950d54
