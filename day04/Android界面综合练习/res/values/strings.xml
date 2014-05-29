@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">电话号码界面</string>
+    <string name="action_settings">设置</string>
+    <string name="ph_num_hider">请输入电话号码</string>
+    <string name="sex">性别：</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="unknown">未知</string>
+    <string name="interest">兴趣：</string>
+    <string name="singing">唱歌</string>
+    <string name="sports">运动</string>
+    <string name="playgame">打游戏</string>
+    <string name="reading">读书</string>
+    <string name="other">其他</string>
+    <string name="address">地址：</string>
+    <string name="quit">退出</string>
+    <string name="ok">确定</string>
+    <string name="action_search">搜索</string>
+    <string name="action_refresh">刷新</string>
+    <string name="action_save">保存</string>
+    <string name="action_share">分享</string>
+
+</resources>

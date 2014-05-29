@@ -16,7 +16,6 @@ public class MainActivity extends Activity {
 		spinner = (Spinner) findViewById(R.id.spinner);
 		String[] data = new String[]{"beijing","shanghai","wuhan","guangzhou"};
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
 		
 	}
