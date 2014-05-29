@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="pic_name">
+        <item>图片1</item>
+        <item>图片2</item>
+        <item>图片3</item>
+        <item>图片4</item>
+        <item>图片5</item>
+        <item>图片6</item>
+        <item>图片7</item>
+        <item>图片8</item>
+    </string-array>
+
+</resources>

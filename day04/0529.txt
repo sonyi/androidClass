@@ -1,0 +1,59 @@
+1.CheckBox
+
+  属性：checked表示是否选中
+  事件：onCheckedChangeListener
+
+  方法：isChecked()可以判定是否选中
+
+2.array资源
+
+3.RadioGroup和RadioButton
+
+4.ProgressBar
+  max:最大进度值
+  progress:当前进度值
+
+  visibility:可见性，可取三个值：
+   a.visible 可见
+   b.invisible 不可见
+   c.gone 不可见，也不保留位置
+
+5.Timer和TimerTask
+  TimerTask task = new TimerTask() {
+			
+    @Override
+    public void run() {
+      //
+    }
+  };
+		
+  Timer timer = new Timer();
+  // 使用计时器对象定期执行操作
+  // 参数1.定期执行的操作所在的任务 (TimerTask对象)
+  // 参数2.多久以后开始执行
+  // 参数3.没隔多久执行一次
+  timer.schedule(task, 100, 100);
+
+6.SeekBar 可拖动的横向进度条
+  其它类似于横向的ProgressBar
+  事件监听：onSeekBarChangeListner:
+   (1).onStartTrackingTouch()方法：在用户开始拖动的时候调用
+   (2).onStopTrackingTouch()方法：在用户拖动完毕，释放的时候调用
+   (3).onProgressChanged()方法：进度值一旦发生改变，就会调用
+  
+7.ImageView
+  显示资源中的图片：
+   a.在布局文件，ImageView的属性中访问
+   b.在代码中动态控制ImageView要显示的图片
+     （1）Drawable
+     （2）Bitmap
+
+8.Gallery
+
+9.ArrayAdapter
+
+10.SimpleAdapter
+
+11.Spinner
+   事件：OnItemSelectedListener
+  

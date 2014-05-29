@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ProgressBarTest</string>
+    <string name="action_settings">Settings</string>
+    <string name="pb_name">不可拉动进度条(ProgressBar)</string>
+    <string name="sb_name">可拉动进度条(SeekBar)</string>
+
+</resources>
