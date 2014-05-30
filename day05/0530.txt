@@ -8,3 +8,15 @@
   long getItemId(int position):返回指定位置的数据实体对象的id
 
   view getView(int position,view convertView,ViewGroup root): 返回包含指定位置的实体数据的view对象
+
+2.ListView 
+  事件：onItemClickListner
+  a.数据填充----自定义适配器
+  b.事件处理和分发
+    如果子项视图中加了按钮之类的控件，就会拦截onItemClick的焦点。
+    解决方法：在子项视图布局根标签中加属性    android:descendantFocusability="blocksDescendants"
+  c.自定义适配器的优化
+    convertView 配合ViewHolder
+  d.headerView
+    通过listView得addHeaderView()方法添加头部视图
+    footerView

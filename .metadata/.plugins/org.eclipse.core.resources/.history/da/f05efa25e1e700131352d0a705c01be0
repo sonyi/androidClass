@@ -32,12 +32,10 @@ public class MainActivity extends Activity {
 		lvInfoList = (ListView) findViewById(R.id.lv_info);
 		initData();
 		mAdapter = new FeedListAdapter();
-		
 		View headerView = getLayoutInflater().inflate(R.layout.view_info_header, null);
 		lvInfoList.addHeaderView(headerView);
 		
-		View footerView = getLayoutInflater().inflate(R.layout.view_info_foot, null);
-		lvInfoList.addFooterView(footerView);
+		
 
 		
 				
