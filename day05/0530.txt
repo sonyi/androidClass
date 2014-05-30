@@ -1,0 +1,10 @@
+1.自定义适配器
+  继承BaseAdapter，重写其中的某些方法：
+  
+  int getCount():获得数据集合所包含元素的个数
+
+  Object getItem(int position):获取指定位置的数据实体对象
+
+  long getItemId(int position):返回指定位置的数据实体对象的id
+
+  view getView(int position,view convertView,ViewGroup root): 返回包含指定位置的实体数据的view对象

@@ -1,0 +1,27 @@
+package com.example.galarytest;
+
+public class ImageItem {
+	private long id;
+	private String imgName;
+	private int imgResId;
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getImgName() {
+		return imgName;
+	}
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+	public int getImgResIn() {
+		return imgResId;
+	}
+	public void setImgResIn(int imgResIn) {
+		this.imgResId = imgResIn;
+	}
+	
+}

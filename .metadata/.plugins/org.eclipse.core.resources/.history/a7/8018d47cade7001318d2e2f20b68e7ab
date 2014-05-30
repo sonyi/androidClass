@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GallaryTest</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="view_gallery_pic1">图片1</string>
+    <string name="view_gallery_pic2">图片2</string>
+    <string name="view_gallery_pic3">图片3</string>
+    <string name="view_gallery_pic4">图片4</string>
+    <string name="view_gallery_pic5">图片5</string>
+    <string name="view_gallery_pic6">图片6</string>
+    <string name="view_gallery_pic7">图片7</string>
+    <string name="view_gallery_pic8">图片8</string>
+
+</resources>

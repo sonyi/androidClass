@@ -1,0 +1,36 @@
+package com.example.listviewtest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.listviewdemo.MainActivity.FeedListAdapter;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.widget.ListView;
+
+public class MainActivity extends Activity {
+
+	private ListView lvInfoList;
+	private List<Feed> mDataSource = new ArrayList<Feed>();
+	//private FeedListAdapter mAdapter;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
+	}
+	
+	public void initData(){
+		//Feed feed1 = new Feed(1,R);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+}

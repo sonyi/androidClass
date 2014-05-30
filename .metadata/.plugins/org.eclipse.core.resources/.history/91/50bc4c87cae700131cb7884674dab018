@@ -1,0 +1,50 @@
+package com.example.listviewtest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.widget.ListView;
+
+public class MainActivity extends Activity {
+
+	private ListView lvInfoList;
+	private List<Feed> mDataSource = new ArrayList<Feed>();
+	//private FeedListAdapter mAdapter;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
+	}
+	
+	public void initData(){
+		Feed feed1 = new Feed(1,R.drawable.img_01,"这是标题","这是图片注释");
+		Feed feed2 = new Feed(2,R.drawable.img_02,"这是标题","这是图片注释");
+		Feed feed3 = new Feed(3,R.drawable.img_03,"这是标题","这是图片注释");
+		Feed feed4 = new Feed(4,R.drawable.img_04,"这是标题","这是图片注释");
+		Feed feed5 = new Feed(5,R.drawable.img_05,"这是标题","这是图片注释");
+		Feed feed6 = new Feed(6,R.drawable.img_06,"这是标题","这是图片注释");
+		Feed feed7 = new Feed(7,R.drawable.img_07,"这是标题","这是图片注释");
+		Feed feed8 = new Feed(8,R.drawable.img_08,"这是标题","这是图片注释");
+		
+		mDataSource.add(feed1);
+		mDataSource.add(feed2);
+		mDataSource.add(feed3);
+		mDataSource.add(feed4);
+		mDataSource.add(feed5);
+		mDataSource.add(feed6);
+		mDataSource.add(feed7);
+		mDataSource.add(feed8);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+}
