@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 		lvInfoList = (ListView) findViewById(R.id.lv_info);
 		initialData();
 		mAdapter = new FeedListAdapter();
-		
+		lvInfoList.setAdapter(mAdapter);
 
 		// 给ListView添加头部视图
 		View headerView = getLayoutInflater().inflate(
@@ -42,7 +42,6 @@ public class MainActivity extends Activity {
 				R.layout.view_info_list_footer, null);
 		lvInfoList.addFooterView(footerView);
 		
-		lvInfoList.setAdapter(mAdapter);
 		TextView tvFooter = (TextView) footerView.findViewById(R.id.tv_footer);
 		tvFooter.setOnClickListener(mFootViewClickListener);
 		

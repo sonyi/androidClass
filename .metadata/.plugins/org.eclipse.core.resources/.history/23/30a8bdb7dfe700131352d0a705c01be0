@@ -31,16 +31,10 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		lvInfoList = (ListView) findViewById(R.id.lv_info);
 		initData();
-		mAdapter = new FeedListAdapter();
-		View headerView = getLayoutInflater().inflate(R.layout.view_info_header, null);
-		lvInfoList.addHeaderView(headerView);
-		
-		
 
-		
-				
+		mAdapter = new FeedListAdapter();
 		lvInfoList.setAdapter(mAdapter);
-		
+
 		lvInfoList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

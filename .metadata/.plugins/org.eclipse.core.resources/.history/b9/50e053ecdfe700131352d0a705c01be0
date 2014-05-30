@@ -35,11 +35,11 @@ public class MainActivity extends Activity {
 		View headerView = getLayoutInflater().inflate(R.layout.view_info_header, null);
 		lvInfoList.addHeaderView(headerView);
 		
-		
+		lvInfoList.setAdapter(mAdapter);
 
 		
 				
-		lvInfoList.setAdapter(mAdapter);
+		
 		
 		lvInfoList.setOnItemClickListener(new OnItemClickListener() {
 
