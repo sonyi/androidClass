@@ -45,4 +45,7 @@
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="com.example.phonedemo.R.id"/>
 <fullyQualifiedTypeName name="android.widget.AutoCompleteTextView"/>
+<fullyQualifiedTypeName name="android.app.ListActivity"/>
+<fullyQualifiedTypeName name="android.widget.ListAdapter"/>
+<fullyQualifiedTypeName name="com.example.galarytest.R.string"/>
 </qualifiedTypeNameHistroy>

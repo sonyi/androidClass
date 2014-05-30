@@ -22,48 +22,53 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		gallery = (Gallery) findViewById(R.id.galler);
+		getPhonePic();
 		
+	}
+
+	
+	public void getPhonePic(){
 		String key = "imgres";
 		String name = "imgName";
 		List<Map<String, Object>> data = new ArrayList<Map<String,Object>>();
 		Map<String, Object> img1 = new HashMap<String, Object>();
 		img1.put(key, R.drawable.img_01);
-		//img1.put(name, R.id.);
+		img1.put(name, R.string.view_gallery_pic1);
 		data.add(img1);
 		
 		Map<String, Object> img2 = new HashMap<String, Object>();
 		img2.put(key, R.drawable.img_02);
-		img2.put(name, "ͼƬ2");
+		img2.put(name, R.string.view_gallery_pic2);
 		data.add(img2);
 		
 		Map<String, Object> img3 = new HashMap<String, Object>();
 		img3.put(key, R.drawable.img_03);
-		img3.put(name, "ͼƬ3");
+		img3.put(name, R.string.view_gallery_pic3);
 		data.add(img3);
 		
 		Map<String, Object> img4 = new HashMap<String, Object>();
 		img4.put(key, R.drawable.img_04);
-		img4.put(name, "ͼƬ4");
+		img4.put(name, R.string.view_gallery_pic4);
 		data.add(img4);
 		
 		Map<String, Object> img5 = new HashMap<String, Object>();
 		img5.put(key, R.drawable.img_05);
-		img5.put(name, "ͼƬ5");
+		img5.put(name, R.string.view_gallery_pic5);
 		data.add(img5);
 		
 		Map<String, Object> img6 = new HashMap<String, Object>();
 		img6.put(key, R.drawable.img_06);
-		img6.put(name, "ͼƬ6");
+		img6.put(name, R.string.view_gallery_pic6);
 		data.add(img6);
 		
 		Map<String, Object> img7 = new HashMap<String, Object>();
 		img7.put(key, R.drawable.img_07);
-		img7.put(name, "ͼƬ7");
+		img7.put(name, R.string.view_gallery_pic7);
 		data.add(img7);
 		
 		Map<String, Object> img8 = new HashMap<String, Object>();
 		img8.put(key, R.drawable.img_08);
-		//img8.put(name, );
+		img8.put(name, R.string.view_gallery_pic8);
 		data.add(img8);
 		
 		String[] from = new String[]{key,name};
@@ -72,7 +77,6 @@ public class MainActivity extends Activity {
 		
 		gallery.setAdapter(adapter);
 	}
-
 	
 	
 	@Override

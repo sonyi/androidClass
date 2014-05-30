@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +14,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 public class MainActivity extends Activity {
+	@SuppressWarnings("deprecation")
 	private Gallery mGallery;
 	private AutoCompleteTextView mPhNumber;
 	private Spinner spinner;
@@ -30,7 +30,6 @@ public class MainActivity extends Activity {
 		getPhonePic();
 		getPhoneNumber();
 		getAddress();
-		
 
 	}
 
