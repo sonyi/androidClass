@@ -49,15 +49,15 @@
 <fullyQualifiedTypeName name="com.example.listviewtest.R.drawable"/>
 <fullyQualifiedTypeName name="android.widget.BaseAdapter"/>
 <fullyQualifiedTypeName name="com.example.listviewtest.MainActivity.FeedListAdapter"/>
-<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
 <fullyQualifiedTypeName name="com.example.listviewtest.MainActivity"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="com.example.listviewtest.MainActivity.FeedListAdapter.ViewHolder"/>
-<fullyQualifiedTypeName name="com.example.listviewtest.R.id"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.widget.ImageView"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.widget.ImageButton"/>
 <fullyQualifiedTypeName name="com.example.listviewtest.R.layout"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.example.listviewtest.R.id"/>
 </qualifiedTypeNameHistroy>
