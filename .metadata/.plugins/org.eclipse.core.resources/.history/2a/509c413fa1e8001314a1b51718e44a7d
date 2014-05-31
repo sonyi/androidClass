@@ -1,0 +1,52 @@
+package com.example.android_022_imageswitchandgallery;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.widget.Gallery;
+
+public class MainActivity extends Activity {
+	Gallery mGallrey;
+	List<Feed> mImgData;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		mGallrey = (Gallery) findViewById(R.id.gallery);
+		
+		
+	}
+	
+	public void initImgData(){
+		mImgData = new ArrayList<Feed>();
+		Feed img1 = new Feed(1,R.drawable.img_01);
+		Feed img2 = new Feed(2,R.drawable.img_02);
+		Feed img3 = new Feed(3,R.drawable.img_03);
+		Feed img4 = new Feed(4,R.drawable.img_04);
+		Feed img5 = new Feed(5,R.drawable.img_05);
+		Feed img6 = new Feed(6,R.drawable.img_06);
+		Feed img7 = new Feed(7,R.drawable.img_07);
+		Feed img8 = new Feed(8,R.drawable.img_08);
+		
+		mImgData.add(img1);
+		mImgData.add(img2);
+		mImgData.add(img3);
+		mImgData.add(img4);
+		mImgData.add(img5);
+		mImgData.add(img6);
+		mImgData.add(img7);
+		mImgData.add(img8);
+	
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+}
