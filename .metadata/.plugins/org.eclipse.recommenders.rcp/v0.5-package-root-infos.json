@@ -1,0 +1,28 @@
+[
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5896b0a4e377ac4242eb2bc785220c1c4fc052f4",
+    "jarFileModificationDate": "2014-05-31T16:22:24.099+08:00",
+    "location": "E:\\Workspace\\androidClass\\Android_022_ImageSwitchAndGallery\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "34d1182407c92fcab06a6d769019b9f59c3c5e23",
+    "jarFileModificationDate": "2013-10-28T21:15:02+08:00",
+    "location": "E:\\softWare\\eclipse\\sdk\\platforms\\android-19\\android.jar",
+    "javaRuntime": false
+  }
+]

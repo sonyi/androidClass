@@ -1,0 +1,54 @@
+package com.example.expandablelistviewexercise;
+
+import java.util.ArrayList;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+
+public class MainActivity extends Activity {
+	private ArrayList<GroupImgRes> mGroupImgRes;
+	private ArrayList<ArrayList<ChildImgRes>> mChildImgRes;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+	}
+	
+	public void initData(){
+		mGroupImgRes = new ArrayList<GroupImgRes>();
+		mChildImgRes = new ArrayList<ArrayList<ChildImgRes>>();
+		
+		GroupImgRes gImg1 = new GroupImgRes(1, R.drawable.img_peri_01, "美女图片");
+		GroupImgRes gImg2 = new GroupImgRes(2, R.drawable.img_animal_01, "动物图片");
+		GroupImgRes gImg3 = new GroupImgRes(3, R.drawable.img_scenery_01, "风景图片");
+		mGroupImgRes.add(gImg1);
+		mGroupImgRes.add(gImg2);
+		mGroupImgRes.add(gImg3);
+		
+		ArrayList<ChildImgRes> peri = new ArrayList<ChildImgRes>();
+		ChildImgRes cImg1 = new ChildImgRes(1, R.drawable.img_peri_01, "美女1", "漂亮美女的描述");
+		ChildImgRes cImg2 = new ChildImgRes(2, R.drawable.img_peri_02, "美女2", "漂亮美女的描述");
+		ChildImgRes cImg3 = new ChildImgRes(3, R.drawable.img_peri_03, "美女3", "漂亮美女的描述");
+		ChildImgRes cImg4 = new ChildImgRes(4, R.drawable.img_peri_04, "美女4", "漂亮美女的描述");
+		ChildImgRes cImg5 = new ChildImgRes(5, R.drawable.img_peri_05, "美女5", "漂亮美女的描述");
+		peri.add(cImg1);
+		peri.add(cImg2);
+		peri.add(cImg3);
+		peri.add(cImg4);
+		peri.add(cImg5);
+		
+		
+		
+		
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+}

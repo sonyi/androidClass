@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.widget.Gallery"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.R.drawable"/>
+<fullyQualifiedTypeName name="android.widget.BaseAdapter"/>
+<fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.R.layout"/>
+<fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.MainActivity.ImgViewAdapter.ViewHolder"/>
+<fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.MainActivity.ImgViewAdapter"/>
+<fullyQualifiedTypeName name="android.view.Window"/>
+<fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.R.id"/>
+<fullyQualifiedTypeName name="android.widget.ViewSwitcher.ViewFactory"/>
+<fullyQualifiedTypeName name="android.widget.ImageView"/>
+<fullyQualifiedTypeName name="android.widget.ImageView.ScaleType"/>
+<fullyQualifiedTypeName name="android.widget.ImageSwitcher"/>
+<fullyQualifiedTypeName name="android.view.animation.Animation"/>
+<fullyQualifiedTypeName name="android.view.animation.AnimationUtils"/>
+<fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.MainActivity"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.anim"/>
+<fullyQualifiedTypeName name="android.widget.AdapterView.OnItemSelectedListener"/>
+</qualifiedTypeNameHistroy>

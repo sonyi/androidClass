@@ -1,0 +1,42 @@
+package com.example.expandablelistviewexercise;
+
+public class ChildImgRes {
+
+	private int id;
+	private int childPicResId;
+	private String picTitle;
+	private String picDescription;
+	public ChildImgRes(int id, int childPicResId, String picTitle,
+			String picDescription) {
+		super();
+		this.id = id;
+		this.childPicResId = childPicResId;
+		this.picTitle = picTitle;
+		this.picDescription = picDescription;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getChildPicResId() {
+		return childPicResId;
+	}
+	public void setChildPicResId(int childPicResId) {
+		this.childPicResId = childPicResId;
+	}
+	public String getPicTitle() {
+		return picTitle;
+	}
+	public void setPicTitle(String picTitle) {
+		this.picTitle = picTitle;
+	}
+	public String getPicDescription() {
+		return picDescription;
+	}
+	public void setPicDescription(String picDescription) {
+		this.picDescription = picDescription;
+	}
+	
+}
