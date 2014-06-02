@@ -2,16 +2,13 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="android.widget.Gallery"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.R.drawable"/>
-<fullyQualifiedTypeName name="android.widget.BaseAdapter"/>
 <fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.R.layout"/>
 <fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.MainActivity.ImgViewAdapter.ViewHolder"/>
 <fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.MainActivity.ImgViewAdapter"/>
 <fullyQualifiedTypeName name="android.view.Window"/>
 <fullyQualifiedTypeName name="com.example.android_022_imageswitchandgallery.R.id"/>
 <fullyQualifiedTypeName name="android.widget.ViewSwitcher.ViewFactory"/>
-<fullyQualifiedTypeName name="android.widget.ImageView"/>
 <fullyQualifiedTypeName name="android.widget.ImageView.ScaleType"/>
 <fullyQualifiedTypeName name="android.widget.ImageSwitcher"/>
 <fullyQualifiedTypeName name="android.view.animation.Animation"/>
@@ -20,4 +17,23 @@
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.anim"/>
 <fullyQualifiedTypeName name="android.widget.AdapterView.OnItemSelectedListener"/>
+<fullyQualifiedTypeName name="com.example.expandablelistviewexercise.R.drawable"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="android.widget.BaseAdapter"/>
+<fullyQualifiedTypeName name="android.widget.ExpandableListAdapter"/>
+<fullyQualifiedTypeName name="android.widget.BaseExpandableListAdapter"/>
+<fullyQualifiedTypeName name="com.example.expandablelistviewexercise.GroupImgRes"/>
+<fullyQualifiedTypeName name="android.widget.ExpandableListView"/>
+<fullyQualifiedTypeName name="com.example.expandablelistviewexercise.R.layout"/>
+<fullyQualifiedTypeName name="com.example.expandablelistviewexercise.R.id"/>
+<fullyQualifiedTypeName name="com.example.expandablelistviewexercise.ChildImgRes"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.example.expandablelistviewexercise.MainActivity"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.widget.ImageButton"/>
+<fullyQualifiedTypeName name="ViewHolderChild"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.widget.ImageView"/>
+<fullyQualifiedTypeName name="ViewHolderGroup"/>
 </qualifiedTypeNameHistroy>

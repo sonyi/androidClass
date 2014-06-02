@@ -1,9 +1,0 @@
-package com.example.expandablelistviewexercise;
-
-public class GroupImgRes {
-
-	private int groupId;
-	private int groupPicResId;
-	private String groupPicTitle;
-	
-}

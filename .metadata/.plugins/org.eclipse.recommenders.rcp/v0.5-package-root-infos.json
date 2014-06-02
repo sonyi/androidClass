@@ -7,9 +7,100 @@
       "micro": -1,
       "qualifier": ""
     },
+    "jarFileFingerprint": "612846c9857077a039b533718f72db3bc041d389",
+    "jarFileModificationDate": "2012-10-05T22:17:18+08:00",
+    "location": "E:\\Workspace\\Android疯狂讲义\\代码\\codes\\02\\2.5\\ExpandableListViewTest\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "612846c9857077a039b533718f72db3bc041d389",
+    "jarFileModificationDate": "2012-10-05T22:17:18+08:00",
+    "location": "E:\\Workspace\\Android疯狂讲义\\代码\\codes\\02\\2.5\\StackViewTest\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "612846c9857077a039b533718f72db3bc041d389",
+    "jarFileModificationDate": "2012-10-05T22:17:18+08:00",
+    "location": "E:\\Workspace\\Android疯狂讲义\\代码\\codes\\02\\2.5\\SimpleAdapterTest\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "612846c9857077a039b533718f72db3bc041d389",
+    "jarFileModificationDate": "2012-10-05T22:17:18+08:00",
+    "location": "E:\\Workspace\\Android疯狂讲义\\代码\\codes\\02\\2.5\\ListActivityTest\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "612846c9857077a039b533718f72db3bc041d389",
+    "jarFileModificationDate": "2012-10-05T22:17:18+08:00",
+    "location": "E:\\Workspace\\Android疯狂讲义\\代码\\codes\\02\\2.5\\GallaryTest\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
     "jarFileFingerprint": "5896b0a4e377ac4242eb2bc785220c1c4fc052f4",
-    "jarFileModificationDate": "2014-05-31T16:22:24.099+08:00",
-    "location": "E:\\Workspace\\androidClass\\Android_022_ImageSwitchAndGallery\\libs\\android-support-v4.jar",
+    "jarFileModificationDate": "2014-06-02T11:02:13.287+08:00",
+    "location": "E:\\Workspace\\androidClass\\ExpandableListViewExercise\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "612846c9857077a039b533718f72db3bc041d389",
+    "jarFileModificationDate": "2012-10-05T22:17:18+08:00",
+    "location": "E:\\Workspace\\Android疯狂讲义\\代码\\codes\\02\\2.5\\GridViewTest\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "612846c9857077a039b533718f72db3bc041d389",
+    "jarFileModificationDate": "2012-10-05T22:17:18+08:00",
+    "location": "E:\\Workspace\\Android疯狂讲义\\代码\\codes\\02\\2.5\\SpinnerTest\\libs\\android-support-v4.jar",
     "javaRuntime": false
   },
   {
