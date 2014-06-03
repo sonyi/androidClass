@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
 		View headerView = getLayoutInflater().inflate(
 				R.layout.view_info_header, null);
 		lvInfoList.addHeaderView(headerView);
+		
 
 		
 		//添加尾部视图并添加监听器
