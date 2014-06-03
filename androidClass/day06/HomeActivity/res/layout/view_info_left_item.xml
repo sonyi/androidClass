@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/tv_center_line"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:background="#CCCCCC" />
+
+    <RelativeLayout
+        android:id="@+id/rl_info_left"
+        android:layout_width="140dp"
+        android:layout_height="130dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@id/tv_center_line"
+        android:background="@drawable/img_bg_home_feed_listitem_sharecontent_left"
+        android:padding="7dp" >
+
+        <TextView
+            android:id="@+id/tv_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="侠盗列车历代主人公hahahah"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/iv_left_img"
+            android:layout_width="115dp"
+            android:layout_height="110dp"
+            android:layout_below="@id/tv_left_text"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_animal_01" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_info_right"
+        android:layout_width="140dp"
+        android:layout_height="130dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/tv_center_line"
+        android:background="@drawable/img_bg_home_feed_listitem_sharecontent_right"
+        android:paddingBottom="7dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="7dp"
+        android:paddingTop="7dp" >
+
+        <TextView
+            android:id="@+id/tv_right_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="侠盗列车历代主人公hahahah"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/iv_right_img"
+            android:layout_width="115dp"
+            android:layout_height="110dp"
+            android:layout_below="@id/tv_right_text"
+            android:scaleType="centerCrop"
+           
+            android:contentDescription="@null"
+            android:src="@drawable/img_animal_01"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_left_time"
+        android:layout_width="43dp"
+        android:layout_height="22dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/tv_background_time"
+        android:gravity="center"
+        android:text="13:38"
+        android:textColor="@android:color/white"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_right_time"
+        android:layout_width="43dp"
+        android:layout_height="22dp"
+        android:layout_below="@id/tv_left_time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/tv_background_time"
+        android:gravity="center"
+        android:text="13:38"
+        android:textColor="@android:color/white"
+        android:textSize="13sp" />
+
+</RelativeLayout>
