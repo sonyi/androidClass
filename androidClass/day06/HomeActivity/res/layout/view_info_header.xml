@@ -13,11 +13,31 @@
     <RelativeLayout
         android:id="@+id/ll_img_top"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/img_bg_watch" >
 
-        <ImageView
+        <TextView
+            android:id="@+id/tv_headerpic_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="2013年5月7号"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/tv_headerpic_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_headerpic_date"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:text="13:04"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
             android:id="@+id/ib_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

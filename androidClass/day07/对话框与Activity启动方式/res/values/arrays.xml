@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_of_girls">
+        <item>淑女</item>
+        <item>萝莉</item>
+        <item>女汉子</item>
+    </string-array>
+</resources>

@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <Button
+        android:id="@+id/btn_multi_choice_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_centerVertical="true"
+        android:text="多选对话框" />
+
+    <Button
+        android:id="@+id/btn_single_choice_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_multi_choice_dialog"
+        android:layout_alignLeft="@+id/btn_multi_choice_dialog"
+        android:layout_marginBottom="32dp"
+        android:text="单选对话框" />
+
+    <Button
+        android:id="@+id/btn_items_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_single_choice_dialog"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="24dp"
+        android:text="列表项对话框" />
+    
+    <Button
+        android:id="@+id/btn_custom_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_items_dialog"
+        android:layout_below="@+id/btn_multi_choice_dialog"
+        android:layout_marginTop="24dp"
+        android:text="自定义视图对话框" />
+
+    <Button
+        android:id="@+id/btn_open_self"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_open_second"
+        android:layout_alignParentBottom="true"
+        android:text="打开自己" />
+
+    <Button
+        android:id="@+id/btn_open_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/btn_custom_dialog"
+        android:layout_below="@+id/btn_custom_dialog"
+        android:text="打开第二个Activity" />
+
+</RelativeLayout>
