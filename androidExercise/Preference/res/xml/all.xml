@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="自定义布局"
+	                    android:key="preference_key">	
+	<Preference
+		android:layout="@layout/preferencestyle"
+		android:title="加载了一张自定义布局A"
+		android:key="pref_key_0"
+		>
+	</Preference>
+	
+	<Preference
+		android:layout="@layout/preferencestyle"
+		android:title="加载了一张自定义布局B"
+		android:key="pref_key_1"
+		>
+	</Preference>
+	</PreferenceCategory>
+	
+	
+	<PreferenceCategory android:title="ListPreference">	
+ 		<ListPreference 
+ 			android:key="list_0"
+ 		    android:title="登录设置A" 
+ 		    android:dialogTitle="选择在线时间"
+ 		    android:entries="@array/auto_logout_time_key"
+			android:entryValues="@array/auto_logout_time_value" >
+		</ListPreference>
+	
+	 	<ListPreference 
+ 			android:key="list_0"
+ 		    android:title="登录设置A" 
+ 		    android:dialogTitle="选择在线时间"
+ 		    android:entries="@array/auto_logout_time_key"
+			android:entryValues="@array/auto_logout_time_value" >
+		</ListPreference>
+	</PreferenceCategory>
+	
+</PreferenceScreen>
