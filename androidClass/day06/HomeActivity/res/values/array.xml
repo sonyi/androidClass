@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="title_more_selector">
+        <item>设置</item>
+        <item>退出</item>
+    </string-array>
+
+</resources>

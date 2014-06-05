@@ -5,9 +5,9 @@
         <item name="android:background">#375465</item>
     </style>
 
-    <style name="custom_title" parent="android:Theme">
+    <style name="custom_title" parent="android:Theme.Light">
         <item name="android:windowTitleSize">50dp</item>
         <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
     </style>
-
+    
 </resources>

@@ -16,10 +16,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +38,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.activity_main);
-		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.view_title);
-		
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
+				R.layout.view_title);
+
 		mInfoList = (ListView) findViewById(R.id.lv_info);
 		mInfoList.setDivider(null);
 		initData();
@@ -50,6 +55,7 @@ public class MainActivity extends Activity {
 		TextView tvFooter = (TextView) footView
 				.findViewById(R.id.tv_add_footer);
 		tvFooter.setOnClickListener(footViewOnClickListener);
+
 		mInfoList.setAdapter(mAdapter);
 
 	}
@@ -200,7 +206,9 @@ public class MainActivity extends Activity {
 	private Bitmap getFeedBitmap(String fileName, String dirName) {
 		File dir = new File(Environment.getExternalStorageDirectory(), dirName);
 		File file = new File(dir, fileName);
-		Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());
+		BitmapFactory.Options ops = new BitmapFactory.Options();// Ñ¹ËõÍ¼Æ¬
+		ops.inSampleSize = 3;
+		Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath(), ops);
 		return bm;
 	}
 
