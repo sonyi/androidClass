@@ -12,7 +12,6 @@
 <fullyQualifiedTypeName name="android.app.AlertDialog.Builder"/>
 <fullyQualifiedTypeName name="com.example.homeactivity.MainActivity"/>
 <fullyQualifiedTypeName name="android.widget.ImageButton"/>
-<fullyQualifiedTypeName name="com.example.homeactivity.R.layout"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="com.example.homeactivity.R.id"/>
 <fullyQualifiedTypeName name="com.example.homeactivity.R.drawable"/>
@@ -31,4 +30,13 @@
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.preference.PreferenceManager.OnActivityResultListener"/>
+<fullyQualifiedTypeName name="android.os.Environment"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="android.graphics.BitmapFactory"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
+<fullyQualifiedTypeName name="android.R.anim"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.layout"/>
+<fullyQualifiedTypeName name="com.example.homeactivity.R.layout"/>
+<fullyQualifiedTypeName name="android.view.Window"/>
 </qualifiedTypeNameHistroy>

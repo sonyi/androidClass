@@ -3,13 +3,13 @@ package com.example.homeactivity;
 public class Feed {
 	private int id;
 	private String imgTitle;
-	private int imgResId;
+	private String imgResPath;
 	private String imgTime;
-	public Feed(int id, String imgTitle, int imgResId, String imgTime) {
+	public Feed(int id, String imgTitle, String imgResPath, String imgTime) {
 		super();
 		this.id = id;
 		this.imgTitle = imgTitle;
-		this.imgResId = imgResId;
+		this.imgResPath = imgResPath;
 		this.imgTime = imgTime;
 	}
 	public int getId() {
@@ -24,11 +24,11 @@ public class Feed {
 	public void setImgTitle(String imgTitle) {
 		this.imgTitle = imgTitle;
 	}
-	public int getImgResId() {
-		return imgResId;
+	public String getImgResPath() {
+		return imgResPath;
 	}
-	public void setImgResId(int imgResId) {
-		this.imgResId = imgResId;
+	public void setImgResPath(String imgResPath) {
+		this.imgResPath = imgResPath;
 	}
 	public String getImgTime() {
 		return imgTime;

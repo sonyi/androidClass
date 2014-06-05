@@ -5,5 +5,8 @@
     <string name="action_settings">设置</string>
     <string name="action_exit">退出</string>
     <string name="hello_world">Hello world!</string>
+    <string name="view_footer_text">追加数据</string>
+    <string name="view_header_date">2013年5月7号</string>
+    <string name="view_header_time">16:14</string>
 
 </resources>

@@ -8,6 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="centerCrop"
+        android:contentDescription="@null"
         android:src="@drawable/img_wallpaper_home" />
 
     <RelativeLayout
@@ -23,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="2013年5月7号"
+            android:text="@string/view_header_date"
             android:textColor="@android:color/white" />
 
         <TextView
@@ -33,7 +34,7 @@
             android:layout_below="@id/tv_headerpic_date"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="0dp"
-            android:text="13:04"
+            android:text="@string/view_header_time"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
@@ -44,6 +45,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
+            android:contentDescription="@null"
             android:src="@drawable/img_btn_home_feed_refresh" />
     </RelativeLayout>
 

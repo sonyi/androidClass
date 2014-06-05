@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+    <ImageButton android:id="@+id/iv_title_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null"
+        android:src="@drawable/img_btn_home_actionbar_more"/>
+    
+    <TextView android:id="@+id/tv_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MyMoment"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:layout_centerInParent="true"/>
+
+    <ImageButton
+        android:id="@+id/iv_title_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/img_btn_home_actionbar_write" />
+    
+</RelativeLayout>
