@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="favorite_entries">
+        <item>读书</item>
+        <item>看电影</item>
+        <item>泡妹</item>
+        <item>旅游</item>
+    </string-array>
+    
+    <string-array name="favorite_entries_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+</resources>

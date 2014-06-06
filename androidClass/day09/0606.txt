@@ -1,0 +1,18 @@
+1.SharedPreferences
+  a.写入 通过SharedPreferences.Editor写入数据
+
+  b.读取 使用SharedPReferences.getXXX()
+
+2.PreferencesActivity
+
+3.以面向对象方式操作SQLite数据库
+  a.SQLiteOpenHelper的子类
+    (1).构造函数
+    (2).onCreate() 把创建表的SQL语句在onCreate()中执行
+    (3).onUpgrade() 把变更表结构的SQL语句在onUpgrade()执行
+
+  b.SQLiteDatabase
+
+  c.ContentValues:以类似于键值对的形式表示一行数据
+
+  d.Cursor对象，查询时遍历查询结果

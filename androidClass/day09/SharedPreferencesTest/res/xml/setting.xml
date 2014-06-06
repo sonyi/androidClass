@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceScreen android:title="新消息提醒" >
+        <PreferenceCategory android:title="新消息提醒" >
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="receiveMsg"
+                android:title="接收新消息通知" />
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="voice"
+                android:title="声音" />
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="shake"
+                android:title="震动" />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="免打扰" >
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="newMsgVoiceHint"
+                android:title="新消息提示音" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="MsgVoiceHint"
+                android:title="后台消息提醒时段" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="fuctionMsgVoiceHint"
+                android:title="功能消息免打扰" />
+        </PreferenceCategory>
+    </PreferenceScreen>
+
+    <PreferenceCategory android:title="个人喜好" >
+        <ListPreference
+            android:entries="@array/favorite_entries"
+            android:entryValues="@array/favorite_entries_values"
+            android:key="favorite"
+            android:title="喜好" />
+        <MultiSelectListPreference
+        android:entries="@array/favorite_entries"
+        android:entryValues="@array/favorite_entries_values"
+        android:key="multiselect"
+        android:title="多选" >
+    </MultiSelectListPreference>
+    </PreferenceCategory>
+
+    
+
+</PreferenceScreen>

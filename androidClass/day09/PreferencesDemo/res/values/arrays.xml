@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="entries">
+        <item>运动</item>
+        <item>读书</item>
+        <item>把妹</item>
+    </string-array>
+
+    <string-array name="entry_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+</resources>

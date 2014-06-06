@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="通用" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="allowLand"
+            android:title="允许横屏" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="likeMe"
+            android:title="喜欢我不" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="爱好" >
+        <ListPreference
+            android:entries="@array/entries"
+            android:entryValues="@array/entry_values"
+            android:key="favorite"
+            android:title="爱好" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
