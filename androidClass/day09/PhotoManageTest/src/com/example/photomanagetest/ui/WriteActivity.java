@@ -1,7 +1,14 @@
-package com.example.photomanagetest;
+package com.example.photomanagetest.ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+import com.example.photomanagetest.R;
+import com.example.photomanagetest.data.DataContract.PhoteDataContract;
+import com.example.photomanagetest.data.PhotoManageDataAccess;
+import com.example.photomanagetest.model.PhotoInformation;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,8 +23,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 public class WriteActivity extends Activity {
@@ -27,11 +37,21 @@ public class WriteActivity extends Activity {
 	private static final int REQUEST_CODE_CHOOSE = 0X01;
 	private File mAppDir = new File(Environment.getExternalStorageDirectory(),"ImageCapture");
 	private String mFileName;
+	private Button mSendBtn;
+	private EditText mTitleEt;
+	private int imgId;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write);
 		imgAdd = (ImageView) findViewById(R.id.iv_write_add_img);
+		mSendBtn = (Button) findViewById(R.id.btn_write_send);
+		mTitleEt = (EditText) findViewById(R.id.et_write_text);
+		
+		Intent intent = this.getIntent();
+		imgId = intent.getIntExtra(PhoteDataContract.PHOTO_ID, 0);
+		
 		imgAdd.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -40,8 +60,18 @@ public class WriteActivity extends Activity {
 				showChooseImgDialog();
 			}
 		});
+		
+		mSendBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				sendImgToHomeActivity();
+			}
+		});
 	}
 
+	
 	private void showChooseImgDialog() {
 		// TODO Auto-generated method stub
 		new AlertDialog.Builder(this).setTitle("请选择图片")
@@ -102,67 +132,12 @@ public class WriteActivity extends Activity {
 			mFileName = getImagePathByUri(data.getData());
 		}
 		BitmapFactory.Options ops = new BitmapFactory.Options();
-		ops.inSampleSize = 20;
+		ops.inSampleSize = 10;
 		Bitmap bm = BitmapFactory.decodeFile(mFileName,ops);
 		imgAdd.setImageBitmap(bm);
-				
-		/*
-		switch (requestCode) {
-		case REQUEST_CODE_CAPTURE:	
-			//方式一：不推荐
-			if(data != null){
-				Bitmap bmPhoto = (Bitmap) data.getParcelableExtra("data");
-				imgAdd.setImageBitmap(bmPhoto);	
-				writeBitmapToStorage(bmPhoto);
-			}
-			break;
-		case REQUEST_CODE_CHOOSE:
-			Uri imgUri = data.getData();
-			String path = getImagePathByUri(imgUri);
-			Bitmap bm = BitmapFactory.decodeFile(path);
-			imgAdd.setImageBitmap(bm);		
-			break;
-		}
-		*/
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	/*
-	 //方式一：不推荐
-	private void writeBitmapToStorage(Bitmap bm){
-		OutputStream outPut = null;
-		if(!mAppDir.exists()){
-			mAppDir.mkdirs();
-		}
-		String fileName = "img_" + System.currentTimeMillis() + ".jpg";
-		File file = new File(mAppDir,fileName);
-		if(!file.exists()){
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		try {
-			outPut = new FileOutputStream(file);
-			bm.compress(CompressFormat.JPEG, 100, outPut);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			try {
-				if(outPut != null)
-				outPut.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		
-	}
-	*/
 	
 	//根据图片uri，获取图片的真实物理路径
 	private String getImagePathByUri(Uri uri){
@@ -177,6 +152,23 @@ public class WriteActivity extends Activity {
 		return path;
 	}
 	
+	
+	private void sendImgToHomeActivity() {
+		// TODO Auto-generated method stub
+		String title = mTitleEt.getText().toString();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		Date curDate = new Date(System.currentTimeMillis());
+		String time = sdf.format(curDate);
+		
+		PhotoInformation photo = new PhotoInformation();
+		photo.setId(imgId);
+		photo.setImgTitle(title);
+		photo.setImgResPath(mFileName);
+		photo.setImgTime(time);
+		PhotoManageDataAccess photeData = new PhotoManageDataAccess(this);
+		photeData.insertPhoto(photo);
+		finish();
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

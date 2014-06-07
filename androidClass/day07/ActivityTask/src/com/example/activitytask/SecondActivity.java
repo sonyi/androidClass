@@ -16,8 +16,7 @@ public class SecondActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_second);
 		btnSecond = (Button) findViewById(R.id.btn_second);
-		
-		
+
 		btnSecond.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -28,7 +27,7 @@ public class SecondActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		
+
 	}
 
 	@Override

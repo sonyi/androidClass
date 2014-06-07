@@ -19,27 +19,28 @@ public class MainActivity extends Activity {
 		btnMain = (Button) findViewById(R.id.btn_main);
 		btnStartSelf = (Button) findViewById(R.id.btn_start_self);
 		btnMain.setOnClickListener(new OnClickListener() {
-				
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+				Intent intent = new Intent(MainActivity.this,
+						SecondActivity.class);
 				startActivity(intent);
 			}
 		});
-		
+
 		btnStartSelf.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(MainActivity.this, MainActivity.class);
+				Intent intent = new Intent(MainActivity.this,
+						MainActivity.class);
 				startActivity(intent);
 			}
 		});
 	}
 
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

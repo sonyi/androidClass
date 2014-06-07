@@ -1,8 +1,17 @@
-package com.example.photomanagetest;
+package com.example.photomanagetest.ui;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+import com.example.photomanagetest.R;
+import com.example.photomanagetest.data.AddPhoto;
+import com.example.photomanagetest.data.PhotoManageDataAccess;
+import com.example.photomanagetest.model.PhotoInformation;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +35,8 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		//new AddPhoto(this);
+
 	}
 
 	@Override
@@ -34,13 +45,5 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
-//	@Override
-//	public boolean onTouchEvent(MotionEvent event) {
-//		// TODO Auto-generated method stub
-//		Intent intent = new Intent(this,HomeActivity.class);
-//		startActivity(intent);
-//		return true;
-//	}
 	
 }

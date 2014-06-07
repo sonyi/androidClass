@@ -13,6 +13,7 @@ public class SQLiteHelper extends SQLiteOpenHelper{
 	private static final String CREATE_TABLE_DEPT = "create table dept (" +
 			"id integer primary key autoincrement," +
 			"d_name varchar not null)";
+	
 	private static final String CREATE_TABLE_EMP = "create table emp (" +
 			"id integer primary key autoincrement," +
 			"emp_name varchar not null," +

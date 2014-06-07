@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 		if (resultCode != RESULT_OK) {
 			return;
 		}
-
+		
 		String line = data.getStringExtra("info");
 		Toast.makeText(this, line, Toast.LENGTH_SHORT).show();
 

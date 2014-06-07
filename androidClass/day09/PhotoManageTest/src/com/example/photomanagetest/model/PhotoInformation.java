@@ -1,11 +1,16 @@
-package com.example.photomanagetest;
+package com.example.photomanagetest.model;
 
-public class Feed {
+import com.example.photomanagetest.data.DataContract.PhoteDataContract;
+
+public class PhotoInformation {
 	private int id;
 	private String imgTitle;
 	private String imgResPath;
 	private String imgTime;
-	public Feed(int id, String imgTitle, String imgResPath, String imgTime) {
+	public PhotoInformation(){
+		
+	}
+	public PhotoInformation(int id, String imgTitle, String imgResPath, String imgTime) {
 		super();
 		this.id = id;
 		this.imgTitle = imgTitle;

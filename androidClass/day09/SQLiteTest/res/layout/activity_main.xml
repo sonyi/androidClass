@@ -9,15 +9,43 @@
     tools:context=".MainActivity" >
 
     <TextView
+        android:id="@+id/tv_dept_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="部门信息表" />
+
+    <TextView
+        android:id="@+id/tv_dept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_dept_title" />
+
+    <TextView
         android:id="@+id/tv_emp_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_dept"
+        android:layout_marginTop="20dp"
         android:text="员工信息表" />
 
     <TextView
         android:id="@+id/tv_emp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_below="@id/tv_emp_title"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_emp_title" />
+
+    <TextView
+        android:id="@+id/tv_union_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_emp"
+        android:layout_marginTop="20dp"
+        android:text="综合信息表" />
+
+    <TextView
+        android:id="@+id/tv_union"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_union_title" />
 
 </RelativeLayout>
