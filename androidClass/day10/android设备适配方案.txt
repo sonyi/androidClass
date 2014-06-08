@@ -1,0 +1,28 @@
+1.dpi ?
+ 
+
+2.px -->dp 换算公式
+  px:
+  dp:  
+
+3.屏幕适配的方式哪几种？
+    drawable资源或values资源尺寸适配
+     a.-xxhdpi 480dpi   3 x
+       -xhdpi  320dpi   2 x
+       -hdpi   240dpi   1.5 x 
+       -mdpi   160dpi   1 x
+       -ldpi            0.75 x 
+
+     b.9.png 
+      
+     c.dimen资源适配
+       values -
+         -xxhdpi 480dpi   3 x
+         -xhdpi  320dpi   2 x
+         -hdpi   240dpi   1.5 x 
+         -mdpi   160dpi   1 x
+         -ldpi            0.75 x 
+         
+4.如何在android的java代码中获取屏幕的宽度，高度
+
+5.总结版本适配性的方法
