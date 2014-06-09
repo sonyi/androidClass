@@ -20,12 +20,12 @@ public class ImageWorker {
 		@Override
 		protected Bitmap doInBackground(String... params) {
 			// TODO Auto-generated method stub
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			
 			String path = params[0];
 			BitmapFactory.Options ops = new BitmapFactory.Options();// Ñ¹ËõÍ¼Æ¬

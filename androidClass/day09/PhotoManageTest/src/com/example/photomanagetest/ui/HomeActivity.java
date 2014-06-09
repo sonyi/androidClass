@@ -1,21 +1,12 @@
 package com.example.photomanagetest.ui;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-
-import com.example.photomanagetest.R;
-import com.example.photomanagetest.data.DataContract.PhoteDataContract;
-import com.example.photomanagetest.data.PhotoManageDataAccess;
-import com.example.photomanagetest.model.PhotoInformation;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -28,6 +19,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.photomanagetest.R;
+import com.example.photomanagetest.data.DataContract.PhoteDataContract;
+import com.example.photomanagetest.data.PhotoManageDataAccess;
+import com.example.photomanagetest.model.PhotoInformation;
 
 public class HomeActivity extends Activity {
 	private final int REQUEST_CODE = 0X00;
@@ -56,7 +52,9 @@ public class HomeActivity extends Activity {
 		mInfoList.addHeaderView(headView);
 		View footView = getLayoutInflater().inflate(
 				R.layout.activity_home_footer, null);
-	
+		mInfoList.addHeaderView(footView);
+		
+		
 		mInfoList.setAdapter(mAdapter);
 
 		mImgBtnTitleWrite = (ImageButton) findViewById(R.id.ib_title_write);

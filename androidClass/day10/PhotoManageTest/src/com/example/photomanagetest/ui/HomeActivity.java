@@ -25,9 +25,10 @@ import com.example.photomanagetest.model.ImgInformation;
 
 public class HomeActivity extends Activity {
 	ListView mInfoList;
-	List<ImgInformation> mImgSourse;
+	List<ImgInformation> mImgSourse, mImgList;
 	PhotoDataAdapter mAdapter = null;
 	ImageButton mImgBtnTitleWrite;
+	int row = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,43 +42,64 @@ public class HomeActivity extends Activity {
 		mInfoList.setDivider(null);
 
 		mImgSourse = new ImgManageDataAccess(this).queryPhoto();// 初始化数据
+		row = getRow();
 		mAdapter = new PhotoDataAdapter();
 
 		View headView = getLayoutInflater().inflate(
 				R.layout.activity_home_header, null);
 		mInfoList.addHeaderView(headView);
-	
+		View footView = getLayoutInflater().inflate(
+				R.layout.activity_home_footer, null);
+		mInfoList.addFooterView(footView);
+		footView.setOnClickListener(footViewOnClickListener);
+
 		mInfoList.setAdapter(mAdapter);
 
 		mImgBtnTitleWrite = (ImageButton) findViewById(R.id.ib_title_write);
-		mImgBtnTitleWrite.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(HomeActivity.this,
-						WriteActivity.class);
-				intent.putExtra(PhoteDataContract.PHOTO_ID,
-						mImgSourse.size() + 1);
-				Log.i("id", (mImgSourse.size() + 1) + "");
-				// startActivityForResult(intent, REQUEST_CODE);
-				startActivity(intent);
-			}
-		});
+		mImgBtnTitleWrite.setOnClickListener(mImgBtnTitleWriteOnClickListener);
 
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-		mImgSourse = new ImgManageDataAccess(this).queryPhoto();
-		if (mAdapter == null) {
-			mAdapter = new PhotoDataAdapter();
-		} else {
-			mAdapter.notifyDataSetChanged();
-		}
+		
+		updataImg();
 		super.onResume();
 	}
+
+	private OnClickListener mImgBtnTitleWriteOnClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent(HomeActivity.this, WriteActivity.class);
+			intent.putExtra(PhoteDataContract.PHOTO_ID, mImgSourse.size() + 1);
+			Log.i("id", (mImgSourse.size() + 1) + "");
+			// startActivityForResult(intent, REQUEST_CODE);
+			startActivity(intent);
+		}
+	};
+
+	private OnClickListener footViewOnClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			int rowAll = (mImgSourse.size() + 1) / 2;
+			switch (rowAll - row) {
+			case 0:
+				break;
+			case 1:
+				row += 1;
+				updataImg();
+				break;
+			default:
+				row += 2;
+				updataImg();
+			}
+		}
+	};
 
 	private class PhotoDataAdapter extends BaseAdapter {
 
@@ -125,7 +147,7 @@ public class HomeActivity extends Activity {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return (mImgSourse.size() + 1) / 2;
+			return row;
 		}
 	}
 
@@ -147,11 +169,10 @@ public class HomeActivity extends Activity {
 		vh.imgLeftTitle.setText(photoLeftData.getImgTitle());
 
 		// 读取左边文件图片资源
-//		Bitmap bmLeft = getFeedBitmap(photoLeftData.getImgResPath());
-//		vh.imgLeftRes.setImageBitmap(bmLeft);
+		// Bitmap bmLeft = getFeedBitmap(photoLeftData.getImgResPath());
+		// vh.imgLeftRes.setImageBitmap(bmLeft);
 		new ImageWorker().fetch(vh.imgLeftRes, photoLeftData.getImgResPath());
 
-		
 		vh.imgLeftTime.setText(photoLeftData.getImgTime());
 
 		// 判断是否还有下一个资源填充右边资源
@@ -161,9 +182,10 @@ public class HomeActivity extends Activity {
 			photoRightData = mImgSourse.get(2 * position + 1);
 			vh.imgRightTitle.setText(photoRightData.getImgTitle());
 
-//			Bitmap bmRight = getFeedBitmap(photoRightData.getImgResPath());
-//			vh.imgRightRes.setImageBitmap(bmRight);
-			new ImageWorker().fetch(vh.imgRightRes, photoRightData.getImgResPath());
+			// Bitmap bmRight = getFeedBitmap(photoRightData.getImgResPath());
+			// vh.imgRightRes.setImageBitmap(bmRight);
+			new ImageWorker().fetch(vh.imgRightRes,
+					photoRightData.getImgResPath());
 
 			vh.imgRightTime.setText(photoRightData.getImgTime());
 		} else {// 如果没有资源，右边控件设置为不可见
@@ -204,48 +226,28 @@ public class HomeActivity extends Activity {
 		TextView imgRightTime;
 	}
 
-	// 读取图片资源
-//	private Bitmap getFeedBitmap(String filePath) {
-//		BitmapFactory.Options ops = new BitmapFactory.Options();// 压缩图片
-//		ops.inSampleSize = 5;
-//		Bitmap bm = BitmapFactory.decodeFile(filePath, ops);
-//		return bm;
-//	}
+	private void updataImg() {
+		mImgSourse = new ImgManageDataAccess(this).queryPhoto();
+		if(mImgSourse.size() > 0 && mImgSourse.size() <= 2){
+			row = 1;
+		}
+		if(mImgSourse.size() > 2 && mImgSourse.size() <= 4){
+			row = 2;
+		}
+		if (mAdapter == null) {
+			mAdapter = new PhotoDataAdapter();
+		} else {
+			mAdapter.notifyDataSetChanged();
+		}
+	}
 
-	// @Override
-	// protected void onActivityResult(int requestCode, int resultCode, Intent
-	// data) {
-	// // TODO Auto-generated method stub
-	// if (resultCode != RESULT_OK) {
-	// return;
-	// }
-	// if(requestCode == REQUEST_CODE){
-	// PhotoInformation ph = new PhotoInformation();
-	// ph.setId(data.getIntExtra(PhoteDataContract.PHOTO_ID,0));
-	// ph.setImgTitle(data.getStringExtra(PhoteDataContract.PHOTO_TITLE));
-	// ph.setImgResPath(data.getStringExtra(PhoteDataContract.PHOTO_PATH));
-	// ph.setImgTime(data.getStringExtra(PhoteDataContract.PHOTO_TIME));
-	// mImgSourse.add(ph);
-	// mAdapter.notifyDataSetChanged();
-	//
-	// }
-	// super.onActivityResult(requestCode, resultCode, data);
-	// }
-
-	// 设置添加图片监听事件
-	// private OnClickListener footViewOnClickListener = new OnClickListener() {
-	// @Override
-	// public void onClick(View v) {
-	// // TODO Auto-generated method stub
-	// PhotoInformation img1 = new PhotoInformation(1, "游戏图片",
-	// "img_game_01.jpg", "14:25");
-	// PhotoInformation img2 = new PhotoInformation(2, "旅游图片",
-	// "img_journey_01.jpg", "18:25");
-	// mImgSourse.add(img1);
-	// mImgSourse.add(img2);
-	// mAdapter.notifyDataSetChanged();
-	// }
-	// };
+	private int getRow() {
+		row = (mImgSourse.size() + 1) / 2;
+		if (row > 2) {
+			row = 2;
+		}
+		return row;
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
