@@ -1,9 +1,12 @@
 1.dpi ?
- 
+ dp = dip : device independent pixels(设备独立像素),一般我们为了支持WVGA、HVGA和QVGA 推荐使用这个，不依赖像素。
 
 2.px -->dp 换算公式
-  px:
+  px: pixels(像素). 不同设备显示效果相同，一般我们HVGA代表320x480像素，这个用的比较多。
   dp:  
+  
+  pt: point，是一个标准的长度单位，1pt＝1/72英寸，用于印刷业，非常简单易用；
+  sp: scaled pixels(放大像素). 主要用于字体显示best for textsize。
 
 3.屏幕适配的方式哪几种？
     drawable资源或values资源尺寸适配
@@ -11,7 +14,7 @@
        -xhdpi  320dpi   2 x
        -hdpi   240dpi   1.5 x 
        -mdpi   160dpi   1 x
-       -ldpi            0.75 x 
+       -ldpi   120dpi   0.75 x 
 
      b.9.png 
       
