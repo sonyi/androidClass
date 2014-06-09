@@ -36,7 +36,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		if (requestCode == RESULT_CODE_ONE) {
 			String line = data.getStringExtra("info");
-			Toast.makeText(this, line, Toast.LENGTH_SHORT).show();
+			String id = data.getStringExtra("id");
+			Toast.makeText(this, line + id, Toast.LENGTH_SHORT).show();
 		}
 		if (requestCode == RESULT_CODE_TWO) {
 			String line = data.getStringExtra("info");

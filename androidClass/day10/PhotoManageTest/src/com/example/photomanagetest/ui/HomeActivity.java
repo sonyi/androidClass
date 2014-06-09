@@ -1,21 +1,10 @@
 package com.example.photomanagetest.ui;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-
-import com.example.photomanagetest.R;
-import com.example.photomanagetest.data.DataContract.PhoteDataContract;
-import com.example.photomanagetest.data.PhotoManageDataAccess;
-import com.example.photomanagetest.model.PhotoInformation;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -28,14 +17,17 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.photomanagetest.R;
+import com.example.photomanagetest.data.DataContract.PhoteDataContract;
+import com.example.photomanagetest.data.ImageWorker;
+import com.example.photomanagetest.data.ImgManageDataAccess;
+import com.example.photomanagetest.model.ImgInformation;
 
 public class HomeActivity extends Activity {
-	private final int REQUEST_CODE = 0X00;
 	ListView mInfoList;
-	List<PhotoInformation> mImgSourse;
+	List<ImgInformation> mImgSourse;
 	PhotoDataAdapter mAdapter = null;
 	ImageButton mImgBtnTitleWrite;
-	private String dirName = "HomeActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +40,12 @@ public class HomeActivity extends Activity {
 		mInfoList = (ListView) findViewById(R.id.lv_home);
 		mInfoList.setDivider(null);
 
-		mImgSourse = new PhotoManageDataAccess(this).queryPhoto();// 初始化数据
+		mImgSourse = new ImgManageDataAccess(this).queryPhoto();// 初始化数据
 		mAdapter = new PhotoDataAdapter();
 
 		View headView = getLayoutInflater().inflate(
 				R.layout.activity_home_header, null);
 		mInfoList.addHeaderView(headView);
-		View footView = getLayoutInflater().inflate(
-				R.layout.activity_home_footer, null);
 	
 		mInfoList.setAdapter(mAdapter);
 
@@ -80,7 +70,7 @@ public class HomeActivity extends Activity {
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-		mImgSourse = new PhotoManageDataAccess(this).queryPhoto();
+		mImgSourse = new ImgManageDataAccess(this).queryPhoto();
 		if (mAdapter == null) {
 			mAdapter = new PhotoDataAdapter();
 		} else {
@@ -141,8 +131,8 @@ public class HomeActivity extends Activity {
 
 	// 给左右控件赋值
 	public void getViewData(View view, ViewHolder vh, int position) {
-		PhotoInformation photoLeftData = null;
-		PhotoInformation photoRightData = null;
+		ImgInformation photoLeftData = null;
+		ImgInformation photoRightData = null;
 
 		// 判断右边控件是否是不可见，如果是，设置为可见
 		RelativeLayout rlRight = (RelativeLayout) view
@@ -157,9 +147,11 @@ public class HomeActivity extends Activity {
 		vh.imgLeftTitle.setText(photoLeftData.getImgTitle());
 
 		// 读取左边文件图片资源
-		Bitmap bmLeft = getFeedBitmap(photoLeftData.getImgResPath());
-		vh.imgLeftRes.setImageBitmap(bmLeft);
+//		Bitmap bmLeft = getFeedBitmap(photoLeftData.getImgResPath());
+//		vh.imgLeftRes.setImageBitmap(bmLeft);
+		new ImageWorker().fetch(vh.imgLeftRes, photoLeftData.getImgResPath());
 
+		
 		vh.imgLeftTime.setText(photoLeftData.getImgTime());
 
 		// 判断是否还有下一个资源填充右边资源
@@ -169,8 +161,9 @@ public class HomeActivity extends Activity {
 			photoRightData = mImgSourse.get(2 * position + 1);
 			vh.imgRightTitle.setText(photoRightData.getImgTitle());
 
-			Bitmap bmRight = getFeedBitmap(photoRightData.getImgResPath());
-			vh.imgRightRes.setImageBitmap(bmRight);
+//			Bitmap bmRight = getFeedBitmap(photoRightData.getImgResPath());
+//			vh.imgRightRes.setImageBitmap(bmRight);
+			new ImageWorker().fetch(vh.imgRightRes, photoRightData.getImgResPath());
 
 			vh.imgRightTime.setText(photoRightData.getImgTime());
 		} else {// 如果没有资源，右边控件设置为不可见
@@ -179,7 +172,7 @@ public class HomeActivity extends Activity {
 		}
 
 		// 设置左边图片监听器
-		final PhotoInformation leftData = photoLeftData;
+		final ImgInformation leftData = photoLeftData;
 		vh.imgLeftRes.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -190,7 +183,7 @@ public class HomeActivity extends Activity {
 			}
 		});
 		// 设置右边图片监听器
-		final PhotoInformation rightData = photoRightData;
+		final ImgInformation rightData = photoRightData;
 		vh.imgRightRes.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -212,12 +205,12 @@ public class HomeActivity extends Activity {
 	}
 
 	// 读取图片资源
-	private Bitmap getFeedBitmap(String filePath) {
-		BitmapFactory.Options ops = new BitmapFactory.Options();// 压缩图片
-		ops.inSampleSize = 5;
-		Bitmap bm = BitmapFactory.decodeFile(filePath, ops);
-		return bm;
-	}
+//	private Bitmap getFeedBitmap(String filePath) {
+//		BitmapFactory.Options ops = new BitmapFactory.Options();// 压缩图片
+//		ops.inSampleSize = 5;
+//		Bitmap bm = BitmapFactory.decodeFile(filePath, ops);
+//		return bm;
+//	}
 
 	// @Override
 	// protected void onActivityResult(int requestCode, int resultCode, Intent

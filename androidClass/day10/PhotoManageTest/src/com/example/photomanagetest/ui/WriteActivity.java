@@ -5,11 +5,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import com.example.photomanagetest.R;
-import com.example.photomanagetest.data.DataContract.PhoteDataContract;
-import com.example.photomanagetest.data.PhotoManageDataAccess;
-import com.example.photomanagetest.model.PhotoInformation;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -23,12 +19,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.example.photomanagetest.R;
+import com.example.photomanagetest.data.DataContract.PhoteDataContract;
+import com.example.photomanagetest.data.ImgManageDataAccess;
+import com.example.photomanagetest.model.ImgInformation;
 
 public class WriteActivity extends Activity {
 	ImageView imgAdd;
@@ -153,6 +153,7 @@ public class WriteActivity extends Activity {
 	}
 	
 	
+	@SuppressLint("SimpleDateFormat")
 	private void sendImgToHomeActivity() {
 		// TODO Auto-generated method stub
 		String title = mTitleEt.getText().toString();
@@ -160,12 +161,12 @@ public class WriteActivity extends Activity {
 		Date curDate = new Date(System.currentTimeMillis());
 		String time = sdf.format(curDate);
 		
-		PhotoInformation photo = new PhotoInformation();
+		ImgInformation photo = new ImgInformation();
 		photo.setId(imgId);
 		photo.setImgTitle(title);
 		photo.setImgResPath(mFileName);
 		photo.setImgTime(time);
-		PhotoManageDataAccess photeData = new PhotoManageDataAccess(this);
+		ImgManageDataAccess photeData = new ImgManageDataAccess(this);
 		photeData.insertPhoto(photo);
 		finish();
 	}

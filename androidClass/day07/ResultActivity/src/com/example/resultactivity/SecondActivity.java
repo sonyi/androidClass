@@ -35,6 +35,7 @@ public class SecondActivity extends Activity implements OnClickListener {
 		case R.id.btn_second_ok:
 			Intent intent = new Intent();
 			intent.putExtra("info", "ÄãºÃ£¬Ð»Ð»£¬¹þ¹þ");
+			intent.putExtra("id", "36");
 			setResult(RESULT_OK,intent);
 			finish();
 			break;
