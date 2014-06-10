@@ -20,7 +20,7 @@
           使得当前线程关联一个Looper实例，并使该Looper实例关联当前线程实例
 
       (2).实例化Handler对象，重写HandleMessage()
-          a.使得当前线程里实例化得Handler关联当前线程的Looper以及Looper中            的消息队列
+          a.使得当前线程里实例化得Handler关联当前线程的Looper以及Looper中的消息队列
           * b.注册处理消息的回调方法
 
       (3).Looper.loop();

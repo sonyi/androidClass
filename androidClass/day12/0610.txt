@@ -1,0 +1,16 @@
+1.Fragment
+  a.what
+
+  b.使用步骤：
+    (1).定义Fragment的布局
+    (2).添加Fragment类，继承Fragment （v4）
+    (3).重写onCreateView()方法，加载布局资源
+    (4).将Fragment包含在Activity当中
+        a.静态加载
+          在Activity的布局文件中添加fragment标签元素
+
+        b.动态加载
+          (1).得到FragmentManager对象
+          (2).使用FragmentManager得到FragmentTransaction对象
+          (3).使用FragmentTransaction添加，替换或删除当前Activity中的Fragment
+          (4).通过Bundle向Fragment传递数据
