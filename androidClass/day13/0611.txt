@@ -1,0 +1,14 @@
+1.FragmentTabHost
+  a.在主页Activity布局中顶部添加FrameLayout，用来容纳    Fragment
+  b.在主页Activity布局底部添加FragmentTabHost,里面再    添加TabWidget
+  c.定义各个Tab（标签）页对应的Fragment布局和类
+  d.在主页Activity中设置FragmentTabHost
+
+2.ActionBar与界面间导航
+  a.ActionBar兼容性方案
+
+  b.导航
+    (1) List导航
+    (2) Tab导航
+        ViewPager
+ 
