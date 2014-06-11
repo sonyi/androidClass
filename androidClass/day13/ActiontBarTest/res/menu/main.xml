@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:myapp="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="98"
+        myapp:showAsAction="always"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/action_search"/>
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="99"
+        myapp:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_refresh"
+        android:title="@string/action_refresh"/>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        myapp:showAsAction="never"
+        android:title="@string/action_settings"/>
+
+</menu>
