@@ -47,7 +47,7 @@ public class TitleListFragment extends Fragment implements OnItemClickListener{
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
-		mPerformNewsDetail.performNewsDetail(arg2);
+		mPerformNewsDetail.performNewsDetail(arg2);// 回调方法
 	}
 
 
