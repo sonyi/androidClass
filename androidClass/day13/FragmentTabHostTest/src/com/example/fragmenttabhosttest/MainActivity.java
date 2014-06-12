@@ -65,7 +65,6 @@ public class MainActivity extends FragmentActivity {
 		Drawable top = getResources().getDrawable(drawableId);
 		tvText.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
 		return view;
-		
 	}
 	
 	@Override
