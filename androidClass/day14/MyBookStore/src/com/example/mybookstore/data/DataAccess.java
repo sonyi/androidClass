@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.mybookstore.data.DataContract.BookCatagoryContract;
 import com.example.mybookstore.data.DataContract.BookContract;
 import com.example.mybookstore.model.Books;
+import com.example.mybookstore.model.BooksBrief;
 import com.example.mybookstore.model.Catagory;
 
 import android.content.ContentValues;
@@ -18,7 +19,6 @@ public class DataAccess {
 
 	public DataAccess(Context context) {
 		mSQLiteHelper = new SQLiteHelper(context);
-		new AddBooks().initialData(mSQLiteHelper.getWritableDatabase());
 	}
 
 	public ArrayList<Catagory> queryCatagory() {
@@ -43,15 +43,40 @@ public class DataAccess {
 		return data;
 	}
 	
-	/**
-	 * @return
-	 */
-	public ArrayList<Books> queryBooks(){
+	public ArrayList<BooksBrief> queryBooksBrief(long catagoryId){
+		
+		SQLiteDatabase db = mSQLiteHelper.getReadableDatabase();
+		String[] columns = {BookContract._ID,BookContract.TITLE,BookContract.AUTHOR,
+				BookContract.PRICE,BookContract.ART};
+		String selection = BookContract.CATAGORY_ID + "= ?";
+		String[] seleArgs = new String[]{catagoryId+""};
+		Cursor c = db.query(BookContract.TABLE_NAME, columns, selection, seleArgs, null, null, null);
+		ArrayList<BooksBrief> data = null;
+		while (c.moveToNext()) {
+			if (data == null) {
+				data = new ArrayList<BooksBrief>();
+			}
+			BooksBrief b = new BooksBrief();
+			b.setBook_id(c.getLong(c.getColumnIndexOrThrow(BookContract._ID)));
+			b.setBookTitle(c.getString(c.getColumnIndexOrThrow(BookContract.TITLE)));
+			b.setBookAuthor(c.getString(c.getColumnIndexOrThrow(BookContract.AUTHOR)));
+			b.setBookPrice(c.getString(c.getColumnIndexOrThrow(BookContract.PRICE)));
+			b.setBookArt(c.getString(c.getColumnIndexOrThrow(BookContract.ART)));
+			data.add(b);
+		}
+		return data;
+	}
+	
+	
+	public ArrayList<Books> queryBooks(long catagoryId,String[] seleArgs){
 		SQLiteDatabase db = mSQLiteHelper.getReadableDatabase();
 		String[] columns = {BookContract._ID,BookContract.TITLE,BookContract.AUTHOR,
 				BookContract.CATAGORY_ID,BookContract.DATE,BookContract.PRICE,
-				BookContract.PAGES,BookContract.ART,BookContract.DESCRIPTION,};
-		Cursor c = db.query(BookContract.TABLE_NAME, columns, null, null, null, null, null);
+				BookContract.PAGES,BookContract.ART,BookContract.DESCRIPTION};
+		String selection = BookContract.CATAGORY_ID + "= ? " + BookContract.TITLE + "= ? " + 
+				BookContract.AUTHOR + "= ? " + BookContract.PRICE + "= ? " + BookContract.ART + "= ? ";
+		//String[] seleArgs = new String[]{catagoryId+""};
+		Cursor c = db.query(BookContract.TABLE_NAME, columns, selection, seleArgs, null, null, null);
 		ArrayList<Books> data = null;
 		while (c.moveToNext()) {
 			if (data == null) {

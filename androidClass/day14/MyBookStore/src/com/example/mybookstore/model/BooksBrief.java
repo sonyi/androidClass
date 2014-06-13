@@ -1,11 +1,12 @@
 package com.example.mybookstore.model;
 
-public class BooksBrief {
+import java.io.Serializable;
+
+public class BooksBrief implements Serializable{
 	private long book_id;
 	private String bookTitle;
 	private String bookAuthor;
-	private long book_CatagoryId;
-	private long bookPrice;
+	private String bookPrice;
 	private String bookArt;
 
 	public long getBook_id() {
@@ -32,19 +33,11 @@ public class BooksBrief {
 		this.bookAuthor = bookAuthor;
 	}
 
-	public long getBook_CatagoryId() {
-		return book_CatagoryId;
-	}
-
-	public void setBook_CatagoryId(long bookCatagoryId) {
-		this.book_CatagoryId = bookCatagoryId;
-	}
-
-	public long getBookPrice() {
+	public String getBookPrice() {
 		return bookPrice;
 	}
 
-	public void setBookPrice(long bookPrice) {
+	public void setBookPrice(String bookPrice) {
 		this.bookPrice = bookPrice;
 	}
 
@@ -54,6 +47,13 @@ public class BooksBrief {
 
 	public void setBookArt(String bookArt) {
 		this.bookArt = bookArt;
+	}
+
+	@Override
+	public String toString() {
+		return "BooksBrief [book_id=" + book_id + ", bookTitle=" + bookTitle
+				+ ", bookAuthor=" + bookAuthor + ", bookPrice=" + bookPrice
+				+ ", bookArt=" + bookArt + "]";
 	}
 
 }

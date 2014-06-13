@@ -1,5 +1,7 @@
 package com.example.mybookstore.data;
 
+import android.util.Log;
+
 
 public class Other {
 //	ArrayList<Catagory> ca = dataAccess.queryCatagory();
@@ -16,4 +18,5 @@ public class Other {
 //				+ b.getBookPages() + "  " + b.getBookArt() + "  " + b.getBookDescription() + "\r\n");
 //	}
 //	tv.setText(line);
+//	Log.i("data", line);
 }

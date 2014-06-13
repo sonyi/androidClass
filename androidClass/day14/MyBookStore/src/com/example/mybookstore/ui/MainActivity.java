@@ -13,13 +13,18 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 
 import com.example.mybookstore.R;
+import com.example.mybookstore.data.AddBooks;
 import com.example.mybookstore.data.DataAccess;
+import com.example.mybookstore.data.DataContract.BookCatagoryContract;
+import com.example.mybookstore.model.Books;
 import com.example.mybookstore.model.Catagory;
 
 public class MainActivity extends ActionBarActivity {
+	public static final String KEY_VALUE = "catagory_id";
 	private ArrayList<Catagory> mCatagoryArray = null;
 	private ViewPager mViewPager;
 	private ViewPagerAdapter mViewPagerAdapter;
@@ -48,6 +53,9 @@ public class MainActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+//		actionBar.setHomeButtonEnabled(true);
+//		actionBar.setDisplayShowHomeEnabled(false);
+//		actionBar.setDisplayHomeAsUpEnabled(false);
 		
 		for(int i = 0; i < mCatagoryArray.size(); i++){
 			Tab tab = actionBar.newTab();
@@ -59,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	private class ViewPagerAdapter extends FragmentStatePagerAdapter{
-
+		
 		public ViewPagerAdapter(FragmentManager fm) {
 			super(fm);
 			// TODO Auto-generated constructor stub
@@ -68,7 +76,13 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		public Fragment getItem(int arg0) {
 			// TODO Auto-generated method stub
-			return new TabFrame();
+			Fragment frgmt = new TabFrame();
+			Bundle data = new Bundle();
+			data.putLong(KEY_VALUE, mCatagoryArray.get(arg0).getCatagory_id());
+			frgmt.setArguments(data);
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			ft.commit();
+			return frgmt;
 		}
 
 		@Override
@@ -87,6 +101,7 @@ public class MainActivity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			ActionBar actionBar = getSupportActionBar();
 			actionBar.setSelectedNavigationItem(arg0);
+			
 
 		}
 
@@ -109,6 +124,7 @@ public class MainActivity extends ActionBarActivity {
 			//
 			int position = tab.getPosition();
 			mViewPager.setCurrentItem(position);
+			
 		}
 
 		@Override

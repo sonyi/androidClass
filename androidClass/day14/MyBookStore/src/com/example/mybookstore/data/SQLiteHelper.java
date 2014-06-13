@@ -43,6 +43,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			db.execSQL(CREATE_TABLE_GATAGORY);
 			db.execSQL(CREATE_TABLE_BOOK);
 			
+			//初始化数据
+			new AddBooks().initialData(db);
 			// 最操作执行完之后一定要调用该方法标记事务执行成功，这时会提交更改
 			db.setTransactionSuccessful();
 		} catch (Exception e) {
@@ -50,6 +52,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		} finally {
 			db.endTransaction();
 		}
+		
+		
 	}
 
 	
