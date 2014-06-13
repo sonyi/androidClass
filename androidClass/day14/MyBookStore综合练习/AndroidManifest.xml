@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.mybookstore.ui.DetailActivity"></activity>
+         <activity android:name="com.example.mybookstore.ui.AlterActivity"></activity>
     </application>
 
 </manifest>

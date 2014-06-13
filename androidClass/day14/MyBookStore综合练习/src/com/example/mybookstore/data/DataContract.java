@@ -3,7 +3,6 @@ package com.example.mybookstore.data;
 import android.provider.BaseColumns;
 
 public final class DataContract {
-	public static final String ACTIVITY_INTENT = "activity_intent";
 	public final class BookCatagoryContract implements BaseColumns {
 		public static final String TABLE_NAME = "book_catagory";
 

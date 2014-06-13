@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/tab_frame_view_margin"
+    android:paddingLeft="@dimen/tab_frame_view_margin"
+    android:paddingRight="@dimen/tab_frame_view_margin"
+    android:paddingTop="@dimen/tab_frame_view_margin"
+    android:descendantFocusability="blocksDescendants" >
 
     <ImageView
         android:id="@+id/iv_book_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="60dp"
+        android:layout_height="@dimen/tab_frame_view_height"
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/tv_book_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/iv_book_img"
+        android:layout_marginLeft="@dimen/tab_frame_view_margin"
         android:layout_toRightOf="@id/iv_book_img" />
 
     <TextView
@@ -28,5 +35,13 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/tv_book_auth"
         android:layout_below="@id/tv_book_auth" />
+
+    <ImageButton
+        android:id="@+id/tv_book_overflow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_action_overflow" />
 
 </RelativeLayout>

@@ -6,15 +6,17 @@ import android.os.AsyncTask;
 import android.widget.ImageView;
 
 public class ImageWorker {
-	public void fetch(ImageView imgView,String path){
-		ImageWorkerTask task = new ImageWorkerTask(imgView);
+	public void fetch(ImageView imgView,String path,int inSampleSize){
+		ImageWorkerTask task = new ImageWorkerTask(imgView,inSampleSize);
 		task.execute(path);
 	}
 	
 	private class ImageWorkerTask extends AsyncTask<String, Void, Bitmap>{
 		private ImageView imgView;
-		public ImageWorkerTask(ImageView imgView){
+		int inSampleSize;
+		public ImageWorkerTask(ImageView imgView,int inSampleSize){
 			this.imgView = imgView;
+			this.inSampleSize = inSampleSize;
 		}
 		
 		@Override
@@ -22,7 +24,7 @@ public class ImageWorker {
 			// TODO Auto-generated method stub
 			String path = params[0];
 			BitmapFactory.Options ops = new BitmapFactory.Options();// Ñ¹ËõÍ¼Æ¬
-			ops.inSampleSize = 5;
+			ops.inSampleSize = inSampleSize;
 			Bitmap bm = BitmapFactory.decodeFile(path, ops);
 			return bm;
 		}

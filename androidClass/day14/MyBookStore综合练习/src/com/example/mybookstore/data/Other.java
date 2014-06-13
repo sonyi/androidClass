@@ -1,5 +1,7 @@
 package com.example.mybookstore.data;
 
+import com.example.mybookstore.data.DataContract.BookContract;
+
 import android.util.Log;
 
 
@@ -19,4 +21,7 @@ public class Other {
 //	}
 //	tv.setText(line);
 //	Log.i("data", line);
+	
+	// + 
+	//
 }
