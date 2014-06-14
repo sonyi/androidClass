@@ -1,7 +1,9 @@
 package com.example.mybookstore.model;
 
+import java.io.Serializable;
 
-public class BooksBrief {
+
+public class BooksBrief implements Serializable{
 	private long book_id;
 	private String bookTitle;
 	private String bookAuthor;

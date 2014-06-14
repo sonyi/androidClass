@@ -8,5 +8,6 @@ public final class Literal {
 	public static final String PAGES = "Ò³Êý:";
 	public static final String PRICE = "£¤ ";
 	public static final String DESCRIPTION = "ÏêÏ¸ÐÅÏ¢:";
+	public static final int RESULT_CODE = 0x00;
 
 }

@@ -17,6 +17,8 @@
         android:id="@+id/et_alter_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxLength="100"
         android:layout_alignBottom="@id/tv_alter_title"
         android:layout_toRightOf="@id/tv_alter_title" />
 
@@ -33,6 +35,8 @@
         android:id="@+id/et_alter_author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxLength="50"
         android:layout_alignBottom="@id/tv_alter_author"
         android:layout_toRightOf="@id/tv_alter_author" />
 
@@ -49,6 +53,8 @@
         android:id="@+id/et_alter_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxLength="20"
         android:layout_alignBottom="@id/tv_alter_date"
         android:layout_toRightOf="@id/tv_alter_date"
         android:inputType="date" />
@@ -66,6 +72,9 @@
         android:id="@+id/et_alter_pages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxLength="10"
+        android:inputType="number"
         android:layout_alignBottom="@id/tv_alter_pages"
         android:layout_toRightOf="@id/tv_alter_pages" />
 
@@ -82,6 +91,9 @@
         android:id="@+id/et_alter_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxLength="10"
+        android:inputType="number"
         android:layout_alignBottom="@id/tv_alter_price"
         android:layout_toRightOf="@id/tv_alter_price" />
 
@@ -94,13 +106,17 @@
         android:layout_marginTop="20dp"
         android:text="详细信息：" />
 
+    
+    
     <EditText
         android:id="@+id/et_alter_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLines="10"
         android:layout_below="@id/tv_alter_description"
         android:layout_marginLeft="10dp" />
 
+    
     <Button
         android:id="@+id/btn_alter_ok"
         android:layout_width="wrap_content"

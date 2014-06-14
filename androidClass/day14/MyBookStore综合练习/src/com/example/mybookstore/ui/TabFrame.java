@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.PopupMenu.OnMenuItemClickListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.example.mybookstore.R;
 import com.example.mybookstore.data.DataAccess;
 import com.example.mybookstore.data.DataContract;
 import com.example.mybookstore.data.ImageWorker;
+import com.example.mybookstore.model.Books;
 import com.example.mybookstore.model.BooksBrief;
 import com.example.mybookstore.util.Literal;
 
@@ -33,7 +35,7 @@ public class TabFrame extends Fragment {
 	ArrayList<BooksBrief> mBooks = null;
 	DataAccess dataAccess = null;
 	BooksAdapter mBooksAdapter = null;
-
+	BooksBrief changeBook = null;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -103,6 +105,7 @@ public class TabFrame extends Fragment {
 			vh.price.setText("гд" + b.getBookPrice());
 			vh.btnOverflow
 					.setOnClickListener(new bookOverflowOnClickListener(b));
+			changeBook = b;
 			return view;
 		}
 
@@ -113,12 +116,38 @@ public class TabFrame extends Fragment {
 			private TextView price;
 			private ImageButton btnOverflow;
 		}
-
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
+		if(resultCode != getActivity().RESULT_OK){
+			return;
+		}
+		if(requestCode == Literal.RESULT_CODE){
+			Books book = (Books) data.getSerializableExtra(Literal.ALTER_INTENT);
+			//BooksBrief oldBook = (BooksBrief) data.getSerializableExtra(Literal.ALTER_INTENT);
+			BooksBrief oldBook = null;
+			for(BooksBrief b : mBooks){
+				if(b.getBook_id() == book.getBook_id()){
+					oldBook = b;
+				}
+			}
+			
+			
+			int count = dataAccess.updateBooks(book.getBook_id(), book);
+			if(count != 0){
+				BooksBrief b = new BooksBrief();
+				b.setBook_id(book.getBook_id());
+				b.setBookTitle(book.getBookTitle());
+				b.setBookAuthor(book.getBookAuthor());
+				b.setBookPrice(book.getBookPrice());
+				b.setBookArt(book.getBookArt());
+				mBooks.remove(oldBook);
+				mBooks.add(b);
+				mBooksAdapter.notifyDataSetChanged();
+			}
+		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
@@ -169,9 +198,12 @@ public class TabFrame extends Fragment {
 			if (arg0.getItemId() == R.id.action_update_book) {
 				Intent intent = new Intent(getActivity(),AlterActivity.class);
 				Bundle data = new Bundle();
+				//data.putSerializable(Literal.ALTER_INTENT, book);
+				
 				data.putLong(Literal.ALTER_INTENT, book.getBook_id());
 				intent.putExtras(data);
-				startActivityForResult(intent, 0);
+				
+				startActivityForResult(intent,Literal.RESULT_CODE);
 				
 //				Toast.makeText(getActivity(), "update--" + book.getBook_id(),
 //						Toast.LENGTH_SHORT).show();

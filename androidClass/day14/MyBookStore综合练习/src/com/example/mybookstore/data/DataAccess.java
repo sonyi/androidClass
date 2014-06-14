@@ -2,6 +2,7 @@ package com.example.mybookstore.data;
 
 import java.util.ArrayList;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -106,7 +107,25 @@ public class DataAccess {
 		String whereClause = BookContract._ID + "=?";
 		String[] whereArgs = new String[]{String.valueOf(bookId)};
 		int count = db.delete(BookContract.TABLE_NAME, whereClause, whereArgs);
+		//db.update(table, values, whereClause, whereArgs)
+		
 		db.close();
+		return count;
+	}
+	
+	public int updateBooks(long bookId,Books book){
+		SQLiteDatabase db = mSQLiteHelper.getWritableDatabase();
+		String whereClause = BookContract._ID + "=?";
+		String[] whereArgs = new String[]{String.valueOf(bookId)};
+		ContentValues values = new ContentValues();
+		values.put(BookContract.TITLE, book.getBookTitle());
+		values.put(BookContract.AUTHOR, book.getBookAuthor());
+		values.put(BookContract.DATE, book.getBookDate());
+		values.put(BookContract.PAGES, book.getBookPages());
+		values.put(BookContract.PRICE, book.getBookPrice());
+		values.put(BookContract.DESCRIPTION, book.getBookDescription());
+		int count = db.update(BookContract.TABLE_NAME, values, whereClause, whereArgs);
+		db.close();	
 		return count;
 	}
 	
