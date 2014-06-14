@@ -1,9 +1,6 @@
 package com.example.mybookstore.model;
 
-import java.io.Serializable;
-
-
-public class BooksBrief implements Serializable{
+public class BooksBrief {
 	private long book_id;
 	private String bookTitle;
 	private String bookAuthor;
@@ -49,12 +46,4 @@ public class BooksBrief implements Serializable{
 	public void setBookArt(String bookArt) {
 		this.bookArt = bookArt;
 	}
-
-	@Override
-	public String toString() {
-		return "BooksBrief [book_id=" + book_id + ", bookTitle=" + bookTitle
-				+ ", bookAuthor=" + bookAuthor + ", bookPrice=" + bookPrice
-				+ ", bookArt=" + bookArt + "]";
-	}
-
 }

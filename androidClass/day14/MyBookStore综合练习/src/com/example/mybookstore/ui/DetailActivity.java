@@ -2,6 +2,7 @@ package com.example.mybookstore.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,11 +16,31 @@ import com.example.mybookstore.util.Literal;
 public class DetailActivity extends ActionBarActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
 		Books book = getBookData();
-		
+		setActionBar();
+		initData(book);
+	}
+	
+	//获取图书id，并从数据库中查询图书详细信息
+	private Books getBookData() {
+		Intent intent = this.getIntent();
+		long bookId = intent.getLongExtra(Literal.ACTIVITY_INTENT, 0);
+		DataAccess dataAccess = new DataAccess(this);
+		return dataAccess.queryBooks(bookId);
+	}
+	
+	//设置Actionbar
+	private void setActionBar() {
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(true);
+	}
+
+	//初始化各控件的信息
+	private void initData(Books book) {
 		ImageView img = (ImageView) findViewById(R.id.iv_detail_pic);
 		TextView title = (TextView) findViewById(R.id.tv_detail_title);
 		TextView author = (TextView) findViewById(R.id.tv_detail_author);
@@ -35,14 +56,5 @@ public class DetailActivity extends ActionBarActivity{
 		pages.setText(Literal.PAGES + book.getBookPages());
 		price.setText(Literal.PRICE + book.getBookPrice());
 		description.setText(Literal.DESCRIPTION + book.getBookDescription());
-
 	}
-
-	private Books getBookData() {
-		Intent intent = this.getIntent();
-		long bookId = intent.getLongExtra(Literal.ACTIVITY_INTENT, 0);
-		DataAccess dataAccess = new DataAccess(this);
-		return dataAccess.queryBooks(bookId);
-	}
-
 }

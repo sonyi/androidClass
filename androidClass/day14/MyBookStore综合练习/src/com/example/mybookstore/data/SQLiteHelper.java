@@ -32,8 +32,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			+ " INTEGER NULL, " + BookContract.ART + " VARCHAR NOT NULL,"
 			+ BookContract.DESCRIPTION + " VARCHAR NULL )";
 
-
-
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// 1.调用这个方法开启事务
@@ -52,15 +50,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		} finally {
 			db.endTransaction();
 		}
-		
-		
 	}
-
-	
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		//
 	}
-
 }

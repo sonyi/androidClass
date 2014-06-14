@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.PopupMenu.OnMenuItemClickListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,15 +15,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mybookstore.MyApplication;
 import com.example.mybookstore.R;
 import com.example.mybookstore.data.DataAccess;
-import com.example.mybookstore.data.DataContract;
 import com.example.mybookstore.data.ImageWorker;
 import com.example.mybookstore.model.Books;
 import com.example.mybookstore.model.BooksBrief;
@@ -36,6 +34,7 @@ public class TabFrame extends Fragment {
 	DataAccess dataAccess = null;
 	BooksAdapter mBooksAdapter = null;
 	BooksBrief changeBook = null;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -49,37 +48,34 @@ public class TabFrame extends Fragment {
 		return view;
 	}
 
+	//接收MainActivity数据，并从数据库中查询相应的图书(简化)信息
 	private void init() {
 		Bundle data = getArguments();
-		long catagoryId = data.getLong(MainActivity.KEY_VALUE);
+		long catagoryId = data.getLong(Literal.FRAGMENT_KEY_VALUE);
 		dataAccess = new DataAccess(getActivity());
 		mBooks = dataAccess.queryBooksBrief(catagoryId);
-
 	}
 
+	//设置ListView适配器
 	private class BooksAdapter extends BaseAdapter {
 
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return mBooks.size();
 		}
 
 		@Override
 		public Object getItem(int arg0) {
-			// TODO Auto-generated method stub
 			return mBooks.get(arg0);
 		}
 
 		@Override
 		public long getItemId(int arg0) {
-			// TODO Auto-generated method stub
 			return mBooks.get(arg0).getBook_id();
 		}
 
 		@Override
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
-			// TODO Auto-generated method stub
 			View view = arg1;
 			ViewHolder vh = null;
 			if (view == null) {
@@ -90,22 +86,22 @@ public class TabFrame extends Fragment {
 				vh.title = (TextView) view.findViewById(R.id.tv_book_title);
 				vh.author = (TextView) view.findViewById(R.id.tv_book_auth);
 				vh.price = (TextView) view.findViewById(R.id.tv_book_price);
-				vh.btnOverflow = (ImageButton) view
+				vh.btnOverflow = (ImageView) view
 						.findViewById(R.id.tv_book_overflow);
 				view.setTag(vh);
-
 			} else {
 				vh = (ViewHolder) view.getTag();
 			}
 
-			BooksBrief b = mBooks.get(arg0);
-			new ImageWorker().fetch(vh.pic, b.getBookArt(), 4);
-			vh.title.setText(b.getBookTitle());
-			vh.author.setText("作者:" + b.getBookAuthor());
-			vh.price.setText("￥" + b.getBookPrice());
+			BooksBrief booksBrief = mBooks.get(arg0);
+			//开启工作线程，获取图片资源，并对图片进行压缩
+			new ImageWorker().fetch(vh.pic, booksBrief.getBookArt(), 4);
+			vh.title.setText(booksBrief.getBookTitle());
+			vh.author.setText("作者:" + booksBrief.getBookAuthor());
+			vh.price.setText("￥" + booksBrief.getBookPrice());
 			vh.btnOverflow
-					.setOnClickListener(new bookOverflowOnClickListener(b));
-			changeBook = b;
+					.setOnClickListener(new bookOverflowOnClickListener(booksBrief));
+			changeBook = booksBrief;
 			return view;
 		}
 
@@ -114,58 +110,56 @@ public class TabFrame extends Fragment {
 			private TextView title;
 			private TextView author;
 			private TextView price;
-			private ImageButton btnOverflow;
+			private ImageView btnOverflow;
 		}
 	}
 
+	//监听其他Activity返回的信息
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-		if(resultCode != getActivity().RESULT_OK){
+		if (resultCode != getActivity().RESULT_OK) {
 			return;
 		}
-		if(requestCode == Literal.RESULT_CODE){
-			Books book = (Books) data.getSerializableExtra(Literal.ALTER_INTENT);
-			//BooksBrief oldBook = (BooksBrief) data.getSerializableExtra(Literal.ALTER_INTENT);
-			BooksBrief oldBook = null;
-			for(BooksBrief b : mBooks){
-				if(b.getBook_id() == book.getBook_id()){
-					oldBook = b;
+		if (requestCode == Literal.RESULT_CODE) {
+			if (data.getIntExtra(Literal.ALTER_INTENT_BACK, 0) != 0) {
+				//通过Application获取对象
+				MyApplication app = (MyApplication) getActivity()
+						.getApplication();
+				Books book = (Books) app.getArg(Literal.BOOKS_VALUE);
+				app.removeArg(Literal.BOOKS_VALUE);
+
+				BooksBrief updateBook = null;
+				for (BooksBrief b : mBooks) {
+					if (b.getBook_id() == book.getBook_id()) {
+						updateBook = b;
+					}
 				}
-			}
-			
-			
-			int count = dataAccess.updateBooks(book.getBook_id(), book);
-			if(count != 0){
-				BooksBrief b = new BooksBrief();
-				b.setBook_id(book.getBook_id());
-				b.setBookTitle(book.getBookTitle());
-				b.setBookAuthor(book.getBookAuthor());
-				b.setBookPrice(book.getBookPrice());
-				b.setBookArt(book.getBookArt());
-				mBooks.remove(oldBook);
-				mBooks.add(b);
-				mBooksAdapter.notifyDataSetChanged();
+				updateBook.setBook_id(book.getBook_id());
+				updateBook.setBookTitle(book.getBookTitle());
+				updateBook.setBookAuthor(book.getBookAuthor());
+				updateBook.setBookPrice(book.getBookPrice());
+				updateBook.setBookArt(book.getBookArt());
+				mBooksAdapter.notifyDataSetChanged();//刷新界面
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-	
+
+	//设置图书列表监听器
 	private OnItemClickListener BookOnItemClickListener = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			// TODO Auto-generated method stub
 			Intent intent = new Intent(getActivity(), DetailActivity.class);
 			Bundle data = new Bundle();
 			data.putLong(Literal.ACTIVITY_INTENT, mBooks.get(arg2).getBook_id());
 			intent.putExtras(data);
 			startActivity(intent);
 		}
-
 	};
 
+	//设置图书列表中ImageView(更多操作)监听器
 	private class bookOverflowOnClickListener implements OnClickListener {
 		private BooksBrief book;
 
@@ -184,6 +178,7 @@ public class TabFrame extends Fragment {
 		}
 	};
 
+	//设置popupMenu监听器
 	private class menuOnMenuItemClickListener implements
 			OnMenuItemClickListener {
 		private BooksBrief book;
@@ -194,21 +189,16 @@ public class TabFrame extends Fragment {
 
 		@Override
 		public boolean onMenuItemClick(MenuItem arg0) {
-			// TODO Auto-generated method stub
+			//更新图书信息
 			if (arg0.getItemId() == R.id.action_update_book) {
-				Intent intent = new Intent(getActivity(),AlterActivity.class);
+				Intent intent = new Intent(getActivity(), AlterActivity.class);
 				Bundle data = new Bundle();
-				//data.putSerializable(Literal.ALTER_INTENT, book);
-				
 				data.putLong(Literal.ALTER_INTENT, book.getBook_id());
 				intent.putExtras(data);
-				
-				startActivityForResult(intent,Literal.RESULT_CODE);
-				
-//				Toast.makeText(getActivity(), "update--" + book.getBook_id(),
-//						Toast.LENGTH_SHORT).show();
-
+				startActivityForResult(intent, Literal.RESULT_CODE);
+				return true;
 			}
+			//删除图书信息
 			if (arg0.getItemId() == R.id.action_remove_book) {
 				int count = dataAccess.removeBook(book.getBook_id());
 				if (count == 1) {

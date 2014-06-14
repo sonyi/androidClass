@@ -7,25 +7,42 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name="com.example.mybookstore.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.mybookstore.ui.MainActivity"
-            android:label="@string/app_name" 
-            android:launchMode="singleTask">
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.mybookstore.ui.DetailActivity"></activity>
-         <activity android:name="com.example.mybookstore.ui.AlterActivity"></activity>
+        <activity
+            android:name="com.example.mybookstore.ui.DetailActivity"
+            android:label="@string/detail_lable"
+            android:parentActivityName="com.example.mybookstore.ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mybookstore.ui.MainActivity" >
+            </meta-data>
+        </activity>
+        <activity
+            android:name="com.example.mybookstore.ui.AlterActivity"
+            android:label="@string/alter_lable"
+            android:parentActivityName="com.example.mybookstore.ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mybookstore.ui.MainActivity" >
+            </meta-data>
+        </activity>
     </application>
 
 </manifest>

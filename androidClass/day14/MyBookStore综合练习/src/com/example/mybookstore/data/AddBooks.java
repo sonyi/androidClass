@@ -6,7 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import com.example.mybookstore.data.DataContract.BookCatagoryContract;
 import com.example.mybookstore.data.DataContract.BookContract;
-
+/**
+ * 添加数据库数据
+ * @author Administrator
+ *
+ */
 public class AddBooks {
 	private String BOOKS_DIR = "booksStore";
 
@@ -51,7 +55,6 @@ public class AddBooks {
 				"（Jean Valjean）的个人经历，融进了法国的历史、革命、战争、道德哲学、法律、正义、宗教信仰。多次被改" +
 				"编演绎成影视作品。");
 
-
 		ContentValues b3 = new ContentValues();
 		b3.put(BookContract.TITLE, "时间简史");
 		b3.put(BookContract.AUTHOR, "霍金");
@@ -62,7 +65,6 @@ public class AddBooks {
 		b3.put(BookContract.PAGES,2000);
 		b3.put(BookContract.DESCRIPTION,"《时间简史》是由英国伟大的物理学家史蒂芬·霍金撰写的一本有关宇宙学的著作，" +
 				"是一部将高深的理论物理通俗化的科普范本。");
-
 
 		ContentValues b4 = new ContentValues();
 		b4.put(BookContract.TITLE, "大数据的力量");
@@ -116,8 +118,6 @@ public class AddBooks {
 				"块状饼干、挤制饼干、滴落饼干、手工整形及模具整形饼干。即使0技巧、0经验，也能做出0失败完美饼干。" +
 				"超详细步骤图，最实用tips，带你感受最简单，却最完美、最成功的幸福饼干滋味。");
 
-		
-		
 		db.insert(BookContract.TABLE_NAME, "", b1);
 		db.insert(BookContract.TABLE_NAME, "", b2);
 		db.insert(BookContract.TABLE_NAME, "", b3);
@@ -125,8 +125,6 @@ public class AddBooks {
 		db.insert(BookContract.TABLE_NAME, "", b5);
 		db.insert(BookContract.TABLE_NAME, "", b6);
 		db.insert(BookContract.TABLE_NAME, "", b7);
-		
-		//db.close();
 	}
 
 	private String getBookAbsolutePath(String fileName) {

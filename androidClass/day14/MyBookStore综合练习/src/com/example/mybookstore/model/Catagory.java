@@ -16,6 +16,4 @@ public class Catagory {
 	public void setCatagoryName(String catagoryName) {
 		this.catagoryName = catagoryName;
 	}
-	
-	
 }

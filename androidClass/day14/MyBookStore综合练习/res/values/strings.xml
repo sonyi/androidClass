@@ -2,6 +2,8 @@
 <resources>
 
     <string name="app_name">我的图书收藏</string>
+    <string name="detail_lable">图书详细信息</string>
+    <string name="alter_lable">修改图书信息</string>
     <string name="action_settings">设置</string>
     <string name="action_search">搜索</string>
     <string name="hello_world">Hello world!</string>
