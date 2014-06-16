@@ -1,6 +1,7 @@
 1.广播接收器
   用法：继承BroadcastReceiver,重写onReceive()方法
-  执行过程：在发出广播之后，系统会查找清单文件中组件的IntentFilter中的  Action，然后会创建Action匹配的接收器的实例对象，并立即调用onReceive()，  调用完成后，接收器的生命期结束
+  执行过程：在发出广播之后，系统会查找清单文件中组件的IntentFilter中的  Action，然后会创建Action匹配的接收器的实例对象，并立即调用onReceive()，  
+  调用完成后，接收器的生命期结束
   注意，不要在onReceive()当中做耗时操作，也不要开子线程
 
   a.有序
@@ -16,5 +17,5 @@
     使用NotificationCompat.Builder()来构建通知对象
     使用NotificationManager来发送通知
   b.PendingIntent
-    是一个意图的包装，触发之后才会按照指定的方式(打开Activity,发送广播等)执    行意图
+    是一个意图的包装，触发之后才会按照指定的方式(打开Activity,发送广播等)执行意图
   c.RemoteViews
