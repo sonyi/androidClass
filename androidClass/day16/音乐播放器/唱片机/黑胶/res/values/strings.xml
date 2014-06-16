@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">黑胶唱机</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_icontest">黑胶唱机</string>
+    <color name="black">#aa000000</color>    
+    <color name="white">#ffffff</color>
+</resources>

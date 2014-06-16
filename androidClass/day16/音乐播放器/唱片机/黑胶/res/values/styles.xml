@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="AppTheme" parent="android:style/Theme.Light.NoTitleBar" />
+    <style name="menu_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:drawableTop">@android:drawable/ic_menu_compass</item>
+    </style>
+    
+</resources>
+

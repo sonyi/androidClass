@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FrameLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.example.heimusic.SongMenuView
+        android:id="@+id/songMenuView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000018" />
+
+    <ImageView
+        android:id="@+id/iv_pian"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/volumnview"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scrollX="150dp"
+        android:src="@drawable/pian" />
+
+    <ImageView
+        android:id="@+id/iv_tou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tou"
+        android:visibility="invisible" />
+
+    <com.example.heimusic.VolumnView
+        android:id="@+id/volumnview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+    <Button
+        android:id="@+id/button_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/volumnview"
+        android:text="演奏" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="173dp"
+        android:src="@drawable/select" />
+
+    <ImageView
+        android:id="@+id/iv_power"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:alpha="0.4" 
+        android:src="@drawable/off"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/button_play"
+        android:layout_alignParentRight="true"
+        android:progressDrawable="@drawable/volumebar"
+        android:scrollY="-50dp"
+        android:visibility="invisible" />
+
+</RelativeLayout>
