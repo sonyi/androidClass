@@ -16,13 +16,16 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	public static final String ACTION_NEXT = "com.example.broadcastreceivertest.NEXT";
 	public static final String ACTION_RECEIVER = "com.example.broadcastreceivertest.BROAD";
 	private FristReceiver mFristReceiver;
 	private SecondReceiver mSecondReceiver;
 	private NetworkStateChangeReceiver mNetworkStateChangeReceiver;
+	private NextReceiver mNextReceiver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,23 +71,67 @@ public class MainActivity extends Activity {
 			}
 
 		});
+		
+		mNextReceiver = new NextReceiver();
+		IntentFilter filter3 = new IntentFilter(ACTION_NEXT);
+		registerReceiver(mNextReceiver, filter3);
+		
 	}
 
 	private void showNotification() {
 		// TODO Auto-generated method stub
-		//定义打开主界面的pendingIntent
-		Intent intent = new Intent(this,MainActivity.class);
+		// 定义打开主界面的pendingIntent
+		Intent intent = new Intent(this, MainActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
+
+		RemoteViews remoteViews = getRemoteViews();
+		
+		
+		Notification notification = new Notification(R.drawable.ic_launcher, "这是自定义通知", 0);
+		notification.contentIntent = pi;
+		notification.contentView = remoteViews;
+		
 		
 		// 设置通知对象
-		Notification notification = new NotificationCompat.Builder(this)
-				.setOngoing(false).setSmallIcon(R.drawable.ic_launcher)
-				.setTicker("这是自定义通知").build();
-		notification.setLatestEventInfo(this, "这是通知-自定义", "hehehe", pi);
-		
+//		Notification notification = new NotificationCompat.Builder(this)
+//				.setOngoing(false).setSmallIcon(R.drawable.ic_launcher)
+//				.setTicker("这是自定义通知").setContent(remoteViews)
+//				.setContentIntent(pi).build();
+
+		// 设置通知对象
+		/*
+		 * Notification notification = new NotificationCompat.Builder(this)
+		 * .setOngoing(false).setSmallIcon(R.drawable.ic_launcher)
+		 * .setTicker("这是自定义通知").setContentTitle("通知--自定义")
+		 * .setContentText("tongzhi").setContentIntent(pi).build();
+		 */
+
 		NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		nm.notify(1, notification);
+	}
+
+	private RemoteViews getRemoteViews() {
+		RemoteViews remoteViews = new RemoteViews(
+				"com.example.broadcastreceivertest", R.layout.notification_item);
+		remoteViews.setTextViewText(R.id.tv_noti_text, "通知-自定义");
+		remoteViews.setImageViewResource(R.id.iv_noti_img, R.drawable.img_art);
+		
+		//设置按钮的单击行为广播
+		Intent intent = new Intent(ACTION_NEXT);
+		PendingIntent pi = PendingIntent.getBroadcast(this, 0, intent, 0);
+		remoteViews.setOnClickPendingIntent(R.id.ib_noti_next, pi);
+		
+		return remoteViews;
+	}
+	
+	private class NextReceiver extends BroadcastReceiver{
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			Toast.makeText(context, "下一曲", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	@Override
@@ -100,6 +147,7 @@ public class MainActivity extends Activity {
 		unregisterReceiver(mFristReceiver);
 		unregisterReceiver(mSecondReceiver);
 		unregisterReceiver(mNetworkStateChangeReceiver);
+		unregisterReceiver(mNextReceiver);
 		super.onDestroy();
 	}
 
