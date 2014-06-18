@@ -1,7 +1,5 @@
 package com.example.mymoments.ui;
 
-import com.example.mymoments.R;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,10 +13,13 @@ import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 
+import com.example.mymoments.R;
+
 public class MainActivity extends ActionBarActivity {
 	private String[] mCatagory = new String[] { "主页面", "历史记录", "其他" };
 	private ViewPager mViewPager;
 	private ViewPagerAdapter mViewPagerAdapter;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,9 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main);
 		setUpViewPager();
 		setUpActionBar();
+		
+		
+		
 	}
 
 	// 设置ViewPager

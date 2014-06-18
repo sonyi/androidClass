@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.example.mymoments"
+    android:id="@+id/GridLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    app:alignmentMode="alignMargins"
+    android:layout_gravity="center"
+    
+    android:orientation="horizontal"
+   
+    
+    app:columnCount="2"
+    app:rowCount="3" >
 
-    <TextView
+    <ImageView
         android:id="@+id/iv_tab_left_login"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="login" />
+        
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+       
+        android:scaleType="fitXY"
+        android:src="@drawable/img_login" />
 
-    <TextView
+    <ImageView
         android:id="@+id/iv_tab_left_sendmessage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignTop="@id/iv_tab_left_login"
-        android:layout_toRightOf="@id/iv_tab_left_login"
-        android:text="sendMessage" />
+        android:layout_width="170dp"
+        android:layout_height="120dp"
+        android:paddingLeft="20dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_send" />
 
-</RelativeLayout>
+    
+
+</android.support.v7.widget.GridLayout>
