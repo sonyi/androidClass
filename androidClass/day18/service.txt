@@ -1,0 +1,62 @@
+Service
+ 定义：在应用程序后台可单独运行的Context组件
+
+
+ 启动方式：
+ 1.started
+   a.通过调用context.startService()启动服务
+   b.一旦调用了startService()，Service对象中的onStartCommand()就好立即执     行
+
+   c.生命周期
+     首次调用startService()->onCreate()->onStartCommand() ->调用     stopService()强行终止了服务或者系统强制结束了该服务-->onDestroy()
+
+ 2.bound 
+   a.通过调用context.bindService()启动并绑定服务到当前context组件
+   b.bindService(),Service对象中的onBind()就会调用()
+     (1).实现一个内部类，Binder的子类,使用Binder对象来调用服务中的方法
+     (2).在绑定服务的组件定义ServiceConnection对象
+
+   c.生命周期
+     首次调用bindService()时 -> onCreate() -> onBind() -> 调用     stopService()强行终止了服务或者系统强制结束了该服务-->onDestroy()
+   
+   注意：绑定过Service，一定要在适当的时候解除绑定
+
+   使用思路：
+     1.把Service对外提供的操作，写到一个接口中，定义成方法
+     2.在Service中定义Binder类，继承Binder,实现第一步中接口
+     3.完成接口中的方法实现
+     4.在onBind()方法中返回第二部中Binder类的实例
+     5.在绑定Service的组件类中，实现并定义ServiceConnection，在       onServiceConnected()方法中获得Binder实例，并转换成第一步中的接口类型
+     6.根据需要，调用接口实例的方法使用Service中定义的操作
+    
+跨进程的服务绑定 (IPC)
+   AIDL (android接口定义语言) 
+    核心：
+      a.Binder机制
+      b.Parcel机制
+
+  1.确保服务进程中的Service能够被外界绑定
+  2.
+    a.给服务进程的项目中添加AIDL接口(.aidl),系统会自动生成一个与aidl文件同       名的Java接口文件，里面包含一个内部类，Binder子类 Stub在Service中添加       内部类，继承Stub
+    b.如果要传递自定义的类的对象作为参数，那这个类必须实现parcelable
+  3.在服务的onBind()方法中返回第2步的Binder对象实例
+
+  4.准备客户端进程项目，把服务端进程项目中的AIDL接口拷贝过来
+  5.利用客户端的context组件绑定服务进程的Service (通过隐式意图)
+  6.客户端进程中，实现ServiceConnection,获得AIDL接口的实例对象
+  7.客户端通过接口实例调用服务端进程中的方法
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
