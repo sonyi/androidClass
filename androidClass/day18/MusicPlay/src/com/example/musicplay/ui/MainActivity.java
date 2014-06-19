@@ -1,6 +1,8 @@
 package com.example.musicplay.ui;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.Menu;
 
 import com.example.musicplay.R;
 import com.example.musicplay.data.AlbumDataAccess;
+import com.example.musicplay.data.ContactsDataAccess;
 import com.example.musicplay.data.MusicDataAccess;
 import com.example.musicplay.model.Album;
 import com.example.musicplay.model.Music;
@@ -25,10 +28,13 @@ public class MainActivity extends Activity {
 //			Log.i("music", al.toString());
 //		}
 		
-		ArrayList<Music> musicArray = (ArrayList<Music>) new MusicDataAccess(this).getAllMusic();
-		for(Music m : musicArray){
-			Log.i("music", m.toString());
-		}
+//		ArrayList<Music> musicArray = (ArrayList<Music>) new MusicDataAccess(this).getAllMusic();
+//		for(Music m : musicArray){
+//			Log.i("music", m.toString());
+//		}
+		
+		Map<String, String> contacts = new ContactsDataAccess().getAllCallRecords(this);
+		Log.i("contact", contacts.toString());
 	}
 
 	@Override

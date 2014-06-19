@@ -15,6 +15,7 @@ public class AddBooks {
 	private String BOOKS_DIR = "booksStore";
 
 	public void initialData(SQLiteDatabase db) {
+		
 		ContentValues g1 = new ContentValues();
 		g1.put(BookCatagoryContract.CATAGORY_NAME, "名著");
 
@@ -24,10 +25,10 @@ public class AddBooks {
 		ContentValues g3 = new ContentValues();
 		g3.put(BookCatagoryContract.CATAGORY_NAME, "生活");
 		
+
 		db.insert(BookCatagoryContract.TABLE_NAME, "", g1);
 		db.insert(BookCatagoryContract.TABLE_NAME, "", g2);
 		db.insert(BookCatagoryContract.TABLE_NAME, "", g3);
-		
 
 		ContentValues b1 = new ContentValues();
 		b1.put(BookContract.TITLE, "老人与海");

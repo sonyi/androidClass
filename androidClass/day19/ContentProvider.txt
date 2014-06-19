@@ -1,0 +1,21 @@
+ContentProvider:
+  把数据以表的结构呈现给第三方
+  Uri:指定一类特定的数据
+  列名:表结构的某个字段名
+
+一.使用系统内置的ContentProvider的思路
+  1.找到android.provider包下对应的数据类型的MetaData类
+  2.通过ContentResolver对象来操作uri指定的数据
+  3.增删改查都通过ContentResolver对象进行
+    查询返回一个Cursor对象，使用Cursor遍历查询结果
+
+二.自定义ContentProvider
+  1.对外部应用程序公开当前程序的数据，所需的组件
+  2.对外部保留的数据的格式，都是以表的形式
+  3.以uri描述数据
+    content://com.bookcollection/book/4
+     schema       authority        segments
+  4.ContentProvider执行原理
+    a.使用ContentResolver对象作为特定的ContentProvider的代理
+    b.系统根据Uri中的authority部分找到特定的ContentProvider对象与            ContentResolver关联
+    c.调用ContentResolver中的数据操作方法，比如insert(),query()实际上回调       用它所代理的ContentProvider的相应方法

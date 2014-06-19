@@ -6,6 +6,7 @@ public class BooksBrief {
 	private String bookAuthor;
 	private String bookPrice;
 	private String bookArt;
+	private long book_CatagoryId;
 
 	public long getBook_id() {
 		return book_id;
@@ -45,5 +46,13 @@ public class BooksBrief {
 
 	public void setBookArt(String bookArt) {
 		this.bookArt = bookArt;
+	}
+
+	public long getBook_CatagoryId() {
+		return book_CatagoryId;
+	}
+
+	public void setBook_CatagoryId(long book_CatagoryId) {
+		this.book_CatagoryId = book_CatagoryId;
 	}
 }

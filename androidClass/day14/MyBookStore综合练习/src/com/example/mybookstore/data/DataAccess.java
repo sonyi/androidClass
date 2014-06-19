@@ -22,6 +22,7 @@ public class DataAccess {
 
 	/**
 	 * 查询数据库中图书分类信息
+	 * 
 	 * @return 一个ArrayList 或者 null
 	 */
 	public ArrayList<Catagory> queryCatagory() {
@@ -46,19 +47,32 @@ public class DataAccess {
 		db.close();
 		return data;
 	}
-	
+
 	/**
 	 * 查询数据库中book的简化信息
-	 * @param catagoryId(图书分类ID)
+	 * 
+	 * @param catagoryId
+	 *            (图书分类ID)
 	 * @return 一个ArrayList 或者 null
 	 */
-	public ArrayList<BooksBrief> queryBooksBrief(long catagoryId){
+	public ArrayList<BooksBrief> queryBooksBrief(long catagoryId,
+			String bookName) {
 		SQLiteDatabase db = mSQLiteHelper.getReadableDatabase();
-		String[] columns = {BookContract._ID,BookContract.TITLE,BookContract.AUTHOR,
-				BookContract.PRICE,BookContract.ART};
-		String selection = BookContract.CATAGORY_ID + "= ?";
-		String[] seleArgs = new String[]{catagoryId+""};
-		Cursor c = db.query(BookContract.TABLE_NAME, columns, selection, seleArgs, null, null, null);
+		String[] columns = { BookContract._ID, BookContract.TITLE,
+				BookContract.AUTHOR, BookContract.PRICE, BookContract.ART,BookContract.CATAGORY_ID};
+
+		Cursor c = null;
+		String selection = null;
+		String[] seleArgs = null;
+		if (bookName == null) {
+			selection = BookContract.CATAGORY_ID + "= ?";
+			seleArgs = new String[] { catagoryId + "" };
+		}else{
+			selection = BookContract.CATAGORY_ID + "= ? and " + BookContract.TITLE + " like '?%'";
+			seleArgs = new String[] { catagoryId + "",bookName};
+		}
+		c = db.query(BookContract.TABLE_NAME, columns, selection, seleArgs,
+				null, null, null);
 		ArrayList<BooksBrief> data = null;
 		while (c.moveToNext()) {
 			if (data == null) {
@@ -66,43 +80,59 @@ public class DataAccess {
 			}
 			BooksBrief b = new BooksBrief();
 			b.setBook_id(c.getLong(c.getColumnIndexOrThrow(BookContract._ID)));
-			b.setBookTitle(c.getString(c.getColumnIndexOrThrow(BookContract.TITLE)));
-			b.setBookAuthor(c.getString(c.getColumnIndexOrThrow(BookContract.AUTHOR)));
-			b.setBookPrice(c.getString(c.getColumnIndexOrThrow(BookContract.PRICE)));
+			b.setBookTitle(c.getString(c
+					.getColumnIndexOrThrow(BookContract.TITLE)));
+			b.setBookAuthor(c.getString(c
+					.getColumnIndexOrThrow(BookContract.AUTHOR)));
+			b.setBookPrice(c.getString(c
+					.getColumnIndexOrThrow(BookContract.PRICE)));
 			b.setBookArt(c.getString(c.getColumnIndexOrThrow(BookContract.ART)));
+			b.setBook_CatagoryId(c.getLong(c.getColumnIndexOrThrow(BookContract.CATAGORY_ID)));
 			data.add(b);
 		}
 		c.close();
 		db.close();
 		return data;
 	}
-	
+
 	/**
 	 * 根据图书ID，查询数据中图书的详细信息
-	 * @param bookId 图书ID
+	 * 
+	 * @param bookId
+	 *            图书ID
 	 * @return 一个books对象 或者 null
 	 */
-	public Books queryBooks(long bookId){
+	public Books queryBooks(long bookId) {
 		SQLiteDatabase db = mSQLiteHelper.getReadableDatabase();
-		String[] columns = {BookContract._ID,BookContract.TITLE,BookContract.AUTHOR,
-				BookContract.CATAGORY_ID,BookContract.DATE,BookContract.PRICE,
-				BookContract.PAGES,BookContract.ART,BookContract.DESCRIPTION};
+		String[] columns = { BookContract._ID, BookContract.TITLE,
+				BookContract.AUTHOR, BookContract.CATAGORY_ID,
+				BookContract.DATE, BookContract.PRICE, BookContract.PAGES,
+				BookContract.ART, BookContract.DESCRIPTION };
 		String selection = BookContract._ID + "=?";
-		String[] seleArgs = new String[]{String.valueOf(bookId)};
-		Cursor c = db.query(BookContract.TABLE_NAME, columns, selection, seleArgs, null, null, null);
+		String[] seleArgs = new String[] { String.valueOf(bookId) };
+		Cursor c = db.query(BookContract.TABLE_NAME, columns, selection,
+				seleArgs, null, null, null);
 		Books book = null;
 		while (c.moveToNext()) {
 			book = new Books();
 			book.setBook_id(c.getLong(c.getColumnIndexOrThrow(BookContract._ID)));
-			book.setBookTitle(c.getString(c.getColumnIndexOrThrow(BookContract.TITLE)));
-			book.setBookAuthor(c.getString(c.getColumnIndexOrThrow(BookContract.AUTHOR)));
-			book.setBook_CatagoryId(c.getLong(c.getColumnIndexOrThrow(BookContract.CATAGORY_ID)));
-			book.setBookDate(c.getString(c.getColumnIndexOrThrow(BookContract.DATE)));
-			book.setBookPrice(c.getString(c.getColumnIndexOrThrow(BookContract.PRICE)));
-			book.setBookPages(c.getLong(c.getColumnIndexOrThrow(BookContract.PAGES)));
-			book.setBookArt(c.getString(c.getColumnIndexOrThrow(BookContract.ART)));
-			book.setBookDescription(c.getString(c.getColumnIndexOrThrow(BookContract.DESCRIPTION)));
-			//data.add(b);
+			book.setBookTitle(c.getString(c
+					.getColumnIndexOrThrow(BookContract.TITLE)));
+			book.setBookAuthor(c.getString(c
+					.getColumnIndexOrThrow(BookContract.AUTHOR)));
+			book.setBook_CatagoryId(c.getLong(c
+					.getColumnIndexOrThrow(BookContract.CATAGORY_ID)));
+			book.setBookDate(c.getString(c
+					.getColumnIndexOrThrow(BookContract.DATE)));
+			book.setBookPrice(c.getString(c
+					.getColumnIndexOrThrow(BookContract.PRICE)));
+			book.setBookPages(c.getLong(c
+					.getColumnIndexOrThrow(BookContract.PAGES)));
+			book.setBookArt(c.getString(c
+					.getColumnIndexOrThrow(BookContract.ART)));
+			book.setBookDescription(c.getString(c
+					.getColumnIndexOrThrow(BookContract.DESCRIPTION)));
+			// data.add(b);
 		}
 		c.close();
 		db.close();
@@ -111,28 +141,33 @@ public class DataAccess {
 
 	/**
 	 * 根据图书ID，移除数据库中该图书信息
-	 * @param bookId 图书ID
+	 * 
+	 * @param bookId
+	 *            图书ID
 	 * @return 移除成功返回1；失败返回0
 	 */
-	public int removeBook(long bookId){
+	public int removeBook(long bookId) {
 		SQLiteDatabase db = mSQLiteHelper.getWritableDatabase();
 		String whereClause = BookContract._ID + "=?";
-		String[] whereArgs = new String[]{String.valueOf(bookId)};
+		String[] whereArgs = new String[] { String.valueOf(bookId) };
 		int count = db.delete(BookContract.TABLE_NAME, whereClause, whereArgs);
 		db.close();
 		return count;
 	}
-	
+
 	/**
 	 * 更新图书信息
-	 * @param bookId 需要更新的图书ID
-	 * @param book 更新的图书信息
+	 * 
+	 * @param bookId
+	 *            需要更新的图书ID
+	 * @param book
+	 *            更新的图书信息
 	 * @return 成功：更新的行号，失败：0
 	 */
-	public int updateBooks(long bookId,Books book){
+	public int updateBooks(long bookId, Books book) {
 		SQLiteDatabase db = mSQLiteHelper.getWritableDatabase();
 		String whereClause = BookContract._ID + "=?";
-		String[] whereArgs = new String[]{String.valueOf(bookId)};
+		String[] whereArgs = new String[] { String.valueOf(bookId) };
 		ContentValues values = new ContentValues();
 		values.put(BookContract.TITLE, book.getBookTitle());
 		values.put(BookContract.AUTHOR, book.getBookAuthor());
@@ -140,8 +175,9 @@ public class DataAccess {
 		values.put(BookContract.PAGES, book.getBookPages());
 		values.put(BookContract.PRICE, book.getBookPrice());
 		values.put(BookContract.DESCRIPTION, book.getBookDescription());
-		int count = db.update(BookContract.TABLE_NAME, values, whereClause, whereArgs);
-		db.close();	
+		int count = db.update(BookContract.TABLE_NAME, values, whereClause,
+				whereArgs);
+		db.close();
 		return count;
 	}
 }
