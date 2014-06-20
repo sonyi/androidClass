@@ -49,6 +49,7 @@ public class MainActivity extends ActionBarActivity {
 		setUpViewPager();
 		setUpActionBar();
 
+		
 	}
 
 	//…Ë÷√ViewPager

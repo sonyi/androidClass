@@ -49,15 +49,21 @@ public class TabFrame extends Fragment {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.frame_tab, null);
 		mlistView = (ListView) view.findViewById(R.id.lv_frame_tab);
+		setHasOptionsMenu(true);
 		mCatagoryID = getCatagoryID();
 		mBooks = getBookBrief(mCatagoryID, null);
-		
-		
-		setHasOptionsMenu(true);
 		mBooksAdapter = new BooksAdapter();
 		mlistView.setAdapter(mBooksAdapter);
 		mlistView.setOnItemClickListener(BookOnItemClickListener);
+		//Toast.makeText(getActivity(),mCatagoryID + "",Toast.LENGTH_SHORT).show();
 		return view;
+	}
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		
+		super.onResume();
 	}
 
 	@Override
@@ -67,34 +73,40 @@ public class TabFrame extends Fragment {
 		inflater.inflate(R.menu.main, menu);
 		MenuItem item = menu.findItem(R.id.action_search);
 		SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-		searchView.setOnQueryTextListener(mOnQueryTextListener);
+
+		searchView
+				.setOnQueryTextListener(new mOnQueryTextListener(mCatagoryID));
 	}
 
-	final long cagID = mCatagoryID;
-	private OnQueryTextListener mOnQueryTextListener = new OnQueryTextListener() {
+	private class mOnQueryTextListener implements OnQueryTextListener {
+		private long catagoryID;
+
+		mOnQueryTextListener(long catagoryID) {
+			this.catagoryID = catagoryID;
+		}
 
 		@Override
 		public boolean onQueryTextSubmit(String arg0) {
-			// TODO Auto-generated method stub
 			return false;
 		}
 
 		@Override
 		public boolean onQueryTextChange(String arg0) {
-			// TODO Auto-generated method stub
-			if(arg0 == null || arg0.equals("")){
+			if (arg0.equals("")) {
 				return true;
-			}else {
-				if(!mBooks.isEmpty()){
-					mBooks = getBookBrief(mBooks.get(0).getBook_CatagoryId(), null);
-					mBooksAdapter.notifyDataSetChanged();	
-				}
+			}
 
-				Toast.makeText(getActivity(), "okdok--" + arg0, Toast.LENGTH_SHORT).show();
+			if (!mBooks.isEmpty()) {
+//				Toast.makeText(getActivity(),
+//						mBooks.get(0).getBook_CatagoryId() + arg0,
+//						Toast.LENGTH_SHORT).show();
+
+				mBooks = getBookBrief(catagoryID, arg0);
+				mBooksAdapter.notifyDataSetChanged();
 			}
 
 			return true;
-			
+
 		}
 	};
 

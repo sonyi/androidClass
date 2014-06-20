@@ -68,16 +68,13 @@ public class DataAccess {
 			selection = BookContract.CATAGORY_ID + "= ?";
 			seleArgs = new String[] { catagoryId + "" };
 		}else{
-			selection = BookContract.CATAGORY_ID + "= ? and " + BookContract.TITLE + " like '?%'";
-			seleArgs = new String[] { catagoryId + "",bookName};
+			selection = BookContract.CATAGORY_ID + "= ? and " + BookContract.TITLE + " like '" + bookName + "%'";
+			seleArgs = new String[] { catagoryId + ""};
 		}
 		c = db.query(BookContract.TABLE_NAME, columns, selection, seleArgs,
 				null, null, null);
-		ArrayList<BooksBrief> data = null;
+		ArrayList<BooksBrief> data = new ArrayList<BooksBrief>();
 		while (c.moveToNext()) {
-			if (data == null) {
-				data = new ArrayList<BooksBrief>();
-			}
 			BooksBrief b = new BooksBrief();
 			b.setBook_id(c.getLong(c.getColumnIndexOrThrow(BookContract._ID)));
 			b.setBookTitle(c.getString(c
