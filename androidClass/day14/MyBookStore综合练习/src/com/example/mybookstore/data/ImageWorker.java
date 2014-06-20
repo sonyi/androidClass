@@ -2,6 +2,7 @@ package com.example.mybookstore.data;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
@@ -30,7 +31,7 @@ public class ImageWorker {
 		protected Bitmap doInBackground(String... params) {
 			// TODO Auto-generated method stub
 			String path = params[0];
-			BitmapFactory.Options ops = new BitmapFactory.Options();// Ñ¹ËõÍ¼Æ¬
+			Options ops = new Options();// Ñ¹ËõÍ¼Æ¬
 			ops.inSampleSize = inSampleSize;
 			Bitmap bm = BitmapFactory.decodeFile(path, ops);
 			return bm;
