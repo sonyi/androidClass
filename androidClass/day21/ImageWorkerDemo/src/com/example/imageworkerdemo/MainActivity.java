@@ -37,16 +37,14 @@ public class MainActivity extends Activity {
 			mImagePaths = new ArrayList<String>();
 		}
 
-		//Thumbnails加载缩略图，Media加载完整图片
 		ContentResolver cr = getContentResolver();
-		Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-		//Uri uri = MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI;
-		String[] projection = new String[] { MediaStore.Images.Media.DATA };
+		Uri uri = MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI;
+		String[] projection = new String[] { MediaStore.Images.Thumbnails.DATA };
 		Cursor c = cr.query(uri, projection, null, null, null);
 
 		while (c.moveToNext()) {
 			String path = c.getString(c
-					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+					.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.DATA));
 			mImagePaths.add(path);
 		}
 		c.close();

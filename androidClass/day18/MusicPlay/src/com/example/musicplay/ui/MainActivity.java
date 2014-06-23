@@ -28,13 +28,13 @@ public class MainActivity extends Activity {
 //			Log.i("music", al.toString());
 //		}
 		
-//		ArrayList<Music> musicArray = (ArrayList<Music>) new MusicDataAccess(this).getAllMusic();
-//		for(Music m : musicArray){
-//			Log.i("music", m.toString());
-//		}
+		ArrayList<Music> musicArray = (ArrayList<Music>) new MusicDataAccess(this).getAllMusic();
+		for(Music m : musicArray){
+			Log.i("music", m.toString());
+		}
 		
-		Map<String, String> contacts = new ContactsDataAccess().getAllCallRecords(this);
-		Log.i("contact", contacts.toString());
+//		Map<String, String> contacts = new ContactsDataAccess().getAllCallRecords(this);
+//		Log.i("contact", contacts.toString());
 	}
 
 	@Override

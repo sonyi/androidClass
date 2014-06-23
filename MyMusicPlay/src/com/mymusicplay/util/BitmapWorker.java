@@ -1,6 +1,8 @@
-package com.example.imageworkerdemo;
+package com.mymusicplay.util;
 
 import java.lang.ref.WeakReference;
+
+import com.mymusicplay.R;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -115,19 +117,20 @@ public class BitmapWorker {
 
 		@Override
 		protected void onPostExecute(Bitmap result) {
-			if ((mWeakImageView != null) && (result != null)) {
-				ImageView imgView = mWeakImageView.get();
-				if (imgView != null) {
-					BitmapWorkerTask task = getWorkerTask(imgView);
-					if (this == task) {
-						imgView.setImageBitmap(result);
-						Animation animation = AnimationUtils.loadAnimation(
-								mContext, android.R.anim.fade_in);
-						imgView.setAnimation(animation);
-					}
+
+			if ((mWeakImageView == null)) {
+				return;
+			}
+			ImageView imgView = mWeakImageView.get();
+			if (imgView != null) {
+				if (result != null) {
+					imgView.setImageBitmap(result);
+				} else {
+					imgView.setImageResource(R.drawable.ic_default_art);
 				}
 			}
 		}
+
 	}
 
 	private Bitmap decodeFile(String path, int reqWidth, int reqHeight) {
