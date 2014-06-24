@@ -28,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/probar_base_progress"
         android:layout_below="@id/probar_base_progress"
+        android:singleLine="true"
+        android:width="130dp"
         android:text="song" />
 
     <TextView
@@ -36,6 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/tv_base_song"
         android:layout_below="@id/tv_base_song"
+         android:singleLine="true"
+        android:width="130dp"
         android:text="singer" />
 
     <ImageView

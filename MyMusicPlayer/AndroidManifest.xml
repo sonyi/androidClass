@@ -16,7 +16,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <service android:name="com.mymusicplay.server.MusicPlayBackService" />
+        <service android:name="com.mymusicplay.server.MusicPlayBackService" 
+            android:exported="false" />
 
         <activity
             android:name="com.mymusicplay.ui.MainActivity"

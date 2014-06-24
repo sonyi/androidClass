@@ -46,7 +46,7 @@ public interface IPlayBackService {
 	 * 添加单首曲目到播放列表中
 	 * @param music
 	 */
-	public void addToPlayQuene(Music music);
+	public int addToPlayQuene(Music music);
 	
 	/**
 	 * 获取当前播放状态
@@ -59,5 +59,11 @@ public interface IPlayBackService {
 	 * @return
 	 */
 	public Music getCurrentMusic();
+	
+	/**
+	 * 获取歌曲在队列中的位置
+	 * @return music在队列中的位置，没找到返回-1
+	 */
+	public int getCurrentMusicIndex(Music music);
 	
 }

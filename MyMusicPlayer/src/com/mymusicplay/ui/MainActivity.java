@@ -10,21 +10,22 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
-import android.view.View;
 
+import com.mymusicplay.MusicPlayApplication;
 import com.mymusicplay.R;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends ActionBarActivity {
 	private String[] mMusicCatagory = new String[] { "我的音乐", "专辑", "最常听" };
 	private ViewPager mViewPager;
 	private ViewPagerAdapter mViewPagerAdapter;
 
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		new MusicPlayApplication();
 		
 		setUpViewPager();
 		setUpActionBar();

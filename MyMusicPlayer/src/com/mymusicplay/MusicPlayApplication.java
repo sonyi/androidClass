@@ -18,7 +18,6 @@ public class MusicPlayApplication extends Application{
 	
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		Intent intent = new Intent(this,MusicPlayBackService.class);
 		bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
 		super.onCreate();

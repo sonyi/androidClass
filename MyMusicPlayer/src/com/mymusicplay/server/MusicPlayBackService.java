@@ -82,19 +82,28 @@ public class MusicPlayBackService extends Service{
 			if(mPlayState != PlayStats.STATE_STOP){
 				mMediaPlayer.stop();
 				mMediaPlayer.reset();//把当前的播放信息清除掉(音频信息)
+				mPlayState = PlayStats.STATE_STOP;
 			}
 		}
 
 		@Override
 		public void next() {
-			// TODO Auto-generated method stub
-			
+			stop();
+			if((mCurrentPlayIndex + 1) < mPlayQuene.size()){
+				playAtIndex(mCurrentPlayIndex + 1);
+			}else{
+				playAtIndex(0);
+			}
 		}
 
 		@Override
 		public void previouse() {
-			// TODO Auto-generated method stub
-			
+			stop();
+			if((mCurrentPlayIndex - 1) >= 0){
+				playAtIndex(mCurrentPlayIndex - 1);
+			}else{
+				playAtIndex(mPlayQuene.size() - 1);
+			}
 		}
 
 		@Override
@@ -104,8 +113,8 @@ public class MusicPlayBackService extends Service{
 			try {
 				mMediaPlayer.setDataSource(music.getData());
 				mMediaPlayer.prepareAsync();//异步加载文件
+				mCurrentPlayIndex = index;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 		}
@@ -118,9 +127,9 @@ public class MusicPlayBackService extends Service{
 		}
 
 		@Override
-		public void addToPlayQuene(Music music) {
+		public int addToPlayQuene(Music music) {
 			mPlayQuene.add(music);
-			
+			return getCurrentMusicIndex(music);
 		}
 
 		@Override
@@ -131,6 +140,12 @@ public class MusicPlayBackService extends Service{
 		@Override
 		public Music getCurrentMusic() {
 			return mPlayQuene.get(mCurrentPlayIndex);
+		}
+
+		@Override
+		public int getCurrentMusicIndex(Music music) {
+			int index = mPlayQuene.indexOf(music);
+			return index;
 		}
 	}
 	
