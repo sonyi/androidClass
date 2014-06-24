@@ -73,8 +73,6 @@ public class FragmentTabMusic extends Fragment {
 			vh.title.setText(music.getTitle());
 			vh.singer.setText(music.getArtist());
 			view.setOnClickListener(new myViewOnClickListener(music));
-			
-			
 			return view;
 		}
 
@@ -111,10 +109,9 @@ public class FragmentTabMusic extends Fragment {
 		@Override
 		public void onClick(View v) {
 			myService = PlayBackServiceManager.getPlayBackService(getActivity());
-
 			int index = myService.addToPlayQuene(music);
 			myService.stop();
-			myService.playAtIndex(index);;
+			myService.playAtIndex(index);
 			
 		}
 	};

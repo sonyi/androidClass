@@ -40,7 +40,7 @@ public interface IPlayBackService {
 	 * 添加所有曲目到播放队列中
 	 * @param musicList
 	 */
-	public void addToPlayQuene(List<Music> musicList);
+	public void addToPlayQueue(List<Music> musicList);
 	
 	/**
 	 * 添加单首曲目到播放列表中
@@ -65,5 +65,15 @@ public interface IPlayBackService {
 	 * @return music在队列中的位置，没找到返回-1
 	 */
 	public int getCurrentMusicIndex(Music music);
+	
+	/**
+	 * 清除队列中的所有歌曲
+	 */
+	public void clearPlayQueue();
+	
+	/**
+	 * 获取当前播放音乐的位置
+	 */
+	public int getMusicPlayPosition();
 	
 }

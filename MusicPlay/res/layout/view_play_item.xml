@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:background="#ffffff"
+         >
+
+        <ImageView
+            android:id="@+id/img_play_art"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tv_play_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/img_play_art"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img_play_art"
+            android:text="播放艺人"
+            android:textColor="#aaaaaa"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_play_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_play_artist"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img_play_art"
+            android:text="播放曲目"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btn_play_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_next" />
+
+        <ImageButton
+            android:id="@+id/btn_play_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btn_play_next"
+            android:background="@drawable/ic_play" />
+
+        <ImageButton
+            android:id="@+id/btn_play_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btn_play_play"
+            android:background="@drawable/ic_previous" />
+    </RelativeLayout>
+
+</RelativeLayout>

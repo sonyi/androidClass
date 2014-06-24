@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/action_play_now"
+        android:orderInCategory="1"
+        android:title="立即播放"/>
+
+    <item android:id="@+id/action_add_queue"
+        android:orderInCategory="2"
+        android:title="添加到队列"/>
+</menu>

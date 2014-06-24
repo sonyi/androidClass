@@ -1,10 +1,18 @@
 package com.mymusicplay.ui;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
@@ -12,9 +20,11 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.widget.RemoteViews;
 
 import com.mymusicplay.MusicPlayApplication;
 import com.mymusicplay.R;
+import com.mymusicplay.receiver.ReceiverAction;
 
 public class MainActivity extends ActionBarActivity {
 	private String[] mMusicCatagory = new String[] { "我的音乐", "专辑", "最常听" };
@@ -29,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
 		
 		setUpViewPager();
 		setUpActionBar();
+		
 	}
 
 	private void setUpViewPager() {
@@ -128,12 +139,19 @@ public class MainActivity extends ActionBarActivity {
 		public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		}
 	};
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
 	}
 
 }

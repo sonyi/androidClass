@@ -3,6 +3,7 @@ package com.mymusicplay.util;
 import java.lang.ref.WeakReference;
 
 import com.mymusicplay.R;
+import com.mymusicplay.data.AlbumDataAccess;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -43,6 +44,11 @@ public class BitmapWorker {
 			imageView.setImageDrawable(asyncDrawable);
 			task.execute(path);
 		}
+	}
+	
+	public void fetch(long albumID, ImageView imageView){
+		String path = new AlbumDataAccess(mContext).getAlbumArtByAlbumId(albumID);
+		fetch(path, imageView);
 	}
 
 	private boolean cancelPotentialWork(String path, ImageView imageView) {

@@ -44,7 +44,7 @@ public class AlbumDataAccess {
 	}
 	
 	/**
-	 * 获取设备中的所有专辑信息
+	 * 根据专辑id获取专辑封面的路径
 	 * @return
 	 */
 	public String getAlbumArtByAlbumId(long albumID){
