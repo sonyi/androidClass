@@ -18,10 +18,10 @@
         android:layout_height="6dp"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="3dp"
-        android:thumb="@drawable/ic_seekbar_draw"
         android:layout_toRightOf="@id/iv_base_cover"
         android:max="100"
-        android:progress="50" />
+        android:progress="50"
+        android:thumb="@drawable/ic_seekbar_draw" />
 
     <TextView
         android:id="@+id/tv_base_song"
@@ -30,8 +30,8 @@
         android:layout_alignLeft="@id/seekbar_base_progress"
         android:layout_below="@id/seekbar_base_progress"
         android:singleLine="true"
-        android:width="90dp"
-        android:text="song" />
+        android:text="song"
+        android:width="80dp" />
 
     <TextView
         android:id="@+id/tv_base_singer"
@@ -39,26 +39,27 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/tv_base_song"
         android:layout_below="@id/tv_base_song"
-         android:singleLine="true"
-        android:width="90dp"
-        android:text="singer" />
+        android:singleLine="true"
+        android:text="singer"
+        android:width="80dp" />
 
     <ImageView
         android:id="@+id/iv_base_next"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-       
+        android:layout_alignParentBottom="true"
+         android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
         android:src="@drawable/ic_next" />
 
     <ImageView
         android:id="@+id/iv_base_pause"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-       android:layout_alignTop="@id/iv_base_next"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+       android:layout_alignParentBottom="true"
         android:layout_marginRight="10dp"
+       
         android:layout_toLeftOf="@id/iv_base_next"
         android:src="@drawable/ic_play" />
 
@@ -66,8 +67,9 @@
         android:id="@+id/iv_base_previous"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignTop="@id/iv_base_pause"
-        android:layout_marginRight="10dp"
+         android:layout_alignParentBottom="true"
+          android:layout_marginBottom="5dp"
+        android:layout_marginRight="15dp"
         android:layout_toLeftOf="@id/iv_base_pause"
         android:src="@drawable/ic_previous" />
 

@@ -3,22 +3,25 @@ package com.mymusicplay.server;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Notification;
+import com.mymusicplay.model.Music;
+import com.mymusicplay.notification.MyNotification;
+import com.mymusicplay.receiver.ReceiverAction;
+
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Binder;
 import android.os.IBinder;
-import android.widget.RemoteViews;
+import android.telephony.TelephonyManager;
 
-import com.mymusicplay.R;
-import com.mymusicplay.model.Music;
-import com.mymusicplay.receiver.ReceiverAction;
+
 
 public class MusicPlayBackService extends Service {
 	private MediaPlayer mMediaPlayer;
@@ -26,11 +29,18 @@ public class MusicPlayBackService extends Service {
 	private int mPlayState = PlayStats.STATE_STOP;
 	private int mCurrentPlayIndex = 0;
 
+	
+	
 	@Override
 	public void onCreate() {
 		mPlayQuene = new ArrayList<Music>();
 		initMediaPlay();
 
+		//注册来电广播接收器
+		IntentFilter mIntentFilter = new IntentFilter();
+		mIntentFilter.addAction("android.intent.action.PHONE_STATE");
+		registerReceiver(new PhoneStatRec(), mIntentFilter);
+		
 		super.onCreate();
 	}
 
@@ -48,9 +58,13 @@ public class MusicPlayBackService extends Service {
 			public void onPrepared(MediaPlayer mp) {
 				mMediaPlayer.start();
 				mPlayState = PlayStats.STATE_PLAYING;
-
+				
+				//发送广播
 				Intent intent = new Intent(ReceiverAction.ACTION_REFRESH);
 				sendBroadcast(intent);
+
+				NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+				MyNotification.showNotification(MusicPlayBackService.this, nm);
 				
 			}
 		});
@@ -64,9 +78,147 @@ public class MusicPlayBackService extends Service {
 		});
 	}
 
+	public class PhoneStatRec extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			TelephonyManager mTelManager = (TelephonyManager) context
+					.getSystemService(Context.TELEPHONY_SERVICE);
+			boolean isringpause = false;
+			switch (mTelManager.getCallState()) {
+			case TelephonyManager.CALL_STATE_RINGING:// 响铃
+				// if (mPlayer != null && mPlayer.isPlaying()) {
+				// mPlayer.pause();
+				// isringpause = true;
+				// }
+				break;
+			case TelephonyManager.CALL_STATE_OFFHOOK:// 通话
+				// if (mPlayer != null && mPlayer.isPlaying()) {
+				// mPlayer.pause();
+				// isringpause = true;
+				// }
+				break;
+			case TelephonyManager.CALL_STATE_IDLE:// 通话结束
+				// if (mPlayer != null && isringpause == true) {
+				// mPlayer.start();
+				// isringpause = false;
+				// }
+				break;
+			}
+		}
+	}
+
+	public void play() {
+		if (mPlayState == PlayStats.STATE_PAUSE) {
+			mMediaPlayer.start();
+			mPlayState = PlayStats.STATE_PLAYING;
+
+			// 发送广播
+			Intent intent = new Intent(ReceiverAction.ACTION_PLAY);
+			sendBroadcast(intent);
+		} else if (mPlayState == PlayStats.STATE_STOP) {
+			playAtIndex(mCurrentPlayIndex);
+		}
+	}
+
+	public void pause() {
+		if (mPlayState == PlayStats.STATE_PLAYING) {
+			mMediaPlayer.pause();
+			mPlayState = PlayStats.STATE_PAUSE;
+
+			// 发送广播
+			Intent intent = new Intent(ReceiverAction.ACTION_PAUSE);
+			sendBroadcast(intent);
+		}
+	}
+
+	public void stop() {
+		if (mPlayState != PlayStats.STATE_STOP) {
+			mMediaPlayer.stop();
+			mMediaPlayer.reset();// 把当前的播放信息清除掉(音频信息)
+			mPlayState = PlayStats.STATE_STOP;
+		}
+	}
+
+	public void next() {
+		if (mPlayQuene.size() > 0) {
+			stop();
+			if ((mCurrentPlayIndex + 1) < mPlayQuene.size()) {
+				playAtIndex(mCurrentPlayIndex + 1);
+			} else {
+				playAtIndex(0);
+			}
+		}
+	}
+
+	public void previouse() {
+		if (mPlayQuene.size() > 0) {
+			stop();
+			if ((mCurrentPlayIndex - 1) >= 0) {
+				playAtIndex(mCurrentPlayIndex - 1);
+			} else {
+				playAtIndex(mPlayQuene.size() - 1);
+			}
+		}
+	}
+
+	public void playAtIndex(int index) {
+		Music music = mPlayQuene.get(index);
+		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+		try {
+			mMediaPlayer.setDataSource(music.getData());
+			mMediaPlayer.prepareAsync();// 异步加载文件
+			mCurrentPlayIndex = index;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addToPlayQuene(List<Music> musicList) {
+		for (Music music : musicList) {
+			mPlayQuene.add(music);
+		}
+	}
+
+	public int addToPlayQuene(Music music) {
+		if (getCurrentMusicIndex(music) == -1) {
+			mPlayQuene.add(music);
+		}
+		return getCurrentMusicIndex(music);
+	}
+
+	public int getCurrentPlayState() {
+		return mPlayState;
+	}
+
+	public Music getCurrentMusic() {
+		return mPlayQuene.get(mCurrentPlayIndex);
+	}
+
+	public int getCurrentMusicIndex(Music music) {
+		int index = mPlayQuene.indexOf(music);
+		return index;
+	}
+
+	public void onDestroy() {
+		if (mPlayState != PlayStats.STATE_STOP) {
+			mMediaPlayer.stop();
+		}
+		mMediaPlayer.reset();
+		mMediaPlayer.release();// 销毁对象
+		super.onDestroy();
+	}
+
+	public void clearPlayQueue() {
+		mPlayQuene.clear();
+	}
+
+	public int getMusicPlayPosition() {
+		return mMediaPlayer.getCurrentPosition();
+	}
 	
 	
-	class ServiceBinder extends Binder implements IPlayBackService {
+
+	private class ServiceBinder extends Binder implements IPlayBackService {
 		@Override
 		public void play() {
 			MusicPlayBackService.this.play();
@@ -131,111 +283,5 @@ public class MusicPlayBackService extends Service {
 		public int getMusicPlayPosition() {
 			return MusicPlayBackService.this.getMusicPlayPosition();
 		}
-	}
-
-	public void play() {
-		if (mPlayState == PlayStats.STATE_PAUSE) {
-			mMediaPlayer.start();
-			mPlayState = PlayStats.STATE_PLAYING;
-		} else if (mPlayState == PlayStats.STATE_STOP) {
-			playAtIndex(mCurrentPlayIndex);
-		}
-	}
-
-	public void pause() {
-		if (mPlayState == PlayStats.STATE_PLAYING) {
-			mMediaPlayer.pause();
-			mPlayState = PlayStats.STATE_PAUSE;
-			
-			//发送广播
-			Intent intent = new Intent(ReceiverAction.ACTION_PAUSE);
-			sendBroadcast(intent);
-		}
-	}
-
-	public void stop() {
-		if (mPlayState != PlayStats.STATE_STOP) {
-			mMediaPlayer.stop();
-			mMediaPlayer.reset();// 把当前的播放信息清除掉(音频信息)
-			mPlayState = PlayStats.STATE_STOP;
-		}
-	}
-
-	public void next() {
-		if (mPlayQuene.size() > 0) {
-			stop();
-			if ((mCurrentPlayIndex + 1) < mPlayQuene.size()) {
-				playAtIndex(mCurrentPlayIndex + 1);
-			} else {
-				playAtIndex(0);
-			}
-		}
-	}
-
-	public void previouse() {
-		if (mPlayQuene.size() > 0) {
-			stop();
-			if ((mCurrentPlayIndex - 1) >= 0) {
-				playAtIndex(mCurrentPlayIndex - 1);
-			} else {
-				playAtIndex(mPlayQuene.size() - 1);
-			}
-		}
-	}
-
-	public void playAtIndex(int index) {
-		Music music = mPlayQuene.get(index);
-		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-		try {
-			mMediaPlayer.setDataSource(music.getData());
-			mMediaPlayer.prepareAsync();// 异步加载文件
-			mCurrentPlayIndex = index;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void addToPlayQuene(List<Music> musicList) {
-		for (Music music : musicList) {
-			mPlayQuene.add(music);
-		}
-	}
-
-	public int addToPlayQuene(Music music) {
-		if (getCurrentMusicIndex(music) == -1) {
-			mPlayQuene.add(music);
-		}
-
-		return getCurrentMusicIndex(music);
-	}
-
-	public int getCurrentPlayState() {
-		return mPlayState;
-	}
-
-	public Music getCurrentMusic() {
-		return mPlayQuene.get(mCurrentPlayIndex);
-	}
-
-	public int getCurrentMusicIndex(Music music) {
-		int index = mPlayQuene.indexOf(music);
-		return index;
-	}
-
-	public void onDestroy() {
-		if (mPlayState != PlayStats.STATE_STOP) {
-			mMediaPlayer.stop();
-		}
-		mMediaPlayer.reset();
-		mMediaPlayer.release();// 销毁对象
-		super.onDestroy();
-	}
-	
-	public void clearPlayQueue() {
-		mPlayQuene.clear();
-	}
-	
-	public int getMusicPlayPosition() {
-		return mMediaPlayer.getCurrentPosition();
 	}
 }

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text="title"
-            android:width="100dp" />
+            android:width="90dp" />
 
         <TextView
             android:id="@+id/tv_fragment_album_artist"
@@ -34,7 +34,7 @@
             android:layout_below="@id/tv_fragment_album_title"
             android:singleLine="true"
             android:text="artist"
-            android:width="100dp" />
+            android:width="90dp" />
 
         <ImageView
             android:id="@+id/iv_fragment_album_overflow"

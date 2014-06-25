@@ -3,22 +3,12 @@ package com.mymusicplay.ui;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.mymusicplay.PlayBackServiceManager;
-import com.mymusicplay.R;
-import com.mymusicplay.model.Music;
-import com.mymusicplay.receiver.ReceiverAction;
-import com.mymusicplay.server.IPlayBackService;
-import com.mymusicplay.server.PlayStats;
-import com.mymusicplay.util.BitmapWorker;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,7 +17,14 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.mymusicplay.PlayBackServiceManager;
+import com.mymusicplay.R;
+import com.mymusicplay.model.Music;
+import com.mymusicplay.receiver.ReceiverAction;
+import com.mymusicplay.server.IPlayBackService;
+import com.mymusicplay.server.PlayStats;
+import com.mymusicplay.util.BitmapWorker;
 
 public class BaseActivity extends Fragment implements OnClickListener {
 	ImageView mPause, mNext, mPrevious, mMusicCover;
@@ -53,12 +50,11 @@ public class BaseActivity extends Fragment implements OnClickListener {
 		mSeekBar.setOnSeekBarChangeListener(null);
 
 		// 注册广播接收器
-		IntentFilter refreshFilter = new IntentFilter(
-				ReceiverAction.ACTION_REFRESH);
-		getActivity().registerReceiver(myReceiverRefresh, refreshFilter);
-
-		IntentFilter pauseFilter = new IntentFilter(ReceiverAction.ACTION_PAUSE);
-		getActivity().registerReceiver(myReceiverRefresh, pauseFilter);
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(ReceiverAction.ACTION_REFRESH);
+		filter.addAction(ReceiverAction.ACTION_PAUSE);
+		filter.addAction(ReceiverAction.ACTION_PLAY);
+		getActivity().registerReceiver(myReceiver, filter);
 
 		return view;
 	}
@@ -70,50 +66,59 @@ public class BaseActivity extends Fragment implements OnClickListener {
 		if (v.getId() == R.id.iv_base_next) {
 			myService.next();
 		}
-		if (v.getId() == R.id.iv_base_pause) {
-			if(playflag){
-				mPause.setImageResource(R.drawable.ic_play);
-				playflag = false;
-				myService.pause();
-			}else{
-				mPause.setImageResource(R.drawable.ic_pause);
-				playflag = true;
-				myService.play();
-			}
-			
-			
-//			if (myService.getCurrentPlayState() == PlayStats.STATE_PAUSE) {
-//				myService.play();
-//			}
-//			if (myService.getCurrentPlayState() == PlayStats.STATE_PLAYING) {
-//				myService.pause();
-//			}
 
+		if (v.getId() == R.id.iv_base_pause) {
+
+			switch (myService.getCurrentPlayState()) {
+			case PlayStats.STATE_PAUSE:
+				myService.play();
+
+				break;
+			case PlayStats.STATE_PLAYING:
+				myService.pause();
+
+				break;
+			}
 		}
+
 		if (v.getId() == R.id.iv_base_previous) {
 			myService.previouse();
 		}
 	}
 
-	private BroadcastReceiver myReceiverRefresh = new BroadcastReceiver() {
+	//接收广播
+	private BroadcastReceiver myReceiver = new BroadcastReceiver() {
 		IPlayBackService myService;
+
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			// Toast.makeText(getActivity(), "hhhh", Toast.LENGTH_SHORT).show();
-			myService = PlayBackServiceManager
-					.getPlayBackService(getActivity());
-			Music music = myService.getCurrentMusic();
-			new BitmapWorker(getActivity()).fetch(music.getAlbumId(),
-					mMusicCover);// 设置封面
-			mMusicTitle.setText(music.getTitle());
-			mMusicSinger.setText(music.getArtist());
-			mSeekBar.setMax((int) music.getDuration());// 设置进度条最大值为音乐播放时间
-			Log.i("time", music.getDuration() + "");
-			setProgress();
+			//歌曲页面刷新
+			if(intent.getAction().equals(ReceiverAction.ACTION_REFRESH)){
+				myService = PlayBackServiceManager
+						.getPlayBackService(getActivity());
+				Music music = myService.getCurrentMusic();
+				new BitmapWorker(getActivity()).fetch(music.getAlbumId(),
+						mMusicCover);// 设置封面
+				mMusicTitle.setText(music.getTitle());
+				mMusicSinger.setText(music.getArtist());
+				mSeekBar.setMax((int) music.getDuration());// 设置进度条最大值为音乐播放时间
+				// Log.i("time", music.getDuration() + "");
+				mPause.setImageResource(R.drawable.ic_pause);
+				setProgress();
+			}
+			
+			//歌曲播放
+			if(intent.getAction().equals(ReceiverAction.ACTION_PLAY)){
+				mPause.setImageResource(R.drawable.ic_pause);
+			}
+			
+			//歌曲暂停
+			if(intent.getAction().equals(ReceiverAction.ACTION_PAUSE)){
+				mPause.setImageResource(R.drawable.ic_play);
+			}
 		}
-		
-		public void setProgress() {
 
+		public void setProgress() {
 			TimerTask task = new TimerTask() {
 				@Override
 				public void run() {
@@ -123,16 +128,6 @@ public class BaseActivity extends Fragment implements OnClickListener {
 			Timer timer = new Timer();
 			timer.schedule(task, 1, 1);
 		}
-
-	};
-
-	
-
-	private BroadcastReceiver myReceiverPause = new BroadcastReceiver() {
-		public void onReceive(Context context, Intent intent) {
-			Toast.makeText(getActivity(), "hhhh", Toast.LENGTH_SHORT).show();
-			
-		};
 	};
 
 	private OnSeekBarChangeListener mySeekBarChangeListener = new OnSeekBarChangeListener() {
@@ -159,8 +154,7 @@ public class BaseActivity extends Fragment implements OnClickListener {
 
 	@Override
 	public void onDestroy() {
-		getActivity().unregisterReceiver(myReceiverRefresh);
+		getActivity().unregisterReceiver(myReceiver);
 		super.onDestroy();
 	}
-
 }
