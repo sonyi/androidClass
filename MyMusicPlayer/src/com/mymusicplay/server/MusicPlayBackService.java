@@ -3,10 +3,7 @@ package com.mymusicplay.server;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mymusicplay.model.Music;
-import com.mymusicplay.notification.MyNotification;
-import com.mymusicplay.receiver.ReceiverAction;
-
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -19,9 +16,13 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.telephony.TelephonyManager;
+import android.widget.Toast;
 
-
+import com.mymusicplay.model.Music;
+import com.mymusicplay.notification.MyNotification;
+import com.mymusicplay.receiver.ReceiverAction;
 
 public class MusicPlayBackService extends Service {
 	private MediaPlayer mMediaPlayer;
@@ -29,18 +30,23 @@ public class MusicPlayBackService extends Service {
 	private int mPlayState = PlayStats.STATE_STOP;
 	private int mCurrentPlayIndex = 0;
 
-	
-	
 	@Override
 	public void onCreate() {
 		mPlayQuene = new ArrayList<Music>();
 		initMediaPlay();
 
-		//注册来电广播接收器
+		// 注册来电广播接收器
 		IntentFilter mIntentFilter = new IntentFilter();
 		mIntentFilter.addAction("android.intent.action.PHONE_STATE");
-		registerReceiver(new PhoneStatRec(), mIntentFilter);
-		
+		registerReceiver(phoneReceiver, mIntentFilter);
+
+		// 注册通知广播接收器
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_PLAY);
+		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_EXIT);
+		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_NEXT);
+		registerReceiver(myReceiver, filter);
+
 		super.onCreate();
 	}
 
@@ -58,14 +64,11 @@ public class MusicPlayBackService extends Service {
 			public void onPrepared(MediaPlayer mp) {
 				mMediaPlayer.start();
 				mPlayState = PlayStats.STATE_PLAYING;
-				
-				//发送广播
+
+				// 发送广播
 				Intent intent = new Intent(ReceiverAction.ACTION_REFRESH);
 				sendBroadcast(intent);
-
-				NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-				MyNotification.showNotification(MusicPlayBackService.this, nm);
-				
+				sendNotification();// 发送通知
 			}
 		});
 
@@ -78,33 +81,11 @@ public class MusicPlayBackService extends Service {
 		});
 	}
 
-	public class PhoneStatRec extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			TelephonyManager mTelManager = (TelephonyManager) context
-					.getSystemService(Context.TELEPHONY_SERVICE);
-			boolean isringpause = false;
-			switch (mTelManager.getCallState()) {
-			case TelephonyManager.CALL_STATE_RINGING:// 响铃
-				// if (mPlayer != null && mPlayer.isPlaying()) {
-				// mPlayer.pause();
-				// isringpause = true;
-				// }
-				break;
-			case TelephonyManager.CALL_STATE_OFFHOOK:// 通话
-				// if (mPlayer != null && mPlayer.isPlaying()) {
-				// mPlayer.pause();
-				// isringpause = true;
-				// }
-				break;
-			case TelephonyManager.CALL_STATE_IDLE:// 通话结束
-				// if (mPlayer != null && isringpause == true) {
-				// mPlayer.start();
-				// isringpause = false;
-				// }
-				break;
-			}
-		}
+	// 发送通知
+	private void sendNotification() {
+		NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		MyNotification.showNotification(MusicPlayBackService.this,
+				getCurrentMusic(), nm, mPlayState);
 	}
 
 	public void play() {
@@ -115,6 +96,7 @@ public class MusicPlayBackService extends Service {
 			// 发送广播
 			Intent intent = new Intent(ReceiverAction.ACTION_PLAY);
 			sendBroadcast(intent);
+			sendNotification();// 发送通知
 		} else if (mPlayState == PlayStats.STATE_STOP) {
 			playAtIndex(mCurrentPlayIndex);
 		}
@@ -128,6 +110,7 @@ public class MusicPlayBackService extends Service {
 			// 发送广播
 			Intent intent = new Intent(ReceiverAction.ACTION_PAUSE);
 			sendBroadcast(intent);
+			sendNotification();// 发送通知
 		}
 	}
 
@@ -139,7 +122,7 @@ public class MusicPlayBackService extends Service {
 		}
 	}
 
-	public void next() {
+	public void next() {// 播放下一曲
 		if (mPlayQuene.size() > 0) {
 			stop();
 			if ((mCurrentPlayIndex + 1) < mPlayQuene.size()) {
@@ -150,7 +133,7 @@ public class MusicPlayBackService extends Service {
 		}
 	}
 
-	public void previouse() {
+	public void previouse() {// 播放上一曲
 		if (mPlayQuene.size() > 0) {
 			stop();
 			if ((mCurrentPlayIndex - 1) >= 0) {
@@ -161,7 +144,7 @@ public class MusicPlayBackService extends Service {
 		}
 	}
 
-	public void playAtIndex(int index) {
+	public void playAtIndex(int index) {// 播放指定位置的歌曲
 		Music music = mPlayQuene.get(index);
 		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 		try {
@@ -173,30 +156,38 @@ public class MusicPlayBackService extends Service {
 		}
 	}
 
-	public void addToPlayQuene(List<Music> musicList) {
+	public void addToPlayQuene(List<Music> musicList) {// 添加所有歌曲到队列
 		for (Music music : musicList) {
 			mPlayQuene.add(music);
 		}
 	}
 
-	public int addToPlayQuene(Music music) {
+	public int addToPlayQuene(Music music) {// 添加单首歌曲到队列
 		if (getCurrentMusicIndex(music) == -1) {
 			mPlayQuene.add(music);
 		}
 		return getCurrentMusicIndex(music);
 	}
 
-	public int getCurrentPlayState() {
+	public int getCurrentPlayState() {// 返回当前播放状态
 		return mPlayState;
 	}
 
-	public Music getCurrentMusic() {
+	public Music getCurrentMusic() {// 返回当前播放歌曲
 		return mPlayQuene.get(mCurrentPlayIndex);
 	}
 
-	public int getCurrentMusicIndex(Music music) {
+	public int getCurrentMusicIndex(Music music) {// 获取歌曲在队列中的位置
 		int index = mPlayQuene.indexOf(music);
 		return index;
+	}
+
+	public void clearPlayQueue() {//清除播放队列中的歌曲
+		mPlayQuene.clear();
+	}
+
+	public int getMusicPlayPosition() {//获取当前播放音乐播放的位置
+		return mMediaPlayer.getCurrentPosition();
 	}
 
 	public void onDestroy() {
@@ -205,18 +196,77 @@ public class MusicPlayBackService extends Service {
 		}
 		mMediaPlayer.reset();
 		mMediaPlayer.release();// 销毁对象
+
+		unregisterReceiver(myReceiver);//注销广播接收器
+		unregisterReceiver(phoneReceiver);
 		super.onDestroy();
 	}
 
-	public void clearPlayQueue() {
-		mPlayQuene.clear();
-	}
+	// 接收广播
+	private BroadcastReceiver myReceiver = new BroadcastReceiver() {
 
-	public int getMusicPlayPosition() {
-		return mMediaPlayer.getCurrentPosition();
-	}
-	
-	
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					ReceiverAction.ACTION_NOTIFICATION_PLAY)) {
+				switch (mPlayState) {
+				case PlayStats.STATE_PLAYING:
+					pause();
+					break;
+				case PlayStats.STATE_PAUSE:
+					play();
+					break;
+				}
+			}
+
+			if (intent.getAction().equals(
+					ReceiverAction.ACTION_NOTIFICATION_NEXT)) {
+				next();
+			}
+
+			if (intent.getAction().equals(
+					ReceiverAction.ACTION_NOTIFICATION_EXIT)) {
+				NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+				nm.cancel(1);
+			}
+		}
+	};
+
+	// 接收电话广播
+	boolean isListeningNow = false;
+
+	private BroadcastReceiver phoneReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			TelephonyManager tm = (TelephonyManager) context
+					.getSystemService(Context.TELEPHONY_SERVICE);
+
+			switch (tm.getCallState()) {
+			case TelephonyManager.CALL_STATE_RINGING:// 响铃
+				if ((mPlayState == PlayStats.STATE_PLAYING)
+						&& (mMediaPlayer != null)) {
+					pause();
+					isListeningNow = true;
+				}
+				break;
+
+			case TelephonyManager.CALL_STATE_OFFHOOK:// 通话
+				if ((mPlayState == PlayStats.STATE_PLAYING)
+						&& (mMediaPlayer != null)) {
+					pause();
+					isListeningNow = true;
+				}
+				break;
+
+			case TelephonyManager.CALL_STATE_IDLE:// 通话结束
+				if ((mMediaPlayer != null) && isListeningNow) {
+					play();
+					isListeningNow = false;
+				}
+				break;
+			}
+		}
+	};
 
 	private class ServiceBinder extends Binder implements IPlayBackService {
 		@Override

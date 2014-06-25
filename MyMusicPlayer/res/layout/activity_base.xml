@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rel_base_layout"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:layout_alignParentBottom="true" >
+    android:layout_alignParentBottom="true"
+    android:descendantFocusability="blocksDescendants" >
 
     <ImageView
         android:id="@+id/iv_base_cover"
@@ -47,9 +47,9 @@
         android:id="@+id/iv_base_next"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-         android:layout_marginBottom="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/ic_next" />
 
@@ -57,9 +57,8 @@
         android:id="@+id/iv_base_pause"
         android:layout_width="50dp"
         android:layout_height="50dp"
-       android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="10dp"
-       
         android:layout_toLeftOf="@id/iv_base_next"
         android:src="@drawable/ic_play" />
 
@@ -67,8 +66,8 @@
         android:id="@+id/iv_base_previous"
         android:layout_width="40dp"
         android:layout_height="40dp"
-         android:layout_alignParentBottom="true"
-          android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="15dp"
         android:layout_toLeftOf="@id/iv_base_pause"
         android:src="@drawable/ic_previous" />

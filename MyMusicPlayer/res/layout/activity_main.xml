@@ -10,14 +10,12 @@
         android:layout_height="0dp"
         android:layout_weight="6" >
     </android.support.v4.view.ViewPager>
-
-    <fragment
-        android:id="@+id/fra_album_layout"
-        android:name="com.mymusicplay.ui.BaseActivity"
+    
+    <include
+        android:id="@+id/base_activity_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="1" >
-    </fragment>
+        android:layout_weight="1"
+        layout="@layout/activity_base" />
 
 </LinearLayout>

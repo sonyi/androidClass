@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants" >
+
+    <ImageView
+        android:id="@+id/iv_notification_cover"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_default_art" />
+
+    <TextView
+        android:id="@+id/tv_notification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/iv_notification_cover"
+        android:singleLine="true"
+        android:text="title"
+        android:width="120dp" />
+
+    <ImageView
+        android:id="@+id/iv_notification_exit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_exit" />
+
+    <ImageView
+        android:id="@+id/iv_notification_next"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/iv_notification_exit"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/iv_notification_exit"
+        android:src="@drawable/ic_next" />
+
+    <ImageView
+        android:id="@+id/iv_notification_pause"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/iv_notification_next"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/iv_notification_next"
+        android:src="@drawable/ic_pause" />
+
+</RelativeLayout>
