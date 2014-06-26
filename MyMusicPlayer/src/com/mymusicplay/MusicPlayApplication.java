@@ -37,4 +37,6 @@ public class MusicPlayApplication extends Application{
 			mplayService = (IPlayBackService) service;
 		}
 	};
+	
+	
 }

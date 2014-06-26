@@ -8,10 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
         android:src="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/tv_detail_title"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/iv_detail_back"
@@ -24,13 +26,14 @@
         android:layout_alignLeft="@id/tv_detail_title"
         android:layout_below="@id/tv_detail_title"
         android:text="singer" />
-    
-        <ImageView
+
+    <ImageView
         android:id="@+id/iv_detail_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+       
         android:src="@drawable/ic_list" />
 
 </RelativeLayout>

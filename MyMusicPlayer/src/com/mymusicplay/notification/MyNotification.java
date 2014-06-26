@@ -18,6 +18,7 @@ import com.mymusicplay.model.Music;
 import com.mymusicplay.receiver.ReceiverAction;
 import com.mymusicplay.server.PlayStats;
 import com.mymusicplay.ui.MainActivity;
+import com.mymusicplay.util.Const;
 
 public class MyNotification {
 	static RemoteViews remoteViews;
@@ -35,7 +36,7 @@ public class MyNotification {
 			notification.contentIntent = pi;
 			notification.contentView = getNotifiRemoteViews(context,music,playStats);
 
-			manager.notify(1, notification);
+			manager.notify(Const.NOTIFICATION_ID, notification);
 		}
 	}
 

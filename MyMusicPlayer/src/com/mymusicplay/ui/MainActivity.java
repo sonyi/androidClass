@@ -1,5 +1,6 @@
 package com.mymusicplay.ui;
 
+import android.app.NotificationManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,8 +11,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.mymusicplay.R;
+import com.mymusicplay.util.Const;
 
 public class MainActivity extends BaseActivity {
 	private String[] mMusicCatagory = new String[] { "我的音乐", "专辑", "最常听" };
@@ -127,7 +131,26 @@ public class MainActivity extends BaseActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		case R.id.action_exit:
+			//关闭通知栏
+			NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+			nm.cancel(Const.NOTIFICATION_ID);
+			System.exit(0);//退出系统
+			break;
+		case R.id.action_settings:
+
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+
 	}
 
 	@Override

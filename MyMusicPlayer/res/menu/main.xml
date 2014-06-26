@@ -1,5 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <item android:id="@+id/action_exit"
+        android:orderInCategory="99"
+        android:showAsAction="never"
+        android:icon="@drawable/ic_exit"
+        android:title="@string/action_exit"/>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

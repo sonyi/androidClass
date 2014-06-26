@@ -2,6 +2,8 @@ package com.mymusicplay.server;
 
 import java.util.List;
 
+import android.media.MediaPlayer;
+
 import com.mymusicplay.model.Music;
 
 public interface IPlayBackService {
@@ -75,5 +77,11 @@ public interface IPlayBackService {
 	 * 获取当前播放音乐的位置
 	 */
 	public int getMusicPlayPosition();
+	
+	/**
+	 * 获取当前的MediaPlayer
+	 * @return
+	 */
+	public MediaPlayer getMediaPlayer();
 	
 }
