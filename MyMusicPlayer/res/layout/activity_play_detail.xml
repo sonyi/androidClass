@@ -2,52 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:orientation="vertical" >
+    
+    <include android:id="@+id/detail_activity_top"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="1"
+       layout="@layout/activity_play_detail_top"/>
+    
 
     <TextView
         android:layout_width="match_parent"
         android:layout_weight="8"
-        android:height="0dp" />
+       android:layout_height="0dp" />
 
-    <RelativeLayout
-        android:id="@+id/rel_detail_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2" >
-
-        <ImageView
-            android:id="@+id/iv_detail_playoder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_paly_cycle" />
-        
-          <ImageView
-            android:id="@+id/iv_detail_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_play" />
-          
-          
-         <ImageView
-            android:id="@+id/iv_detail_previous"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/iv_detail_play"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/ic_previous" />
-          
-             <ImageView
-            android:id="@+id/iv_detail_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_detail_play"
-             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_next" />
-        
-    </RelativeLayout>
+   <include android:id="@+id/detail_activity_bottom"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="1"
+       layout="@layout/activity_play_detail_bottom"/>
 
 </LinearLayout>

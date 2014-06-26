@@ -71,5 +71,7 @@
         android:layout_marginRight="15dp"
         android:layout_toLeftOf="@id/iv_base_pause"
         android:src="@drawable/ic_previous" />
+    
+   
 
 </RelativeLayout>
