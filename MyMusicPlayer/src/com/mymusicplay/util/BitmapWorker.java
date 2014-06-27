@@ -47,10 +47,12 @@ public class BitmapWorker {
 		}
 	}
 	
-	public void fetch(long albumID, ImageView imageView){
-		String path = new AlbumDataAccess(mContext).getAlbumArtByAlbumId(albumID);
-		fetch(path, imageView);
-	}
+//	public void fetch(long albumID, ImageView imageView){
+//		String path = new AlbumDataAccess(mContext).getAlbumArtByAlbumId(albumID);
+//		//if(path != null){
+//			fetch(path, imageView);
+//		//}
+//	}
 
 	private boolean cancelPotentialWork(String path, ImageView imageView) {
 		BitmapWorkerTask worker = getWorkerTask(imageView);

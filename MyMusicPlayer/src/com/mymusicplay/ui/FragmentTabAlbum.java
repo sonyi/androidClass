@@ -33,23 +33,19 @@ public class FragmentTabAlbum extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.tab_fragment_album, null);
 		mAlbumGridView = (GridView) view.findViewById(R.id.gv_fragment_song);
-		
 		mAlbumList = new AlbumDataAccess(getActivity()).getAllAlbumList();
-		
 		mAlbumGridView.setAdapter(myAlbumAdapter);
 		
 		return view;
 	}
 	
 	ListAdapter myAlbumAdapter = new BaseAdapter() {
-		@SuppressWarnings({ "unused", "null" })
+		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			View view = null;
+			View view = convertView;
 			ViewHolder vh = null;
 			if (view == null) {
 				view = getLayoutInflater(null).inflate(
@@ -80,19 +76,16 @@ public class FragmentTabAlbum extends Fragment{
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return mAlbumList.get(position).getId();
 		}
 
 		@Override
 		public Object getItem(int position) {
-			// TODO Auto-generated method stub
 			return mAlbumList.get(position);
 		}
 
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return mAlbumList.size();
 		}
 

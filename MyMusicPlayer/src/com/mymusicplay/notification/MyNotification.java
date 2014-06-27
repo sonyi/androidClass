@@ -3,10 +3,8 @@ package com.mymusicplay.notification;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -25,7 +23,6 @@ public class MyNotification {
 	public static void showNotification(Context context, Music music, NotificationManager manager,int playStats) {
 		if(music != null){
 			Intent intent = new Intent(context, MainActivity.class);
-			intent.putExtra("notification", true);
 			intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
 
 			PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
@@ -72,16 +69,15 @@ public class MyNotification {
 		Intent intentPause = new Intent(ReceiverAction.ACTION_NOTIFICATION_PLAY);
 		PendingIntent piPause = PendingIntent.getBroadcast(context, 0, intentPause, 0);
 		remoteViews.setOnClickPendingIntent(R.id.iv_notification_pause, piPause);
-		
-//		Intent intentView = new Intent(ReceiverAction.ACTION_NOTIFICATION_VIEW);
-//		PendingIntent piView = PendingIntent.getBroadcast(context, 0, intentView, 0);
-//		remoteViews.setOnClickPendingIntent(R.id.rel_notification_layout, piView);
-		
+			
 		return remoteViews;
 	}
 	
 	private static Bitmap getBitmapByAlbumID(Context context, long albumID){
 		String path = new AlbumDataAccess(context).getAlbumArtByAlbumId(albumID);
+		if(path == null){
+			return null;
+		}
 		Options opts = new Options();
 		opts.inSampleSize = 2;
 		return BitmapFactory.decodeFile(path, opts);

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.mymusicplay.PlayBackServiceManager;
 import com.mymusicplay.R;
+import com.mymusicplay.data.AlbumDataAccess;
 import com.mymusicplay.model.Music;
 import com.mymusicplay.receiver.ReceiverAction;
 import com.mymusicplay.server.IPlayBackService;
@@ -107,6 +108,9 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
 			case PlayStats.STATE_PLAYING:
 				myService.pause();
 				break;
+			case PlayStats.STATE_STOP:
+				Toast.makeText(BaseActivity.this, "先选一下要播放的歌曲啦", Toast.LENGTH_SHORT).show();
+				break;	
 			}
 		}
 
@@ -148,16 +152,19 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
 				mPause.setImageResource(R.drawable.ic_play);
 			}
 		}
-
-		
-		
 	};
 	
 
 	 
 	private void refreshBaseActivity(IPlayBackService myService,Music music){
-		new BitmapWorker(BaseActivity.this).fetch(music.getAlbumId(),
-				mMusicCover);// 设置封面
+		String path = new AlbumDataAccess(this).getAlbumArtByAlbumId(music.getAlbumId());
+		if(path != null){
+			new BitmapWorker(BaseActivity.this).fetch(path,mMusicCover);// 设置封面
+		}else {
+			mMusicCover.setImageResource(R.drawable.ic_default_art);
+		}
+		
+		
 		mMusicTitle.setText(music.getTitle());
 		mMusicSinger.setText(music.getArtist());
 		mSeekBar.setMax((int) music.getDuration());// 设置进度条最大值为音乐播放时间

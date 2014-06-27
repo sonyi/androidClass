@@ -12,7 +12,6 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.mymusicplay.R;
 import com.mymusicplay.util.Const;
@@ -62,7 +61,6 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		public Fragment getItem(int arg0) {
-			// TODO Auto-generated method stub
 			Fragment frgmt = null;
 			switch (arg0) {
 			case 0:
@@ -76,8 +74,6 @@ public class MainActivity extends BaseActivity {
 				break;
 			}
 
-			// Bundle data = new Bundle();
-			// frgmt.setArguments(data);
 			FragmentTransaction ft = getSupportFragmentManager()
 					.beginTransaction();
 			ft.commit();
@@ -86,7 +82,6 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return mMusicCatagory.length;
 		}
 	}
@@ -137,7 +132,6 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.action_exit:
 			//¹Ø±ÕÍ¨ÖªÀ¸
@@ -155,7 +149,6 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
 

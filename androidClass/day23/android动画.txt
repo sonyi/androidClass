@@ -1,0 +1,14 @@
+1.Drawable 帧动画
+
+2.Tween 动画
+  
+  a.rotate 旋转
+
+  b.transition 移动
+
+  c.scale 缩放，拉伸
+
+  d.alpha 透明度变化，淡入淡出
+  
+ 3.Activity加载动画
+	a.在新打开的Activity的onCreated里调用over

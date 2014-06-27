@@ -37,6 +37,11 @@ public class MySensorEventListener implements SensorEventListener {
 			Message msg = new Message();
 			msg.what = SENSOR_SHAKE;
 			handler.sendMessage(msg);
+			try {
+				Thread.sleep(800);//防止一次跳几首
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
