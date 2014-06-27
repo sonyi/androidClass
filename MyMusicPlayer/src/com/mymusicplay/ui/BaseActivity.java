@@ -29,10 +29,12 @@ import com.mymusicplay.server.PlayStats;
 import com.mymusicplay.util.BitmapWorker;
 
 public abstract class BaseActivity extends ActionBarActivity implements OnClickListener {
-	ImageView mPause, mNext, mPrevious, mMusicCover;
-	TextView mMusicTitle, mMusicSinger;
-	SeekBar mSeekBar;
-	View view;
+	private ImageView mPause, mNext, mPrevious, mMusicCover;
+	private TextView mMusicTitle, mMusicSinger;
+	private SeekBar mSeekBar;
+	private View view;
+
+	
 	public static boolean playflag = false;
 
 	@Override
@@ -40,6 +42,24 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
 		super.onCreate(savedInstanceState);
 		initialWidgets();
 		intiBaseActivity();
+		
+		
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		IPlayBackService myService = PlayBackServiceManager
+				.getPlayBackService(BaseActivity.this);
+		Music music = null;
+		if(myService != null){
+			music = myService.getCurrentMusic();
+		}
+		
+		if(music != null && myService != null){
+			refreshBaseActivity(myService,music);
+		}
+
 	}
 
 	//定义抽象方法，子类必须调用并第一句要是setContentView，加载布局文件
@@ -101,26 +121,21 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
 		}
 		
 	}
-
+	
+	
+	
 	// 接收广播
 	private BroadcastReceiver myReceiver = new BroadcastReceiver() {
-		IPlayBackService myService;
+		
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			// 歌曲页面刷新
 			if (intent.getAction().equals(ReceiverAction.ACTION_REFRESH)) {
-				myService = PlayBackServiceManager
+				IPlayBackService myService = PlayBackServiceManager
 						.getPlayBackService(BaseActivity.this);
 				Music music = myService.getCurrentMusic();
-				new BitmapWorker(BaseActivity.this).fetch(music.getAlbumId(),
-						mMusicCover);// 设置封面
-				mMusicTitle.setText(music.getTitle());
-				mMusicSinger.setText(music.getArtist());
-				mSeekBar.setMax((int) music.getDuration());// 设置进度条最大值为音乐播放时间
-				// Log.i("time", music.getDuration() + "");
-				mPause.setImageResource(R.drawable.ic_pause);
-				setProgress();
+				refreshBaseActivity(myService,music);
 			}
 
 			// 歌曲播放
@@ -134,17 +149,39 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
 			}
 		}
 
-		public void setProgress() {
-			TimerTask task = new TimerTask() {
-				@Override
-				public void run() {
-					mSeekBar.setProgress(myService.getMusicPlayPosition());
-				}
-			};
-			Timer timer = new Timer();
-			timer.schedule(task, 1, 1);
-		}
+		
+		
 	};
+	
+
+	 
+	private void refreshBaseActivity(IPlayBackService myService,Music music){
+		new BitmapWorker(BaseActivity.this).fetch(music.getAlbumId(),
+				mMusicCover);// 设置封面
+		mMusicTitle.setText(music.getTitle());
+		mMusicSinger.setText(music.getArtist());
+		mSeekBar.setMax((int) music.getDuration());// 设置进度条最大值为音乐播放时间
+		// Log.i("time", music.getDuration() + "");
+		
+		if(myService.getCurrentPlayState() == PlayStats.STATE_PAUSE){
+			mPause.setImageResource(R.drawable.ic_play);
+		}else if(myService.getCurrentPlayState() == PlayStats.STATE_PLAYING){
+			mPause.setImageResource(R.drawable.ic_pause);
+		}
+		
+		
+		
+		final IPlayBackService service = myService;
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run() {
+				mSeekBar.setProgress(service.getMusicPlayPosition());
+			}
+		};
+		
+		Timer timer = new Timer();
+		timer.schedule(task, 1, 1);
+	}
 	
 	private OnSeekBarChangeListener mySeekBarChangeListener = new OnSeekBarChangeListener() {
 

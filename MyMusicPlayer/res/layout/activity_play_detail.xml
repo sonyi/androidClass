@@ -2,8 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
     android:orientation="vertical" >
     
     <include android:id="@+id/detail_activity_top"
@@ -23,7 +21,7 @@
    <include android:id="@+id/detail_activity_bottom"
        android:layout_width="match_parent"
        android:layout_height="0dp"
-       android:layout_weight="1.5"
+       android:layout_weight="1.2"
        layout="@layout/activity_play_detail_bottom"/>
 
 </LinearLayout>

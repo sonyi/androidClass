@@ -152,24 +152,32 @@ public class MusicPlayBackService extends Service {
 	}
 
 	public void next() {// 播放下一曲
-		if (mPlayQuene.size() > 0) {
+		if (mPlayQuene.size() > 1) {
 			stop();
 			if ((mCurrentPlayIndex + 1) < mPlayQuene.size()) {
 				playAtIndex(mCurrentPlayIndex + 1);
 			} else {
 				playAtIndex(0);
 			}
+		}else if(mPlayQuene.size() == 1){
+			Toast.makeText(this, "队列中只有一首歌曲，实在太少了", Toast.LENGTH_SHORT).show();
+		}else if(mPlayQuene.size() == 0){
+			Toast.makeText(this, "队列中没有歌曲，赶紧添加吧", Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	public void previouse() {// 播放上一曲
-		if (mPlayQuene.size() > 0) {
+		if (mPlayQuene.size() > 1) {
 			stop();
 			if ((mCurrentPlayIndex - 1) >= 0) {
 				playAtIndex(mCurrentPlayIndex - 1);
 			} else {
 				playAtIndex(mPlayQuene.size() - 1);
 			}
+		}else if(mPlayQuene.size() == 1){
+			Toast.makeText(this, "队列中只有一首歌曲，实在太少了", Toast.LENGTH_SHORT).show();
+		}else if(mPlayQuene.size() == 0){
+			Toast.makeText(this, "队列中没有歌曲，赶紧添加吧", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -203,7 +211,10 @@ public class MusicPlayBackService extends Service {
 	}
 
 	public Music getCurrentMusic() {// 返回当前播放歌曲
-		return mPlayQuene.get(mCurrentPlayIndex);
+		if(mPlayQuene != null && mPlayQuene.size() != 0){
+			return mPlayQuene.get(mCurrentPlayIndex);
+		}
+		return null;
 	}
 
 	public int getCurrentMusicIndex(Music music) {// 获取歌曲在队列中的位置

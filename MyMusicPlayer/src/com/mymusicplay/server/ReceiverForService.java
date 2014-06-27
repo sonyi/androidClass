@@ -49,8 +49,14 @@ public class ReceiverForService {
 				nm.cancel(Const.NOTIFICATION_ID);
 			}
 			
+//			if (intent.getAction().equals(
+//					ReceiverAction.ACTION_NOTIFICATION_VIEW)) {
+//				Toast.makeText(context, "erji", Toast.LENGTH_SHORT).show();
+//			}
+			
+			
 			if(intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)){
-				Toast.makeText(context, "erji", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(context, "erji", Toast.LENGTH_SHORT).show();
 //				intent.getExtras()
 			}
 		}

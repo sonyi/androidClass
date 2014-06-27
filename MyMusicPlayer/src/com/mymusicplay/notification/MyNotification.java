@@ -25,6 +25,7 @@ public class MyNotification {
 	public static void showNotification(Context context, Music music, NotificationManager manager,int playStats) {
 		if(music != null){
 			Intent intent = new Intent(context, MainActivity.class);
+			intent.putExtra("notification", true);
 			intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
 
 			PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
@@ -71,6 +72,10 @@ public class MyNotification {
 		Intent intentPause = new Intent(ReceiverAction.ACTION_NOTIFICATION_PLAY);
 		PendingIntent piPause = PendingIntent.getBroadcast(context, 0, intentPause, 0);
 		remoteViews.setOnClickPendingIntent(R.id.iv_notification_pause, piPause);
+		
+//		Intent intentView = new Intent(ReceiverAction.ACTION_NOTIFICATION_VIEW);
+//		PendingIntent piView = PendingIntent.getBroadcast(context, 0, intentView, 0);
+//		remoteViews.setOnClickPendingIntent(R.id.rel_notification_layout, piView);
 		
 		return remoteViews;
 	}

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rel_notification_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants" >
@@ -18,12 +19,12 @@
         android:layout_toRightOf="@id/iv_notification_cover"
         android:singleLine="true"
         android:text="title"
-        android:width="120dp" />
+        android:width="100dp" />
 
     <ImageView
         android:id="@+id/iv_notification_exit"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
@@ -31,19 +32,17 @@
 
     <ImageView
         android:id="@+id/iv_notification_next"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignTop="@id/iv_notification_exit"
-        android:layout_marginRight="10dp"
         android:layout_toLeftOf="@id/iv_notification_exit"
         android:src="@drawable/ic_next" />
 
     <ImageView
         android:id="@+id/iv_notification_pause"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignTop="@id/iv_notification_next"
-        android:layout_marginRight="10dp"
         android:layout_toLeftOf="@id/iv_notification_next"
         android:src="@drawable/ic_pause" />
 

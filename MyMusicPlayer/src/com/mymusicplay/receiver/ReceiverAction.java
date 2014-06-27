@@ -17,4 +17,6 @@ public class ReceiverAction {
 	
 	public static final String ACTION_NOTIFICATION_NEXT = "com.mymusicplay.NOTIFICATION_NEXT";
 	
+	public static final String ACTION_NOTIFICATION_VIEW = "com.mymusicplay.NOTIFICATION_VIEW";
+	
 }

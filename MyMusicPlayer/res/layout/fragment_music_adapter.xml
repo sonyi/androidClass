@@ -11,7 +11,7 @@
         android:layout_centerVertical="true"
         android:scaleType="fitCenter"
         android:padding="5dp"
-        android:src="@drawable/ic_default_art" />
+        android:src="@drawable/ic_music" />
 
     <TextView
         android:id="@+id/tv_fragment_music_title"

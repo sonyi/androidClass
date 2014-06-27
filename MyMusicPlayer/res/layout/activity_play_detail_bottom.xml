@@ -2,30 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-     <SeekBar
-        android:id="@+id/seekbar_detail_progress"
-        style="?android:attr/progressBarStyleHorizontal"
+
+    <RelativeLayout
+        android:id="@+id/rel_detail_bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="3dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
-        
-        android:thumb="@drawable/ic_seekbar_draw" />
+        android:layout_marginRight="10dp" >
+
+        <TextView
+            android:id="@+id/tv_detail_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="00:00" />
+
+        <TextView
+            android:id="@+id/tv_detail_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="00:00" />
+
+        <SeekBar
+            android:id="@+id/seekbar_detail_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="6dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_toLeftOf="@id/tv_detail_duration"
+            android:layout_toRightOf="@id/tv_detail_start"
+            android:thumb="@null" />
+    </RelativeLayout>
 
     <ImageView
-        android:id="@+id/iv_detail_playoder"
+        android:id="@+id/iv_detail_playorder"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
         android:src="@drawable/ic_paly_cycle" />
 
     <ImageView
-        android:id="@+id/iv_detail_play"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/iv_detail_pause"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_centerInParent="true"
         android:src="@drawable/ic_play" />
 
@@ -35,7 +61,7 @@
         android:layout_height="50dp"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@id/iv_detail_play"
+        android:layout_toLeftOf="@id/iv_detail_pause"
         android:src="@drawable/ic_previous" />
 
     <ImageView
@@ -44,16 +70,16 @@
         android:layout_height="50dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/iv_detail_play"
+        android:layout_toRightOf="@id/iv_detail_pause"
         android:src="@drawable/ic_next" />
-    
-     <ImageView android:id="@+id/iv_detail_sound"
-         android:layout_width="50dp"
-         android:layout_height="50dp"
-         
-         android:layout_centerVertical="true"
-         android:layout_alignParentRight="true"
-         android:src="@drawable/ic_sound"
-         />
+
+    <ImageView
+        android:id="@+id/iv_detail_voice"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ic_sound" />
 
 </RelativeLayout>

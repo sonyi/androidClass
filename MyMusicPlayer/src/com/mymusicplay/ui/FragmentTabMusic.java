@@ -67,8 +67,8 @@ public class FragmentTabMusic extends Fragment {
 			
 			Music music = mMusic.get(position);
 			
-			String path = new AlbumDataAccess(getActivity()).getAlbumArtByAlbumId(music.getAlbumId());
-			new BitmapWorker(getActivity()).fetch(path, vh.img);
+//			String path = new AlbumDataAccess(getActivity()).getAlbumArtByAlbumId(music.getAlbumId());
+//			new BitmapWorker(getActivity()).fetch(path, vh.img);
 			
 			vh.title.setText(music.getTitle());
 			vh.singer.setText(music.getArtist());
