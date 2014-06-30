@@ -188,7 +188,7 @@ public class MusicPlayBackService extends Service {
 				do {
 					nextIndex = (int) (Math.random() * getCurrentMusicList().size());
 				} while ((getCurrentMusicList().size() > 1)
-						&& (nextIndex == getMusicPlayPosition()));
+						&& (nextIndex == getCurrentMusicIndex(getCurrentMusic())));
 				break;
 			}
 		} else {
@@ -200,7 +200,7 @@ public class MusicPlayBackService extends Service {
 	private int playNextOrPrevious(int currentIndex, int nextOrPrevious) {
 		int nextIndex = -1;
 		if (nextOrPrevious == PlayStaticConst.PLAY_NEXT) {// ²¥·ÅÏÂÒ»Çú
-			if ((currentIndex + 1) < mPlayQuene.size()) {
+			if ((currentIndex + 1) < getCurrentMusicList().size()) {
 				nextIndex = currentIndex + 1;
 			} else {
 				nextIndex = 0;

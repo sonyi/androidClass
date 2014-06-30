@@ -1,0 +1,31 @@
+1.Http协议
+  a.无状态性
+  b.往返过程----请求响应
+  c.在往返过程意外的情况下，都是断开连接的
+
+2.常见的http服务器程序 (web容器)
+  a.apache (PHP,CGI...)
+
+  b.apache tomcat,web logic, jetty....(JavaEE)
+    (1).servlet
+    (2).jsp
+
+  c.asp.net (微软.net)
+
+    ....
+
+3.http请求
+  a.请求方式（Method）：GET,POST,PUT,DELETE...
+   
+  b.GET请求 
+    不包含请求实体，传递参数通过url + ？ + 参数url编码字符串 
+    urlencoded: http://server_address/app/sub/func?参数名1=参数值1&参数名2=参数值2...
+
+  c.POST请求
+    参数以urlencoded（url编码）格式写到请求正文（请求实体）当中
+  
+
+
+
+
+
