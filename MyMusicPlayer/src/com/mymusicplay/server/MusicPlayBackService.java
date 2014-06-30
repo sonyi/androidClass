@@ -1,7 +1,9 @@
 package com.mymusicplay.server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -21,6 +23,7 @@ import android.os.IBinder;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.mymusicplay.model.Music;
@@ -31,12 +34,14 @@ import com.mymusicplay.util.Const;
 public class MusicPlayBackService extends Service {
 	private MediaPlayer mMediaPlayer;
 	private List<Music> mPlayQuene;
-	private int mPlayState = PlayStats.STATE_STOP;
+	private int mPlayState = PlayStaticConst.STATE_STOP;
 	private int mCurrentPlayIndex = 0;
-	SensorManager mSensorManager;
-	MySensorEventListener mSensorEventListener;
-	NotificationManager nm;
-	ReceiverForService mReceiverForService;
+	private SensorManager mSensorManager;
+	private MySensorEventListener mSensorEventListener;
+	private NotificationManager nm;
+	private ReceiverForService mReceiverForService;
+	private int mPlayOrder = PlayStaticConst.STATE_LOOP;
+	private int mWhatPlayNext = PlayStaticConst.PLAY_AUTO_NEXT;
 
 	@Override
 	public void onCreate() {
@@ -61,10 +66,10 @@ public class MusicPlayBackService extends Service {
 
 		// 注册通知广播接收器
 		IntentFilter filter = new IntentFilter();
-		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_PLAY);//通知栏
+		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_PLAY);// 通知栏
 		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_EXIT);
 		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_NEXT);
-		filter.addAction(Intent.ACTION_HEADSET_PLUG);//耳机插拔
+		filter.addAction(Intent.ACTION_HEADSET_PLUG);// 耳机插拔
 		registerReceiver(mReceiverForService.myReceiver, filter);
 
 		// 注册重力感应监听器(摇一摇时切到下一首)
@@ -74,12 +79,11 @@ public class MusicPlayBackService extends Service {
 		mSensorManager.registerListener(mSensorEventListener,
 				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 				SensorManager.SENSOR_DELAY_NORMAL);
-		
-		 
 
 	}
 
 	private void initMediaPlay() {
+
 		mMediaPlayer = new MediaPlayer();
 
 		// 设置MediaPlay播放准备完成事件监听
@@ -87,7 +91,8 @@ public class MusicPlayBackService extends Service {
 			@Override
 			public void onPrepared(MediaPlayer mp) {
 				mMediaPlayer.start();
-				mPlayState = PlayStats.STATE_PLAYING;
+				mPlayState = PlayStaticConst.STATE_PLAYING;
+				mWhatPlayNext = PlayStaticConst.PLAY_AUTO_NEXT;
 
 				// 发送广播
 				Intent intent = new Intent(ReceiverAction.ACTION_REFRESH);
@@ -98,9 +103,12 @@ public class MusicPlayBackService extends Service {
 
 		// 当某一首歌曲播放完的事件监听
 		mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+
 			@Override
 			public void onCompletion(MediaPlayer mp) {
-				next();
+				if (mWhatPlayNext == PlayStaticConst.PLAY_AUTO_NEXT) {
+					next();
+				}
 			}
 		});
 	}
@@ -114,27 +122,21 @@ public class MusicPlayBackService extends Service {
 	}
 
 	public void play() {
-		if (mPlayQuene.size() > 0) {
-			if (mPlayState == PlayStats.STATE_PAUSE) {
-				mMediaPlayer.start();
-				mPlayState = PlayStats.STATE_PLAYING;
+		if (mPlayState == PlayStaticConst.STATE_PAUSE) {
+			mMediaPlayer.start();
+			mPlayState = PlayStaticConst.STATE_PLAYING;
 
-				// 发送广播
-				Intent intent = new Intent(ReceiverAction.ACTION_PLAY);
-				sendBroadcast(intent);
-				sendNotification();// 发送通知
-			} else if (mPlayState == PlayStats.STATE_STOP) {
-				playAtIndex(mCurrentPlayIndex);
-			}
-		} else {
-			Toast.makeText(this, "队列中木有歌曲，要先添哦", Toast.LENGTH_SHORT).show();
+			// 发送广播
+			Intent intent = new Intent(ReceiverAction.ACTION_PLAY);
+			sendBroadcast(intent);
+			sendNotification();// 发送通知
 		}
 	}
 
 	public void pause() {
-		if (mPlayState == PlayStats.STATE_PLAYING) {
+		if (mPlayState == PlayStaticConst.STATE_PLAYING) {
 			mMediaPlayer.pause();
-			mPlayState = PlayStats.STATE_PAUSE;
+			mPlayState = PlayStaticConst.STATE_PAUSE;
 
 			// 发送广播
 			Intent intent = new Intent(ReceiverAction.ACTION_PAUSE);
@@ -144,58 +146,99 @@ public class MusicPlayBackService extends Service {
 	}
 
 	public void stop() {
-		if (mPlayState != PlayStats.STATE_STOP) {
-			mMediaPlayer.stop();
-			mMediaPlayer.reset();// 把当前的播放信息清除掉(音频信息)
-			mPlayState = PlayStats.STATE_STOP;
+		if (mPlayState != PlayStaticConst.STATE_STOP) {
+			mPlayState = PlayStaticConst.STATE_STOP;
 		}
 	}
 
 	public void next() {// 播放下一曲
-		if (mPlayQuene.size() > 1) {
-			stop();
-			if ((mCurrentPlayIndex + 1) < mPlayQuene.size()) {
-				playAtIndex(mCurrentPlayIndex + 1);
-			} else {
-				playAtIndex(0);
-			}
-		}else if(mPlayQuene.size() == 1){
-			Toast.makeText(this, "队列中只有一首歌曲，实在太少了", Toast.LENGTH_SHORT).show();
-		}else if(mPlayQuene.size() == 0){
-			Toast.makeText(this, "队列中没有歌曲，赶紧添加吧", Toast.LENGTH_SHORT).show();
-		}
+		int nextIndex = getNextPlayIndex(getCurrentMusicIndex(getCurrentMusic()),
+				PlayStaticConst.PLAY_NEXT, getCurrentPlayOrder());
+		playAtIndex(nextIndex);
+		
 	}
 
 	public void previouse() {// 播放上一曲
-		if (mPlayQuene.size() > 1) {
-			stop();
-			if ((mCurrentPlayIndex - 1) >= 0) {
-				playAtIndex(mCurrentPlayIndex - 1);
-			} else {
-				playAtIndex(mPlayQuene.size() - 1);
-			}
-		}else if(mPlayQuene.size() == 1){
-			Toast.makeText(this, "队列中只有一首歌曲，实在太少了", Toast.LENGTH_SHORT).show();
-		}else if(mPlayQuene.size() == 0){
-			Toast.makeText(this, "队列中没有歌曲，赶紧添加吧", Toast.LENGTH_SHORT).show();
+		int nextIndex = getNextPlayIndex(getCurrentMusicIndex(getCurrentMusic()),
+				PlayStaticConst.PLAY_PREVIOUS, getCurrentPlayOrder());
+		playAtIndex(nextIndex);
+	}
+
+	public void playAtIndex(int nextIndex) {// 播放指定位置的歌曲
+		if(nextIndex >= 0){
+			mWhatPlayNext = PlayStaticConst.PLAY_BY_INDEX;
+			mMediaPlayer.stop();
+			playAtIndexByService(nextIndex);
 		}
 	}
 
-	public void playAtIndex(int index) {// 播放指定位置的歌曲
+	// 获取要播放的下一曲的index
+	private int getNextPlayIndex(int currentIndex, int nextOrPrevious,
+			int playOrder) {
+		int nextIndex = -1;
+		if (getCurrentMusicList().size() > 0) {
+			switch (playOrder) {
+			case PlayStaticConst.STATE_CYCLE:// 单曲循环
+				nextIndex = currentIndex;
+				break;
+			case PlayStaticConst.STATE_LOOP:// 列表循环
+				nextIndex = playNextOrPrevious(currentIndex, nextOrPrevious);
+				break;
+			case PlayStaticConst.STATE_RANDOM:// 随机播放
+				do {
+					nextIndex = (int) (Math.random() * getCurrentMusicList().size());
+				} while ((getCurrentMusicList().size() > 1)
+						&& (nextIndex == getMusicPlayPosition()));
+				break;
+			}
+		} else {
+			Toast.makeText(this, "队列中没有歌曲", Toast.LENGTH_SHORT).show();
+		}
+		return nextIndex;
+	}
+
+	private int playNextOrPrevious(int currentIndex, int nextOrPrevious) {
+		int nextIndex = -1;
+		if (nextOrPrevious == PlayStaticConst.PLAY_NEXT) {// 播放下一曲
+			if ((currentIndex + 1) < mPlayQuene.size()) {
+				nextIndex = currentIndex + 1;
+			} else {
+				nextIndex = 0;
+			}
+		} else if (nextOrPrevious == PlayStaticConst.PLAY_PREVIOUS) {// 播放上一曲
+			if ((currentIndex - 1) >= 0) {
+				nextIndex = currentIndex - 1;
+			} else {
+				nextIndex = getCurrentMusicList().size() - 1;
+			}
+		}
+		return nextIndex;
+	}
+
+	private void playAtIndexByService(int index) {
 		Music music = mPlayQuene.get(index);
+		mMediaPlayer.reset();
 		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+		mCurrentPlayIndex = index;
 		try {
 			mMediaPlayer.setDataSource(music.getData());
 			mMediaPlayer.prepareAsync();// 异步加载文件
-			mCurrentPlayIndex = index;
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (IllegalArgumentException e1) {
+			e1.printStackTrace();
+		} catch (SecurityException e1) {
+			e1.printStackTrace();
+		} catch (IllegalStateException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
+		
+		
 	}
 
 	public void addToPlayQuene(List<Music> musicList) {// 添加所有歌曲到队列
 		for (Music music : musicList) {
-			mPlayQuene.add(music);
+			addToPlayQuene(music);
 		}
 	}
 
@@ -211,7 +254,7 @@ public class MusicPlayBackService extends Service {
 	}
 
 	public Music getCurrentMusic() {// 返回当前播放歌曲
-		if(mPlayQuene != null && mPlayQuene.size() != 0){
+		if (mPlayQuene != null && mPlayQuene.size() != 0) {
 			return mPlayQuene.get(mCurrentPlayIndex);
 		}
 		return null;
@@ -227,11 +270,29 @@ public class MusicPlayBackService extends Service {
 	}
 
 	public int getMusicPlayPosition() {// 获取当前播放音乐播放的位置
+
 		return mMediaPlayer.getCurrentPosition();
+
 	}
 
 	public MediaPlayer getMediaPlayer() {
 		return mMediaPlayer;
+	}
+
+	public List<Music> getCurrentMusicList() {
+		return mPlayQuene;
+	}
+
+	public int getCurrentPlayOrder() {
+		return mPlayOrder;
+	}
+
+	public void setCurrentPlayOrder(int playOrder) {
+		mPlayOrder = playOrder;
+	}
+
+	public void setMusicPlaySeekTo(int toPosition) {
+		mMediaPlayer.seekTo(toPosition);
 	}
 
 	private class ServiceBinder extends Binder implements IPlayBackService {
@@ -306,10 +367,30 @@ public class MusicPlayBackService extends Service {
 			return MusicPlayBackService.this.getMediaPlayer();
 		}
 
+		@Override
+		public List<Music> getCurrentMusicList() {
+			return MusicPlayBackService.this.getCurrentMusicList();
+		}
+
+		@Override
+		public int getCurrentPlayOrder() {
+			return MusicPlayBackService.this.getCurrentPlayOrder();
+		}
+
+		@Override
+		public void setCurrentPlayOrder(int playOrder) {
+			MusicPlayBackService.this.setCurrentPlayOrder(playOrder);
+		}
+
+		@Override
+		public void setMusicPlaySeekTo(int toPosition) {
+			MusicPlayBackService.this.setMusicPlaySeekTo(toPosition);
+		}
+
 	}
 
 	public void onDestroy() {
-		if (mPlayState != PlayStats.STATE_STOP) {
+		if (mPlayState != PlayStaticConst.STATE_STOP) {
 			mMediaPlayer.stop();
 		}
 		mMediaPlayer.reset();

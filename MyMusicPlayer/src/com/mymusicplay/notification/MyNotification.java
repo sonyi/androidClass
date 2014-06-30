@@ -14,7 +14,7 @@ import com.mymusicplay.R;
 import com.mymusicplay.data.AlbumDataAccess;
 import com.mymusicplay.model.Music;
 import com.mymusicplay.receiver.ReceiverAction;
-import com.mymusicplay.server.PlayStats;
+import com.mymusicplay.server.PlayStaticConst;
 import com.mymusicplay.ui.MainActivity;
 import com.mymusicplay.util.Const;
 
@@ -51,9 +51,9 @@ public class MyNotification {
 			remoteViews.setImageViewResource(R.id.iv_notification_cover, R.drawable.ic_default_art);
 		}
 		
-		if(playStats == PlayStats.STATE_PLAYING){
+		if(playStats == PlayStaticConst.STATE_PLAYING){
 			remoteViews.setImageViewResource(R.id.iv_notification_pause, R.drawable.ic_pause);
-		}else if(playStats == PlayStats.STATE_PAUSE) {
+		}else if(playStats == PlayStaticConst.STATE_PAUSE) {
 			remoteViews.setImageViewResource(R.id.iv_notification_pause, R.drawable.ic_play);
 		}
 		

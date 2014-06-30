@@ -28,10 +28,10 @@ public class ReceiverForService {
 			if (intent.getAction().equals(
 					ReceiverAction.ACTION_NOTIFICATION_PLAY)) {
 				switch (mService.getCurrentPlayState()) {
-				case PlayStats.STATE_PLAYING:
+				case PlayStaticConst.STATE_PLAYING:
 					mService.pause();
 					break;
-				case PlayStats.STATE_PAUSE:
+				case PlayStaticConst.STATE_PAUSE:
 					mService.play();
 					break;
 				}
@@ -47,17 +47,6 @@ public class ReceiverForService {
 				NotificationManager nm = (NotificationManager) context
 						.getSystemService(context.NOTIFICATION_SERVICE);
 				nm.cancel(Const.NOTIFICATION_ID);
-			}
-			
-//			if (intent.getAction().equals(
-//					ReceiverAction.ACTION_NOTIFICATION_VIEW)) {
-//				Toast.makeText(context, "erji", Toast.LENGTH_SHORT).show();
-//			}
-			
-			
-			if(intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)){
-				//Toast.makeText(context, "erji", Toast.LENGTH_SHORT).show();
-//				intent.getExtras()
 			}
 		}
 	};
@@ -75,7 +64,7 @@ public class ReceiverForService {
 
 			switch (tm.getCallState()) {
 			case TelephonyManager.CALL_STATE_RINGING:// œÏ¡Â
-				if ((mService.getCurrentPlayState() == PlayStats.STATE_PLAYING)
+				if ((mService.getCurrentPlayState() == PlayStaticConst.STATE_PLAYING)
 						&& (mService.getMediaPlayer() != null)) {
 					mService.pause();
 					isListeningNow = true;
@@ -83,7 +72,7 @@ public class ReceiverForService {
 				break;
 
 			case TelephonyManager.CALL_STATE_OFFHOOK:// Õ®ª∞
-				if ((mService.getCurrentPlayState() == PlayStats.STATE_PLAYING)
+				if ((mService.getCurrentPlayState() == PlayStaticConst.STATE_PLAYING)
 						&& (mService.getMediaPlayer() != null)) {
 					mService.pause();
 					isListeningNow = true;

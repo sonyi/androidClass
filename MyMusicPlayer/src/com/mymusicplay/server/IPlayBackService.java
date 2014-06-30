@@ -84,4 +84,28 @@ public interface IPlayBackService {
 	 */
 	public MediaPlayer getMediaPlayer();
 	
+	/**
+	 * 获取当前播放队列
+	 * @return
+	 */
+	public List<Music> getCurrentMusicList();
+	
+	/**
+	 * 获取当前的播放顺序
+	 * @return
+	 */
+	public int getCurrentPlayOrder();
+	
+	/**
+	 * 设置当前播放顺序
+	 * @param playOrder
+	 */
+	public void setCurrentPlayOrder(int playOrder);
+	
+	/**
+	 * 当前音乐到指定位置播放
+	 * @param toPosition
+	 */
+	public void setMusicPlaySeekTo(int toPosition);
+	
 }

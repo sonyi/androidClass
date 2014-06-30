@@ -34,7 +34,7 @@
         android:id="@+id/iv_notification_next"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignTop="@id/iv_notification_exit"
+        android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/iv_notification_exit"
         android:src="@drawable/ic_next" />
 
@@ -42,7 +42,7 @@
         android:id="@+id/iv_notification_pause"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignTop="@id/iv_notification_next"
+       android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/iv_notification_next"
         android:src="@drawable/ic_pause" />
 

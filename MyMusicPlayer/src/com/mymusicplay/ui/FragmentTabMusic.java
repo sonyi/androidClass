@@ -99,8 +99,12 @@ public class FragmentTabMusic extends Fragment {
 		@Override
 		public void onClick(View v) {
 			myService = PlayBackServiceManager.getPlayBackService(getActivity());
+//			myService.addToPlayQueue(mMusic);
+//			int index = myService.getCurrentMusicIndex(music);
+			
 			int index = myService.addToPlayQuene(music);
-			myService.stop();
+			
+			//myService.stop();
 			myService.playAtIndex(index);
 			
 		}
