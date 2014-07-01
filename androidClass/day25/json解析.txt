@@ -1,0 +1,66 @@
+1.简单JSON对象
+  {"dep_id":1,"dep_name":"develop","num_of_emp":10}
+
+  {"emp_id":1,"emp_name":"Billy","age":25}
+
+2.嵌套对象的JSON对象
+  {
+   "dep_id":1,
+   "dep_name":"develop",
+   "num_of_emp":10,
+   "leader":{
+       "emp_id":7,
+       "emp_name":"Jack",
+       "age":32
+    }
+   }
+
+3.对象数组
+  [
+   {
+     "emp_id":1,
+     "emp_name":"Billy",
+     "age":25
+   },
+   {
+     "emp_id":2,
+     "emp_name":"Mary",
+     "age":23
+   },
+   {
+     "emp_id":3,
+     "emp_name":"Bob",
+     "age":25
+   }
+  ]   
+
+4.数组嵌套在对象中
+  {
+   "dep_id":1,
+   "dep_name":"develop",
+   "num_of_emp":10,
+   "leader":{
+       "emp_id":7,
+       "emp_name":"Jack",
+       "age":32
+    },
+
+    "emp_list": [
+     {
+       "emp_id":1,
+       "emp_name":"Billy",
+       "age":25
+     },
+     {
+       "emp_id":2,
+       "emp_name":"Mary",
+       "age":23
+     },
+     {
+       "emp_id":3,
+       "emp_name":"Bob",
+       "age":25
+     }
+    ]
+   }
+
