@@ -17,6 +17,7 @@ import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Binder;
 import android.os.IBinder;
@@ -90,7 +91,10 @@ public class MusicPlayBackService extends Service {
 		mMediaPlayer.setOnPreparedListener(new OnPreparedListener() {
 			@Override
 			public void onPrepared(MediaPlayer mp) {
-				mMediaPlayer.start();
+				if(!mMediaPlayer.isPlaying()){
+					mMediaPlayer.start();
+				}
+				
 				mPlayState = PlayStaticConst.STATE_PLAYING;
 				mWhatPlayNext = PlayStaticConst.PLAY_AUTO_NEXT;
 
@@ -167,7 +171,10 @@ public class MusicPlayBackService extends Service {
 	public void playAtIndex(int nextIndex) {// 播放指定位置的歌曲
 		if(nextIndex >= 0){
 			mWhatPlayNext = PlayStaticConst.PLAY_BY_INDEX;
-			mMediaPlayer.stop();
+			if(mMediaPlayer.isPlaying()){//条件判断，不然会出现illegalstateexception
+				mMediaPlayer.stop();
+			}
+			
 			playAtIndexByService(nextIndex);
 		}
 	}
@@ -234,6 +241,7 @@ public class MusicPlayBackService extends Service {
 		}
 		
 		
+
 	}
 
 	public void addToPlayQuene(List<Music> musicList) {// 添加所有歌曲到队列
@@ -270,9 +278,7 @@ public class MusicPlayBackService extends Service {
 	}
 
 	public int getMusicPlayPosition() {// 获取当前播放音乐播放的位置
-
 		return mMediaPlayer.getCurrentPosition();
-
 	}
 
 	public MediaPlayer getMediaPlayer() {
@@ -403,7 +409,7 @@ public class MusicPlayBackService extends Service {
 		mSensorManager.unregisterListener(mSensorEventListener);
 
 		// 注销通知栏
-		nm.cancel(Const.NOTIFICATION_ID);
+		nm.cancelAll();
 		super.onDestroy();
 	}
 }

@@ -103,7 +103,8 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		mVoice.setOnClickListener(this);
 		mBack.setOnClickListener(this);
 		mMusicList.setOnClickListener(this);
-		mSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);;
+		mSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+		;
 
 		// ×¢²á¹ã²¥½ÓÊÕÆ÷
 		IntentFilter filter = new IntentFilter();
@@ -128,8 +129,8 @@ public class PlayDetailActivity extends ActionBarActivity implements
 			refreshBaseActivity(myService, music);
 		}
 	}
-	
-	private void initPlayOrderImg(IPlayBackService service){
+
+	private void initPlayOrderImg(IPlayBackService service) {
 		switch (service.getCurrentPlayOrder()) {
 		case PlayStaticConst.STATE_LOOP:
 			mPlayOrder.setImageResource(R.drawable.ic_play_looplist);
@@ -284,7 +285,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 			back();
 			break;
 		case R.id.iv_detail_list:
-			if(mDialog != null){
+			if (mDialog != null) {
 				mDialog.cancel();
 				mDialog.dismiss();
 			}
@@ -292,7 +293,6 @@ public class PlayDetailActivity extends ActionBarActivity implements
 			break;
 		}
 	}
-	
 
 	private void playOrderListener() {
 		IPlayBackService service = PlayBackServiceManager
@@ -321,9 +321,11 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
 		}
+
 		@Override
 		public void onStartTrackingTouch(SeekBar seekBar) {
 		}
+
 		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {
 			IPlayBackService service = PlayBackServiceManager
@@ -335,7 +337,6 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		}
 	};
 
-	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -354,7 +355,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(myReceiver);
-		if(mDialog != null){
+		if (mDialog != null) {
 			mDialog.cancel();
 			mDialog.dismiss();
 		}
