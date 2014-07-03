@@ -8,12 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -28,6 +27,7 @@ import com.mymusicplay.receiver.ReceiverAction;
 import com.mymusicplay.server.IPlayBackService;
 import com.mymusicplay.server.PlayStaticConst;
 import com.mymusicplay.util.BitmapWorker;
+import com.mymusicplay.util.Const;
 
 public abstract class BaseActivity extends ActionBarActivity implements
 		OnClickListener {
@@ -35,6 +35,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 	private TextView mMusicTitle, mMusicSinger;
 	private SeekBar mSeekBar;
 	private View view;
+	Thread threadForSeekbar = null;
 
 	public static boolean playflag = false;
 
@@ -59,6 +60,8 @@ public abstract class BaseActivity extends ActionBarActivity implements
 		if (music != null && myService != null) {
 			refreshBaseActivity(myService, music);
 		}
+
+		
 
 	}
 
@@ -137,7 +140,9 @@ public abstract class BaseActivity extends ActionBarActivity implements
 				IPlayBackService myService = PlayBackServiceManager
 						.getPlayBackService(BaseActivity.this);
 				Music music = myService.getCurrentMusic();
-				refreshBaseActivity(myService, music);
+				if (music != null) {
+					refreshBaseActivity(myService, music);
+				}
 			}
 
 			// ∏Ë«˙≤•∑≈
@@ -155,7 +160,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 	private void refreshBaseActivity(IPlayBackService myService, Music music) {
 		String path = new AlbumDataAccess(this).getAlbumArtByAlbumId(music
 				.getAlbumId());
-		if (path != null) {
+		if (path != null && !path.equals("")) {
 			new BitmapWorker(BaseActivity.this).fetch(path, mMusicCover);// …Ë÷√∑‚√Ê
 		} else {
 			mMusicCover.setImageResource(R.drawable.ic_default_art);
@@ -172,17 +177,54 @@ public abstract class BaseActivity extends ActionBarActivity implements
 			mPause.setImageResource(R.drawable.ic_pause);
 		}
 
-		final IPlayBackService service = myService;
-		TimerTask task = new TimerTask() {
-			@Override
-			public void run() {
-				mSeekBar.setProgress(service.getMusicPlayPosition());
-			}
-		};
-
-		Timer timer = new Timer();
-		timer.schedule(task, 1, 1);
+		if (threadForSeekbar == null) {
+			isrunable = true;
+			threadForSeekbar = new myrunabe(myService);
+			threadForSeekbar.start();
+		}
 	}
+
+	boolean isrunable = true;
+
+	class myrunabe extends Thread {
+		IPlayBackService service;
+
+		myrunabe(IPlayBackService service) {
+			this.service = service;
+		}
+
+		@Override
+		public void run() {
+			while (isrunable) {
+				if (service != null && service.getMediaPlayer() != null
+						&& service.getMediaPlayer().isPlaying()) {
+					Message msg = new Message();
+					msg.what = Const.SEEKBAR_CHANGE;
+					msg.arg1 = service.getMusicPlayPosition();
+					handler.sendMessage(msg);
+				}
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case Const.SEEKBAR_CHANGE:
+				int progress = msg.arg1;
+				mSeekBar.setProgress(progress);
+				break;
+			}
+		}
+	};
 
 	private OnSeekBarChangeListener mySeekBarChangeListener = new OnSeekBarChangeListener() {
 
@@ -193,7 +235,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 			if (service.getCurrentPlayState() == PlayStaticConst.STATE_PLAYING) {
 				int position = seekBar.getProgress();
 				service.setMusicPlaySeekTo(position);
-			}else if(service.getCurrentPlayState() == PlayStaticConst.STATE_PAUSE){
+			} else if (service.getCurrentPlayState() == PlayStaticConst.STATE_PAUSE) {
 				service.play();
 				int position = seekBar.getProgress();
 				service.setMusicPlaySeekTo(position);
@@ -209,6 +251,12 @@ public abstract class BaseActivity extends ActionBarActivity implements
 				boolean fromUser) {
 		}
 	};
+
+	@Override
+	protected void onStop() {
+		isrunable = false;
+		super.onStop();
+	}
 
 	@Override
 	public void onDestroy() {

@@ -10,5 +10,16 @@ public class GoodsCategory {
 	public String updatedTime;
 	public String createdTime;
 	public int status;
+	
+	@Override
+	public String toString() {
+		return "GoodsCategory [id=" + id + ", categoryName=" + categoryName
+				+ ", description=" + description + ", imageUrl=" + imageUrl
+				+ ", parentId=" + parentId + ", displayName=" + displayName
+				+ ", updatedTime=" + updatedTime + ", createdTime="
+				+ createdTime + ", status=" + status + "]";
+	}
+	
+	
 
 }

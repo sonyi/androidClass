@@ -35,6 +35,8 @@ import com.mymusicplay.model.Music;
 import com.mymusicplay.receiver.ReceiverAction;
 import com.mymusicplay.server.IPlayBackService;
 import com.mymusicplay.server.PlayStaticConst;
+import com.mymusicplay.ui.BaseActivity.myrunabe;
+import com.mymusicplay.util.Const;
 
 public class PlayDetailActivity extends ActionBarActivity implements
 		OnClickListener {
@@ -45,8 +47,9 @@ public class PlayDetailActivity extends ActionBarActivity implements
 			mMusicList;
 	private TextView mMusicStart, mMusicDuration, mTitle, mSinger;
 	private SeekBar mSeekBar;
-	private int HANDLER_MESSAGE = 0x66;
+
 	private Dialog mDialog;
+	private Thread threadForSeekbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +131,8 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		if (music != null && myService != null) {
 			refreshBaseActivity(myService, music);
 		}
+
+		
 	}
 
 	private void initPlayOrderImg(IPlayBackService service) {
@@ -145,7 +150,6 @@ public class PlayDetailActivity extends ActionBarActivity implements
 	}
 
 	private void refreshBaseActivity(IPlayBackService myService, Music music) {
-
 		mTitle.setText(music.getTitle());
 		mSinger.setText(music.getArtist());
 		mSeekBar.setMax((int) music.getDuration());// 设置进度条最大值为音乐播放时间
@@ -153,49 +157,73 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		int duration = (int) music.getDuration();
 		int durationMin = duration / 60000;
 		int durationSec = (duration % 60000) / 1000;
-		mMusicDuration.setText(durationMin + ":" + durationSec);
+		if (durationSec < 10) {
+			mMusicDuration.setText(durationMin + ":0" + durationSec);
+		} else {
+			mMusicDuration.setText(durationMin + ":" + durationSec);
+		}
 
 		if (myService.getCurrentPlayState() == PlayStaticConst.STATE_PAUSE) {
 			mPause.setImageResource(R.drawable.ic_play);
 		} else if (myService.getCurrentPlayState() == PlayStaticConst.STATE_PLAYING) {
 			mPause.setImageResource(R.drawable.ic_pause);
 		}
+		
+		if (threadForSeekbar == null) {
+			isrunable = true;
+			threadForSeekbar = new myrunabe(myService);
+			threadForSeekbar.start();
+		}
 
-		final IPlayBackService service = myService;
-		TimerTask task = new TimerTask() {
-			@Override
-			public void run() {
-				mSeekBar.setProgress(service.getMusicPlayPosition());
-				int playPosition = service.getMusicPlayPosition();
-				int playPositionMin = playPosition / 60000;
-				int playPositionSec = (playPosition % 60000) / 1000;
+	}
+
+	boolean isrunable = true;
+
+	class myrunabe extends Thread {
+		IPlayBackService service;
+
+		myrunabe(IPlayBackService service) {
+			this.service = service;
+		}
+
+		@Override
+		public void run() {
+			while (isrunable) {
+				if (service != null && service.getMediaPlayer() != null
+						&& service.getMediaPlayer().isPlaying()) {
+					Message msg = new Message();
+					msg.what = Const.SEEKBAR_CHANGE;
+					msg.arg1 = service.getMusicPlayPosition();
+					handler.sendMessage(msg);
+				}
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	Handler handler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case Const.SEEKBAR_CHANGE:
+				int progress = msg.arg1;
+				mSeekBar.setProgress(progress);
+				int playPositionMin = progress / 60000;
+				int playPositionSec = (progress % 60000) / 1000;
 				String timeForProgerss;
 				if (playPositionSec < 10) {
 					timeForProgerss = playPositionMin + ":0" + playPositionSec;
 				} else {
 					timeForProgerss = playPositionMin + ":" + playPositionSec;
 				}
-
-				Message msg = new Message();
-				msg.what = HANDLER_MESSAGE;
-				msg.obj = timeForProgerss;
-				handler.sendMessage(msg);
-			}
-		};
-		mMusicStart.setText("time");
-		Timer timer = new Timer();
-		timer.schedule(task, 1, 1);
-	}
-
-	@SuppressLint("HandlerLeak")
-	Handler handler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			if (msg.what == HANDLER_MESSAGE) {
-				String timeForProgress = msg.obj.toString();
-				mMusicStart.setText(timeForProgress);
+				mMusicStart.setText(timeForProgerss);
+				break;
 			}
 		}
 	};
@@ -220,7 +248,6 @@ public class PlayDetailActivity extends ActionBarActivity implements
 				frgmt = new DetailFragmentOther();
 				break;
 			}
-
 			return frgmt;
 		}
 
@@ -239,8 +266,11 @@ public class PlayDetailActivity extends ActionBarActivity implements
 			if (intent.getAction().equals(ReceiverAction.ACTION_REFRESH)) {
 				IPlayBackService myService = PlayBackServiceManager
 						.getPlayBackService(PlayDetailActivity.this);
+
 				Music music = myService.getCurrentMusic();
-				refreshBaseActivity(myService, music);
+				if (music != null) {
+					refreshBaseActivity(myService, music);
+				}
 			}
 
 			// 歌曲播放
@@ -349,6 +379,12 @@ public class PlayDetailActivity extends ActionBarActivity implements
 	private void back() {
 		finish();
 		overridePendingTransition(R.anim.anim_bottom_in, R.anim.anim_bottom_out);
+	}
+
+	@Override
+	protected void onStop() {
+		isrunable = false;
+		super.onStop();
 	}
 
 	@Override
