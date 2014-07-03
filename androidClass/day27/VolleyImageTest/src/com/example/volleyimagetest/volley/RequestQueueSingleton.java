@@ -1,6 +1,4 @@
-package com.example.empmgrdemo;
-
-import java.io.File;
+package com.example.volleyimagetest.volley;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -17,34 +15,35 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.ImageLoader;
 
 /**
- * 获取Volley请求队列单例
+ * Volley组件单例
  * 
- * @author user
+ * @author Li Bin
  */
 public class RequestQueueSingleton {
-	private Context context;
 	private static RequestQueueSingleton mInstance;
-	private static final String DEFAULT_CACHE_DIR = "volley";
 
+	private Context mContext;
 	private RequestQueue mRequestQueue;
+	private ImageLoader mImageLoader;
 
 	// 私有构造函数，初始化请求队列
 	private RequestQueueSingleton(Context context) {
-		this.context = context;
+		mContext = context.getApplicationContext();
 		setUpRequestQueue();
+		setUpImageLoader();
 	}
 
 	private void setUpRequestQueue() {
-		File cacheDir = new File(context.getCacheDir(), DEFAULT_CACHE_DIR);
-		Cache cache = new DiskBasedCache(cacheDir, 1024 * 1024);
+		Cache cache = new DiskBasedCache(mContext.getCacheDir(), 1024 * 1024*3);
 
 		HttpStack stack = null;
 		String userAgent = "volley/0";
 		try {
-			String packageName = context.getPackageName();
-			PackageInfo info = context.getPackageManager().getPackageInfo(
+			String packageName = mContext.getPackageName();
+			PackageInfo info = mContext.getPackageManager().getPackageInfo(
 					packageName, 0);
 			userAgent = packageName + "/" + info.versionCode;
 		} catch (NameNotFoundException e) {
@@ -62,9 +61,24 @@ public class RequestQueueSingleton {
 		mRequestQueue.start();
 	}
 
+	private void setUpImageLoader() {
+		mImageLoader = new ImageLoader(mRequestQueue, new LruImageCache(
+				mContext));
+	}
+
+	/**
+	 * 获得单件实例,确保请求队列，图片加载器对象都具有全局唯一实例
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static RequestQueueSingleton getInstance(Context context) {
 		if (mInstance == null) {
-			mInstance = new RequestQueueSingleton(context);
+			synchronized (RequestQueueSingleton.class) {
+				if(mInstance == null){
+					mInstance = new RequestQueueSingleton(context);
+				}
+			} 
 		}
 		return mInstance;
 	}
@@ -73,7 +87,10 @@ public class RequestQueueSingleton {
 		return mRequestQueue;
 	}
 
-	
+	public ImageLoader getImageLoader() {
+		return mImageLoader;
+	}
+
 	public void addToRequestQueue(Request<?> request) {
 		mRequestQueue.add(request);
 	}

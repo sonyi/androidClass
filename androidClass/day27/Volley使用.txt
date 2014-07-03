@@ -1,0 +1,11 @@
+1、实现一个单例模式的类，在里面设置RequestQueue和ImageLoader
+	注意：单例的对象依赖Content，使用ApplicationContent
+2、通常的HTTP请求，使用Request
+	a.Volley内置的Request
+		(StringRequest,JsonObjectRequest,ImageRequest)
+	b.自定义Request
+		实现自定义的响应数据结构时，使用自定义的Request	
+3、网络图片的请求
+	a.使用ImageRequest (不带内存缓存)
+	b.使用ImageLoader (实现一个内存缓存，实现ImageLoader.ImageCache接口，与其关联)
+	c.使用ImageLoader结合NetworkImageView

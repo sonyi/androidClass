@@ -19,9 +19,13 @@ public class ImageCache {
 		mCache = new LruCache<String, Bitmap>((int) maxSize);
 	}
 
-	public synchronized static ImageCache getInstance() {
+	public static ImageCache getInstance() {
 		if (mInstance == null) {
-			mInstance = new ImageCache();
+			synchronized(ImageCache.class){
+				if(mInstance == null){
+					mInstance = new ImageCache();
+				}
+			}
 		}
 		return mInstance;
 	}
