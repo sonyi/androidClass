@@ -1,0 +1,122 @@
+一.UI
+
+  1.时间日期类控件 
+
+  2.WebView *
+
+  3.AdapterView (Spinner,Gallery,ListView,GridView...)
+
+  4.ExpandableListView  *
+  
+  5.导航相关控件
+    a.FragmentTabHost
+    b.Tab
+    c.ActionBar
+      (1)List导航
+      (2)Tab导航与ViewPager
+      (3)侧拉抽屉导航
+
+  7.动态添加控件
+
+  8.Activity组件
+    a.生命周期
+      (1)把特点的操作写到合适的生命周期回调方法中
+         比如：绑定服务，解除服务绑定，注册接收器，注销接               收器
+      (2)保存及恢复状态
+
+    b.回退栈与Task,Activity的四种加载方式
+
+  9.Fragment
+    a.动态加载Fragment
+      (1).FragmentManager
+      (2).FragmentTransaction
+    b.静态添加
+      在Activity的布局中添加<fragment/>标签
+
+  10.五种布局方式及特点
+    a.线性布局
+    b.相对布局
+    c.帧布局
+    d.表格布局 *
+    e.网格布局 *
+
+  11.界面适配
+    a.设备屏幕dpi
+      (1)layout 
+      (2)values/dimen资源  （values-xhdpi...）
+      (3)drawable资源 （drawable-xhdpi...）
+    b.防止图片素材拉伸，变形
+       9Patch (9.png)
+
+  12.style与theme
+
+二.线程间同步
+    a.Handler与消息循环
+       
+     (1).为什么使用Handler:UI控件都是非线程安全，不能在UI线程之外的其他子线         程中操作UI,所以得把可能阻塞UI线程的操作放到子线程中（工作者线程）
+
+     (2).消息循环器Looper的工作原理:
+         a.在处理消息的线程中使得Looper对象与当前线程关联
+         b.在需要处理消息的线程中创建Handler对象实例
+         c.启动消息循环----监听消息对是否有新消息进入队列
+         d.在其它线程中利用Handler对象发送消息；当消息循环读取其它线程发送             的消息时，触发Handler对象的分发消息的操作（dispatchMessage()）            ，然后再触发handleMessage()
+
+
+     A:Looper
+       Handler h
+
+     B: h.sendMessage(msg);
+    
+    b.AsyncTask类
+     (1).使用条件：在子线程做耗时操作，UI线程进行同步操作（刷新UI数据等等）
+         此时可以使用AsyncTask
+     (2).回调方法
+         doInBackground()：在子线程中执行，执行耗时操作
+         onPostExecute()：在子线程操作结束之后，在UI线程中接收并处理子线程                          的结果
+三.数据存储
+   a.SharePreferences
+   b.文件系统
+     内存储
+       data/data/包名/SharePref
+       data/data/包名/file
+       data/data/包名/cache
+     外存储
+       做持久数据存储，比如数据文件，永久存储的图片等等
+   c.SQLite
+
+四.组件
+   a.Service
+     (1)声明周期
+     (2)启动方式 
+        started
+        bound (重要)
+   b.BroadcastReicever
+     (1)工作原理
+     (2)注册
+   c.ContentProvider
+     (1)会使用系统内置的各种ContentProvider,联系人，多媒体信息，文档...
+     (2)自定义ContentProvider (*)
+   d.Intent---四大组件间的纽带
+     (1)显式
+     (2)隐式
+   e.PendingIntent----对于意图的包装
+   f.Notification
+   g.Application
+
+五.网络
+   1.Socket
+   2.URLConnection
+     a.理解http协议
+     b.会使用HttpURLConnection进行GET与POST请求，并正确解析响应数据
+   3.apache HttpClient组件
+   4.JSON解析，xml解析
+   5.掌握Volley框架或其他第三方框架
+   6.实现简易的Http网络访问框架 *
+
+   
+        
+
+
+
+
+  

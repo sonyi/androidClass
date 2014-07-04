@@ -38,7 +38,7 @@ public class MyNotification {
 		}
 	}
 
-	// 创建通知视图
+	// 鍒涘缓閫氱煡瑙嗗浘
 	private static RemoteViews getNotifiRemoteViews(Context context,Music music,int playStats) {
 		remoteViews = new RemoteViews(context.getPackageName(),
 				R.layout.notification_layout);
@@ -57,7 +57,7 @@ public class MyNotification {
 			remoteViews.setImageViewResource(R.id.iv_notification_pause, R.drawable.ic_play);
 		}
 		
-		// 设置单击行为广播意图包装	
+		//璁剧疆鍗曞嚮琛屼负骞挎挱鎰忓浘鍖呰	
 		Intent intentNext = new Intent(ReceiverAction.ACTION_NOTIFICATION_NEXT);
 		PendingIntent piNext = PendingIntent.getBroadcast(context, 0, intentNext, 0);
 		remoteViews.setOnClickPendingIntent(R.id.iv_notification_next, piNext);

@@ -65,7 +65,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
 	}
 
-	// ������󷽷������������ò���һ��Ҫ��setContentView�����ز����ļ�
+	// 初始化控件
 	protected abstract void initialWidgets();
 
 	private void intiBaseActivity() {
@@ -85,7 +85,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 		mSeekBar.setOnSeekBarChangeListener(mySeekBarChangeListener);
 		view.setOnClickListener(this);
 
-		// ע��㲥������
+		//注册广播接收器
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ReceiverAction.ACTION_REFRESH);
 		filter.addAction(ReceiverAction.ACTION_PAUSE);
@@ -111,7 +111,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 				myService.pause();
 				break;
 			case PlayStaticConst.STATE_STOP:
-				Toast.makeText(BaseActivity.this, "��ѡһ��Ҫ���ŵĸ�����",
+				Toast.makeText(BaseActivity.this, "先选择要播放的歌曲",
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -130,12 +130,12 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
 	}
 
-	// ���չ㲥
+	// 
 	private BroadcastReceiver myReceiver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			// ����ҳ��ˢ��
+			
 			IPlayBackService myService = PlayBackServiceManager
 						.getPlayBackService(BaseActivity.this);
 			Music music = myService.getCurrentMusic();
@@ -145,7 +145,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 				}
 			}
 
-			// �����
+			// 
 			if (intent.getAction().equals(ReceiverAction.ACTION_PLAY)) {
 				mPause.setImageResource(R.drawable.ic_pause);
 				if (music != null) {
@@ -153,7 +153,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 				}
 			}
 
-			// ������ͣ
+			//
 			if (intent.getAction().equals(ReceiverAction.ACTION_PAUSE)) {
 				mPause.setImageResource(R.drawable.ic_play);
 			}
@@ -164,14 +164,14 @@ public abstract class BaseActivity extends ActionBarActivity implements
 		String path = new AlbumDataAccess(this).getAlbumArtByAlbumId(music
 				.getAlbumId());
 		if (path != null && !path.equals("")) {
-			new BitmapWorker(BaseActivity.this).fetch(path, mMusicCover);// ���÷���
+			new BitmapWorker(BaseActivity.this).fetch(path, mMusicCover);//
 		} else {
 			mMusicCover.setImageResource(R.drawable.ic_default_art);
 		}
 
 		mMusicTitle.setText(music.getTitle());
 		mMusicSinger.setText(music.getArtist());
-		mSeekBar.setMax((int) music.getDuration());// ���ý�������ֵΪ���ֲ���ʱ��
+		mSeekBar.setMax((int) music.getDuration());// 
 		// Log.i("time", music.getDuration() + "");
 
 		if (myService.getCurrentPlayState() == PlayStaticConst.STATE_PAUSE) {

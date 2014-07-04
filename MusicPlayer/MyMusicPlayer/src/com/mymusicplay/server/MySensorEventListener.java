@@ -23,14 +23,13 @@ public class MySensorEventListener implements SensorEventListener {
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		// ´«¸ĞÆ÷ĞÅÏ¢¸Ä±äÊ±Ö´ĞĞ¸Ã·½·¨
+		//ä¼ æ„Ÿå™¨ä¿¡æ¯æ”¹å˜æ—¶æ‰§è¡Œè¯¥æ–¹æ³•
 		float[] values = event.values;
-		float x = values[0]; // xÖá·½ÏòµÄÖØÁ¦¼ÓËÙ¶È£¬ÏòÓÒÎªÕı
-		float y = values[1]; // yÖá·½ÏòµÄÖØÁ¦¼ÓËÙ¶È£¬ÏòÇ°ÎªÕı
-		float z = values[2]; // zÖá·½ÏòµÄÖØÁ¦¼ÓËÙ¶È£¬ÏòÉÏÎªÕı
-		//Log.i("TAG", "xÖá·½ÏòµÄÖØÁ¦¼ÓËÙ¶È" + x + "£»yÖá·½ÏòµÄÖØÁ¦¼ÓËÙ¶È" + y + "£»zÖá·½ÏòµÄÖØÁ¦¼ÓËÙ¶È" + z);
-		// Ò»°ãÔÚÕâÈı¸ö·½ÏòµÄÖØÁ¦¼ÓËÙ¶È´ïµ½40¾Í´ïµ½ÁËÒ¡»ÎÊÖ»úµÄ×´Ì¬¡£
-		int medumValue = 15;// ÈıĞÇ i9250ÔõÃ´»Î¶¼²»»á³¬¹ı20£¬Ã»°ì·¨£¬Ö»ÉèÖÃ19ÁË
+		float x = values[0]; // xè½´æ–¹å‘çš„é‡åŠ›åŠ é€Ÿåº¦ï¼Œå‘å³ä¸ºæ­£
+		float y = values[1]; //  yè½´æ–¹å‘çš„é‡åŠ›åŠ é€Ÿåº¦ï¼Œå‘å‰ä¸ºæ­£
+		float z = values[2]; //zè½´æ–¹å‘çš„é‡åŠ›åŠ é€Ÿåº¦ï¼Œå‘ä¸Šä¸ºæ­£
+		
+		int medumValue = 15;
 		if (Math.abs(x) > medumValue || Math.abs(y) > medumValue
 				|| Math.abs(z) > medumValue) {
 			
@@ -39,7 +38,7 @@ public class MySensorEventListener implements SensorEventListener {
 			handler.sendMessage(msg);
 			vibrator.vibrate(100);
 			try {
-				Thread.sleep(800);//·ÀÖ¹Ò»´ÎÌø¼¸Ê×
+				Thread.sleep(800);//é˜²æ­¢ä¸€æ¬¡è·³å‡ é¦–
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -47,7 +46,7 @@ public class MySensorEventListener implements SensorEventListener {
 	}
 	
 	/**
-	 * ¶¯×÷Ö´ĞĞ
+	 * åŠ¨ä½œæ‰§è¡Œ
 	 */
 	Handler handler = new Handler() {
 		@Override
@@ -57,7 +56,7 @@ public class MySensorEventListener implements SensorEventListener {
 			case SENSOR_SHAKE:
 				IPlayBackService myService = PlayBackServiceManager.getPlayBackService(context);
 				if(myService.getCurrentPlayState() == PlayStaticConst.STATE_PLAYING){
-					myService.next();//ÇĞ»»µ½ÏÂÒ»Ê×
+					myService.next();//åˆ‡æ¢åˆ°ä¸‹ä¸€é¦–
 				}
 				break;
 			}

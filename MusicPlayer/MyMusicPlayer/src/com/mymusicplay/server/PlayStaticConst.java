@@ -2,52 +2,52 @@ package com.mymusicplay.server;
 
 public interface PlayStaticConst {
 	/**
-	 * ´¦ÓÚÍ£Ö¹²¥·Å×´Ì¬
+	 * å¤„äºåœæ­¢æ’­æ”¾çŠ¶æ€
 	 */
 	public static final int STATE_STOP = 0x00;
 
 	/**
-	 * ´¦ÓÚ²¥·Å×´Ì¬
+	 * å¤„äºæ’­æ”¾çŠ¶æ€
 	 */
 	public static final int STATE_PLAYING = 0x01;
 
 	/**
-	 * ´¦ÓÚÔİÍ£²¥·Å×´Ì¬
+	 * å¤„äºæš‚åœæ’­æ”¾çŠ¶æ€
 	 */
 	public static final int STATE_PAUSE = 0x02;
 
 	/**
-	 * Ëæ»ú²¥·Å
+	 * éšæœºæ’­æ”¾
 	 */
 	public static final int STATE_RANDOM = 0x03;
 
 	/**
-	 * ÁĞ±íÑ­»·
+	 * åˆ—è¡¨å¾ªç¯
 	 */
 	public static final int STATE_LOOP = 0x04;
 
 	/**
-	 * µ¥ÇúÑ­»·
+	 * å•æ›²å¾ªç¯
 	 */
 	public static final int STATE_CYCLE = 0x05;
 	
 	/**
-	 * ²¥·ÅÏÂÒ»Çú
+	 * æ’­æ”¾ä¸‹ä¸€æ›²
 	 */
 	public static final int PLAY_NEXT = 0x06;
 	
 	/**
-	 * ²¥·ÅÉÏÒ»Çú
+	 * æ’­æ”¾ä¸Šä¸€æ›²
 	 */
 	public static final int PLAY_PREVIOUS = 0x07;
 	
 	/**
-	 * ×Ô¶¯²¥·ÅÏÂÒ»Ê×(Ò»Ê×½áÊøÊ±)
+	 * è‡ªåŠ¨æ’­æ”¾ä¸‹ä¸€é¦–(ä¸€é¦–ç»“æŸæ—¶)
 	 */
 	public static final int PLAY_AUTO_NEXT = 0x08;
 	
 	/**
-	 * Í¨¹ıË÷Òı²¥·Å(µã»÷²¥·Å)
+	 *é€šè¿‡ç´¢å¼•æ’­æ”¾(ç‚¹å‡»æ’­æ”¾)
 	 */
 	public static final int PLAY_BY_INDEX = 0x09;
 

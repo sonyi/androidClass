@@ -42,15 +42,15 @@ public class MusicQueueDialog extends Dialog {
 		dialogWindow.setGravity(Gravity.RIGHT | Gravity.TOP);
 
 		WindowManager m = activity.getWindowManager();
-		Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+		Display d = m.getDefaultDisplay(); // 
 		int heightWindow = d.getHeight();
 		int widthWindow = d.getWidth();
 
-		lp.height = (int) (heightWindow * 0.6); // 高度设置为屏幕的0.6
-		lp.width = (int) (widthWindow * 0.65); // 宽度设置为屏幕的0.65
-		lp.x = (int)(heightWindow * 0.01); // 新位置X坐标
-		lp.y = (int) (widthWindow * 0.1); // 新位置Y坐标
-		lp.alpha = 0.7f; // 透明度
+		lp.height = (int) (heightWindow * 0.6); // 
+		lp.width = (int) (widthWindow * 0.65); // 
+		lp.x = (int)(heightWindow * 0.01); // 
+		lp.y = (int) (widthWindow * 0.1); // 
+		lp.alpha = 0.7f; // 
 		dialogWindow.setAttributes(lp);
 
 		show();

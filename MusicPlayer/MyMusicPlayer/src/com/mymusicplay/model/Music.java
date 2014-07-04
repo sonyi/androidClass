@@ -3,7 +3,7 @@ package com.mymusicplay.model;
 import java.io.Serializable;
 
 /**
- * 音乐信息实体�?
+ * 音乐信息实体类
  * 
  * @author Li Bin
  */

@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,6 +61,7 @@ public class FragmentTabMusic extends Fragment {
 			}
 			
 			Music music = mMusic.get(position);
+			Log.i("music", music.toString());
 			
 			vh.title.setText(music.getTitle());
 			vh.singer.setText(music.getArtist());

@@ -47,8 +47,8 @@ public class MusicPlayBackService extends Service {
 	@Override
 	public void onCreate() {
 		mPlayQuene = new ArrayList<Music>();
-		initMediaPlay();// ³õÊ¼»¯Ã½Ìå²¥·ÅÆ÷
-		initIntentFilter();// ×¢²á¸÷Àà¼àÌıÆ÷
+		initMediaPlay();// åˆå§‹åŒ–åª’ä½“æ’­æ”¾å™¨
+		initIntentFilter();// æ³¨å†Œå„ç±»ç›‘å¬å™¨
 		super.onCreate();
 	}
 
@@ -60,20 +60,20 @@ public class MusicPlayBackService extends Service {
 	private void initIntentFilter() {
 		mReceiverForService = new ReceiverForService(this);
 
-		// ×¢²áÀ´µç¹ã²¥½ÓÊÕÆ÷
+		//æ³¨å†Œæ¥ç”µå¹¿æ’­æ¥æ”¶å™¨
 		IntentFilter mIntentFilter = new IntentFilter();
 		mIntentFilter.addAction("android.intent.action.PHONE_STATE");
 		registerReceiver(mReceiverForService.phoneReceiver, mIntentFilter);
 
-		// ×¢²áÍ¨Öª¹ã²¥½ÓÊÕÆ÷
+		//æ³¨å†Œé€šçŸ¥å¹¿æ’­æ¥æ”¶å™¨
 		IntentFilter filter = new IntentFilter();
-		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_PLAY);// Í¨ÖªÀ¸
+		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_PLAY);// é€šçŸ¥æ 
 		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_EXIT);
 		filter.addAction(ReceiverAction.ACTION_NOTIFICATION_NEXT);
-		filter.addAction(Intent.ACTION_HEADSET_PLUG);// ¶ú»ú²å°Î
+		filter.addAction(Intent.ACTION_HEADSET_PLUG);//è€³æœºæ’æ‹”
 		registerReceiver(mReceiverForService.myReceiver, filter);
 
-		// ×¢²áÖØÁ¦¸ĞÓ¦¼àÌıÆ÷(Ò¡Ò»Ò¡Ê±ÇĞµ½ÏÂÒ»Ê×)
+		// æ³¨å†Œé‡åŠ›æ„Ÿåº”ç›‘å¬å™¨(æ‘‡ä¸€æ‘‡æ—¶åˆ‡åˆ°ä¸‹ä¸€é¦–)
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 		mSensorEventListener = new MySensorEventListener(this, vibrator);
@@ -87,7 +87,7 @@ public class MusicPlayBackService extends Service {
 
 		mMediaPlayer = new MediaPlayer();
 
-		// ÉèÖÃMediaPlay²¥·Å×¼±¸Íê³ÉÊÂ¼ş¼àÌı
+		// è®¾ç½®MediaPlayæ’­æ”¾å‡†å¤‡å®Œæˆäº‹ä»¶ç›‘å¬
 		mMediaPlayer.setOnPreparedListener(new OnPreparedListener() {
 			@Override
 			public void onPrepared(MediaPlayer mp) {
@@ -98,14 +98,14 @@ public class MusicPlayBackService extends Service {
 				mPlayState = PlayStaticConst.STATE_PLAYING;
 				mWhatPlayNext = PlayStaticConst.PLAY_AUTO_NEXT;
 
-				// ·¢ËÍ¹ã²¥
+				// å‘é€å¹¿æ’­
 				Intent intent = new Intent(ReceiverAction.ACTION_REFRESH);
 				sendBroadcast(intent);
-				sendNotification();// ·¢ËÍÍ¨Öª
+				sendNotification(); //å‘é€é€šçŸ¥
 			}
 		});
 
-		// µ±Ä³Ò»Ê×¸èÇú²¥·ÅÍêµÄÊÂ¼ş¼àÌı
+		// å½“æŸä¸€é¦–æ­Œæ›²æ’­æ”¾å®Œçš„äº‹ä»¶ç›‘å¬
 		mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 
 			@Override
@@ -117,7 +117,7 @@ public class MusicPlayBackService extends Service {
 		});
 	}
 
-	// ·¢ËÍÍ¨Öª
+	//å‘é€é€šçŸ¥
 	private void sendNotification() {
 		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		MyNotification.showNotification(MusicPlayBackService.this,
@@ -130,10 +130,9 @@ public class MusicPlayBackService extends Service {
 			mMediaPlayer.start();
 			mPlayState = PlayStaticConst.STATE_PLAYING;
 
-			// ·¢ËÍ¹ã²¥
 			Intent intent = new Intent(ReceiverAction.ACTION_PLAY);
 			sendBroadcast(intent);
-			sendNotification();// ·¢ËÍÍ¨Öª
+			sendNotification();
 		}
 	}
 
@@ -142,10 +141,9 @@ public class MusicPlayBackService extends Service {
 			mMediaPlayer.pause();
 			mPlayState = PlayStaticConst.STATE_PAUSE;
 
-			// ·¢ËÍ¹ã²¥
 			Intent intent = new Intent(ReceiverAction.ACTION_PAUSE);
 			sendBroadcast(intent);
-			sendNotification();// ·¢ËÍÍ¨Öª
+			sendNotification();
 		}
 	}
 
@@ -155,23 +153,23 @@ public class MusicPlayBackService extends Service {
 		}
 	}
 
-	public void next() {// ²¥·ÅÏÂÒ»Çú
+	public void next() {// æ’­æ”¾ä¸‹ä¸€æ›²
 		int nextIndex = getNextPlayIndex(getCurrentMusicIndex(getCurrentMusic()),
 				PlayStaticConst.PLAY_NEXT, getCurrentPlayOrder());
 		playAtIndex(nextIndex);
 		
 	}
 
-	public void previouse() {// ²¥·ÅÉÏÒ»Çú
+	public void previouse() {// æ’­æ”¾ä¸Šä¸€æ›²
 		int nextIndex = getNextPlayIndex(getCurrentMusicIndex(getCurrentMusic()),
 				PlayStaticConst.PLAY_PREVIOUS, getCurrentPlayOrder());
 		playAtIndex(nextIndex);
 	}
 
-	public void playAtIndex(int nextIndex) {// ²¥·ÅÖ¸¶¨Î»ÖÃµÄ¸èÇú
+	public void playAtIndex(int nextIndex) {// æ’­æ”¾æŒ‡å®šä½ç½®çš„æ­Œæ›²
 		if(nextIndex >= 0){
 			mWhatPlayNext = PlayStaticConst.PLAY_BY_INDEX;
-			if(mMediaPlayer.isPlaying()){//Ìõ¼şÅĞ¶Ï£¬²»È»»á³öÏÖillegalstateexception
+			if(mMediaPlayer.isPlaying()){//æ¡ä»¶åˆ¤æ–­ï¼Œä¸ç„¶ä¼šå‡ºç°illegalstateexception
 				mMediaPlayer.stop();
 			}
 			
@@ -179,19 +177,19 @@ public class MusicPlayBackService extends Service {
 		}
 	}
 
-	// »ñÈ¡Òª²¥·ÅµÄÏÂÒ»ÇúµÄindex
+	// è·å–è¦æ’­æ”¾çš„ä¸‹ä¸€æ›²çš„index
 	private int getNextPlayIndex(int currentIndex, int nextOrPrevious,
 			int playOrder) {
 		int nextIndex = -1;
 		if (getCurrentMusicList().size() > 0) {
 			switch (playOrder) {
-			case PlayStaticConst.STATE_CYCLE:// µ¥ÇúÑ­»·
+			case PlayStaticConst.STATE_CYCLE:// å•æ›²å¾ªç¯
 				nextIndex = currentIndex;
 				break;
-			case PlayStaticConst.STATE_LOOP:// ÁĞ±íÑ­»·
+			case PlayStaticConst.STATE_LOOP:// åˆ—è¡¨å¾ªç¯
 				nextIndex = playNextOrPrevious(currentIndex, nextOrPrevious);
 				break;
-			case PlayStaticConst.STATE_RANDOM:// Ëæ»ú²¥·Å
+			case PlayStaticConst.STATE_RANDOM:// éšæœºæ’­æ”¾
 				do {
 					nextIndex = (int) (Math.random() * getCurrentMusicList().size());
 				} while ((getCurrentMusicList().size() > 1)
@@ -199,20 +197,20 @@ public class MusicPlayBackService extends Service {
 				break;
 			}
 		} else {
-			Toast.makeText(this, "¶ÓÁĞÖĞÃ»ÓĞ¸èÇú", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "é˜Ÿåˆ—ä¸­æ²¡æœ‰æ­Œæ›²", Toast.LENGTH_SHORT).show();
 		}
 		return nextIndex;
 	}
 
 	private int playNextOrPrevious(int currentIndex, int nextOrPrevious) {
 		int nextIndex = -1;
-		if (nextOrPrevious == PlayStaticConst.PLAY_NEXT) {// ²¥·ÅÏÂÒ»Çú
+		if (nextOrPrevious == PlayStaticConst.PLAY_NEXT) {//æ’­æ”¾ä¸‹ä¸€æ›²
 			if ((currentIndex + 1) < getCurrentMusicList().size()) {
 				nextIndex = currentIndex + 1;
 			} else {
 				nextIndex = 0;
 			}
-		} else if (nextOrPrevious == PlayStaticConst.PLAY_PREVIOUS) {// ²¥·ÅÉÏÒ»Çú
+		} else if (nextOrPrevious == PlayStaticConst.PLAY_PREVIOUS) {//æ’­æ”¾ä¸Šä¸€æ›²
 			if ((currentIndex - 1) >= 0) {
 				nextIndex = currentIndex - 1;
 			} else {
@@ -229,7 +227,7 @@ public class MusicPlayBackService extends Service {
 		mCurrentPlayIndex = index;
 		try {
 			mMediaPlayer.setDataSource(music.getData());
-			mMediaPlayer.prepareAsync();// Òì²½¼ÓÔØÎÄ¼ş
+			mMediaPlayer.prepareAsync();// å¼‚æ­¥åŠ è½½æ–‡ä»¶
 		} catch (IllegalArgumentException e1) {
 			e1.printStackTrace();
 		} catch (SecurityException e1) {
@@ -244,40 +242,40 @@ public class MusicPlayBackService extends Service {
 
 	}
 
-	public void addToPlayQuene(List<Music> musicList) {// Ìí¼ÓËùÓĞ¸èÇúµ½¶ÓÁĞ
+	public void addToPlayQuene(List<Music> musicList) {//æ·»åŠ æ‰€æœ‰æ­Œæ›²åˆ°é˜Ÿåˆ—
 		for (Music music : musicList) {
 			addToPlayQuene(music);
 		}
 	}
 
-	public int addToPlayQuene(Music music) {// Ìí¼Óµ¥Ê×¸èÇúµ½¶ÓÁĞ
+	public int addToPlayQuene(Music music) {// æ·»åŠ å•é¦–æ­Œæ›²åˆ°é˜Ÿåˆ—
 		if (getCurrentMusicIndex(music) == -1) {
 			mPlayQuene.add(music);
 		}
 		return getCurrentMusicIndex(music);
 	}
 
-	public int getCurrentPlayState() {// ·µ»Øµ±Ç°²¥·Å×´Ì¬
+	public int getCurrentPlayState() {//è¿”å›å½“å‰æ’­æ”¾çŠ¶æ€
 		return mPlayState;
 	}
 
-	public Music getCurrentMusic() {// ·µ»Øµ±Ç°²¥·Å¸èÇú
+	public Music getCurrentMusic() {// è¿”å›å½“å‰æ’­æ”¾æ­Œæ›²
 		if (mPlayQuene != null && mPlayQuene.size() != 0) {
 			return mPlayQuene.get(mCurrentPlayIndex);
 		}
 		return null;
 	}
 
-	public int getCurrentMusicIndex(Music music) {// »ñÈ¡¸èÇúÔÚ¶ÓÁĞÖĞµÄÎ»ÖÃ
+	public int getCurrentMusicIndex(Music music) {// è·å–æ­Œæ›²åœ¨é˜Ÿåˆ—ä¸­çš„ä½ç½®
 		int index = mPlayQuene.indexOf(music);
 		return index;
 	}
 
-	public void clearPlayQueue() {// Çå³ı²¥·Å¶ÓÁĞÖĞµÄ¸èÇú
+	public void clearPlayQueue() {// æ¸…é™¤æ’­æ”¾é˜Ÿåˆ—ä¸­çš„æ­Œæ›²
 		mPlayQuene.clear();
 	}
 
-	public int getMusicPlayPosition() {// »ñÈ¡µ±Ç°²¥·ÅÒôÀÖ²¥·ÅµÄÎ»ÖÃ
+	public int getMusicPlayPosition() {// è·å–å½“å‰æ’­æ”¾éŸ³ä¹æ’­æ”¾çš„ä½ç½®
 		return mMediaPlayer.getCurrentPosition();
 	}
 
@@ -400,15 +398,15 @@ public class MusicPlayBackService extends Service {
 			mMediaPlayer.stop();
 		}
 		mMediaPlayer.reset();
-		mMediaPlayer.release();// Ïú»Ù¶ÔÏó
+		mMediaPlayer.release();// é”€æ¯å¯¹è±¡
 
-		unregisterReceiver(mReceiverForService.myReceiver);// ×¢Ïú¹ã²¥½ÓÊÕÆ÷
+		unregisterReceiver(mReceiverForService.myReceiver);//æ³¨é”€å¹¿æ’­æ¥æ”¶å™¨
 		unregisterReceiver(mReceiverForService.phoneReceiver);
 
-		// ×¢ÏúÖØÁ¦¸ĞÓ¦¼àÌıÆ÷
+		// æ³¨é”€é‡åŠ›æ„Ÿåº”ç›‘å¬å™¨
 		mSensorManager.unregisterListener(mSensorEventListener);
 
-		// ×¢ÏúÍ¨ÖªÀ¸
+		// æ³¨é”€é€šçŸ¥æ 
 		nm.cancelAll();
 		super.onDestroy();
 	}

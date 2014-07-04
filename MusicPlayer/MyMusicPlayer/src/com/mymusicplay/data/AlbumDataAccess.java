@@ -18,7 +18,7 @@ public class AlbumDataAccess {
 	}
 	
 	/**
-	 * »ñÈ¡Éè±¸ÖĞµÄËùÓĞ×¨¼­ĞÅÏ¢
+	 * è·å–è®¾å¤‡ä¸­çš„æ‰€æœ‰ä¸“è¾‘ä¿¡æ¯
 	 * @return
 	 */
 	public List<Album> getAllAlbumList(){
@@ -44,7 +44,7 @@ public class AlbumDataAccess {
 	}
 	
 	/**
-	 * ¸ù¾İ×¨¼­id»ñÈ¡×¨¼­·âÃæµÄÂ·¾¶
+	 * æ ¹æ®ä¸“è¾‘idè·å–ä¸“è¾‘å°é¢çš„è·¯å¾„
 	 * @return
 	 */
 	public String getAlbumArtByAlbumId(long albumID){

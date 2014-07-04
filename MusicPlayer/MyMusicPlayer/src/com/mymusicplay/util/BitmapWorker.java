@@ -19,7 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 /**
- * ±¾µØÍ¼Æ¬¼ÓÔØ¹¤¾ßÀà,Òì²½¼ÓÔØÍ¼Æ¬£¬ÒÔÓÅ»¯ÄÚ´æÕ¼ÓÃµÄ·½Ê½
+ * æœ¬åœ°å›¾ç‰‡åŠ è½½å·¥å…·ç±»,å¼‚æ­¥åŠ è½½å›¾ç‰‡ï¼Œä»¥ä¼˜åŒ–å†…å­˜å ç”¨çš„æ–¹å¼
  * 
  * @author Li Bin
  */
@@ -31,13 +31,13 @@ public class BitmapWorker {
 	}
 
 	/**
-	 * ¸ù¾İÍ¼Æ¬µÄ±¾µØ´æ´¢Â·¾¶£¬½«Í¼Æ¬×÷ÎªBitmap¶ÔÏó¼ÓÔØµ½ÄÚ´æ£¬²¢³ÊÏÖµ½Ö¸¶¨µÄimageView¿Ø¼ş
+	 * æ ¹æ®å›¾ç‰‡çš„æœ¬åœ°å­˜å‚¨è·¯å¾„ï¼Œå°†å›¾ç‰‡ä½œä¸ºBitmapå¯¹è±¡åŠ è½½åˆ°å†…å­˜ï¼Œå¹¶å‘ˆç°åˆ°æŒ‡å®šçš„imageViewæ§ä»¶
 	 * 
 	 * @param path
 	 * @param imageView
 	 */
 	public void fetch(String path, ImageView imageView) {
-		// ÔÚÀıÈçListViewÖØÓÃ¿Ø¼şÊ±£¬ÖÕÖ¹Ö®Ç°¾ÉÍ¼Æ¬µÄ¼ÓÔØÈÎÎñ£¬È»ºóÔÙ¼ÓÔØĞÂµÄÍ¼Æ¬
+		// åœ¨ä¾‹å¦‚ListViewé‡ç”¨æ§ä»¶æ—¶ï¼Œç»ˆæ­¢ä¹‹å‰æ—§å›¾ç‰‡çš„åŠ è½½ä»»åŠ¡ï¼Œç„¶åå†åŠ è½½æ–°çš„å›¾ç‰‡
 		if (cancelPotentialWork(path, imageView)) {
 			BitmapWorkerTask task = new BitmapWorkerTask(imageView);
 			AsyncDrawable asyncDrawable = new AsyncDrawable(
@@ -144,19 +144,19 @@ public class BitmapWorker {
 
 	private Bitmap decodeFile(String path, int reqWidth, int reqHeight) {
 		Options opts = new Options();
-		// ÏÈÖ»½âÎöÍ¼Æ¬µÄ±ß½çÊı¾İ
+		// å…ˆåªè§£æå›¾ç‰‡çš„è¾¹ç•Œæ•°æ®
 		opts.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(path, opts);
 		opts.inSampleSize = calculateInSampleSize(opts, reqWidth, reqHeight);
 		opts.inJustDecodeBounds = false;
 
-		// µÃµ½±ß½çÑ¹ËõÖ®ºóµÄBitmap¶ÔÏó
+		// å¾—åˆ°è¾¹ç•Œå‹ç¼©ä¹‹åçš„Bitmapå¯¹è±¡
 		Bitmap bm = BitmapFactory.decodeFile(path, opts);
 		return bm;
 	}
 
 	/**
-	 * ¼ÆËãÍ¼Æ¬inSampleSizeËõ·Å±È
+	 * è®¡ç®—å›¾ç‰‡inSampleSizeç¼©æ”¾æ¯”
 	 * 
 	 * @param options
 	 * @param reqWidth

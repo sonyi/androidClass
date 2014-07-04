@@ -18,7 +18,7 @@ public class ReceiverForService {
 		this.context = context;
 	}
 
-	// 接收广播
+	//鎺ユ敹骞挎挱
 	public BroadcastReceiver myReceiver = new BroadcastReceiver() {
 
 		@Override
@@ -51,7 +51,7 @@ public class ReceiverForService {
 		}
 	};
 
-	// 接收电话广播
+	// 鎺ユ敹鐢佃瘽骞挎挱
 	boolean isListeningNow = false;
 
 	public BroadcastReceiver phoneReceiver = new BroadcastReceiver() {
@@ -63,7 +63,7 @@ public class ReceiverForService {
 					.getSystemService(Context.TELEPHONY_SERVICE);
 
 			switch (tm.getCallState()) {
-			case TelephonyManager.CALL_STATE_RINGING:// 响铃
+			case TelephonyManager.CALL_STATE_RINGING://鍝嶉搩
 				if ((mService.getCurrentPlayState() == PlayStaticConst.STATE_PLAYING)
 						&& (mService.getMediaPlayer() != null)) {
 					mService.pause();
@@ -71,7 +71,7 @@ public class ReceiverForService {
 				}
 				break;
 
-			case TelephonyManager.CALL_STATE_OFFHOOK:// 通话
+			case TelephonyManager.CALL_STATE_OFFHOOK://閫氳瘽
 				if ((mService.getCurrentPlayState() == PlayStaticConst.STATE_PLAYING)
 						&& (mService.getMediaPlayer() != null)) {
 					mService.pause();
@@ -79,7 +79,7 @@ public class ReceiverForService {
 				}
 				break;
 
-			case TelephonyManager.CALL_STATE_IDLE:// 通话结束
+			case TelephonyManager.CALL_STATE_IDLE://閫氳瘽缁撴潫
 				if ((mService.getMediaPlayer() != null) && isListeningNow) {
 					mService.play();
 					isListeningNow = false;

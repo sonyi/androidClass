@@ -5,7 +5,7 @@ import android.util.DisplayMetrics;
 
 public class DisplayUtil {
 	/**
-	 * 鑾峰彇灞忓箷瀹藉害鐨勫儚绱犲�
+	 *获取屏幕宽度的像素值
 	 * 
 	 * @param context
 	 * @return
@@ -16,7 +16,7 @@ public class DisplayUtil {
 	}
 
 	/**
-	 * 鑾峰彇灞忓箷楂樺害鍍忕礌鍊�
+	 * 获取屏幕高度像素值
 	 * 
 	 * @param context
 	 * @return
@@ -27,7 +27,7 @@ public class DisplayUtil {
 	}
 
 	/**
-	 * 鎶奷p鍗曚綅鐨勫昂瀵稿�杞崲涓簆x鍗曚綅
+	 * 把dp单位的尺寸值转换为px单位
 	 * 
 	 * @param context
 	 * @param dpValue
@@ -39,7 +39,7 @@ public class DisplayUtil {
 	}
 
 	/**
-	 * 鎶妏x鍗曚綅鐨勫昂瀵稿�杞崲涓篸p鍗曚綅
+	 * 把px单位的尺寸值转换为dp单位
 	 * 
 	 * @param context
 	 * @param pxValue

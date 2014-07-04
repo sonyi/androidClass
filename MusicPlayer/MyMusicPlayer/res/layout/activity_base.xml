@@ -7,6 +7,7 @@
 
     <ImageView
         android:id="@+id/iv_base_cover"
+        android:padding="7dp"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/ic_default_art" />
@@ -28,7 +29,6 @@
         android:layout_alignLeft="@id/seekbar_base_progress"
         android:layout_below="@id/seekbar_base_progress"
         android:singleLine="true"
-        android:text="song"
         android:width="80dp" />
 
     <TextView
@@ -38,7 +38,6 @@
         android:layout_alignLeft="@id/tv_base_song"
         android:layout_below="@id/tv_base_song"
         android:singleLine="true"
-        android:text="singer"
         android:width="80dp" />
 
     <ImageView
@@ -56,7 +55,6 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        
         android:layout_toLeftOf="@id/iv_base_next"
         android:src="@drawable/ic_play" />
 
@@ -66,10 +64,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
-        
         android:layout_toLeftOf="@id/iv_base_pause"
         android:src="@drawable/ic_previous" />
-    
-   
 
 </RelativeLayout>

@@ -59,7 +59,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		initAdapter();
 		initWidget();
 
-		// ������ת
+		//动画加载
 		overridePendingTransition(R.anim.anim_top_in, R.anim.anim_top_out);
 	}
 
@@ -107,9 +107,9 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		mBack.setOnClickListener(this);
 		mMusicList.setOnClickListener(this);
 		mSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
-		;
+		
 
-		// ע��㲥������
+		//
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ReceiverAction.ACTION_REFRESH);
 		filter.addAction(ReceiverAction.ACTION_PAUSE);
@@ -152,7 +152,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 	private void refreshBaseActivity(IPlayBackService myService, Music music) {
 		mTitle.setText(music.getTitle());
 		mSinger.setText(music.getArtist());
-		mSeekBar.setMax((int) music.getDuration());// ���ý�������ֵΪ���ֲ���ʱ��
+		mSeekBar.setMax((int) music.getDuration());// 
 
 		int duration = (int) music.getDuration();
 		int durationMin = duration / 60000;
@@ -228,7 +228,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		}
 	};
 
-	// ViewPager������
+	// ViewPager
 	private class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
 		public ViewPagerAdapter(FragmentManager fm) {
@@ -257,12 +257,12 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		}
 	}
 
-	// ���չ㲥
+	// 
 	private BroadcastReceiver myReceiver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			// ����ҳ��ˢ��
+			// 
 			if (intent.getAction().equals(ReceiverAction.ACTION_REFRESH)) {
 				IPlayBackService myService = PlayBackServiceManager
 						.getPlayBackService(PlayDetailActivity.this);
@@ -273,12 +273,12 @@ public class PlayDetailActivity extends ActionBarActivity implements
 				}
 			}
 
-			// �����
+			//
 			if (intent.getAction().equals(ReceiverAction.ACTION_PLAY)) {
 				mPause.setImageResource(R.drawable.ic_pause);
 			}
 
-			// ������ͣ
+			// 
 			if (intent.getAction().equals(ReceiverAction.ACTION_PAUSE)) {
 				mPause.setImageResource(R.drawable.ic_play);
 			}
@@ -302,7 +302,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 			} else if (myService.getCurrentPlayState() == PlayStaticConst.STATE_PLAYING) {
 				myService.pause();
 			} else if (myService.getCurrentPlayState() == PlayStaticConst.STATE_STOP) {
-				Toast.makeText(this, "��ѡһ��Ҫ���ŵĸ�����", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "没有在播放的歌曲", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		case R.id.iv_detail_next:
@@ -331,17 +331,17 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		case PlayStaticConst.STATE_LOOP:
 			mPlayOrder.setImageResource(R.drawable.ic_play_random);
 			service.setCurrentPlayOrder(PlayStaticConst.STATE_RANDOM);
-			Toast.makeText(this, "����", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "随机播放", Toast.LENGTH_SHORT).show();
 			break;
 		case PlayStaticConst.STATE_RANDOM:
 			mPlayOrder.setImageResource(R.drawable.ic_play_cycle);
 			service.setCurrentPlayOrder(PlayStaticConst.STATE_CYCLE);
-			Toast.makeText(this, "����ѭ��", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "单曲循环", Toast.LENGTH_SHORT).show();
 			break;
 		case PlayStaticConst.STATE_CYCLE:
 			mPlayOrder.setImageResource(R.drawable.ic_play_looplist);
 			service.setCurrentPlayOrder(PlayStaticConst.STATE_LOOP);
-			Toast.makeText(this, "�б�ѭ��", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "列表循环", Toast.LENGTH_SHORT).show();
 			break;
 		}
 	}
@@ -397,5 +397,4 @@ public class PlayDetailActivity extends ActionBarActivity implements
 			mDialog.dismiss();
 		}
 	}
-
 }

@@ -53,17 +53,17 @@ public class DetailFragmentLrc extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 
-//		IPlayBackService myService = PlayBackServiceManager
-//				.getPlayBackService(getActivity());
-//		Music music = null;
-//		if (myService != null) {
-//			music = myService.getCurrentMusic();
-//		}
-//
-//		if (music != null && myService != null) {
-//			setAlbumImg(music);
-			new MatchLrcForMusic(getActivity(), mlLyricView, "06");
-		//}
+		IPlayBackService myService = PlayBackServiceManager
+				.getPlayBackService(getActivity());
+		Music music = null;
+		if (myService != null) {
+			music = myService.getCurrentMusic();
+		}
+
+		if (music != null && myService != null) {
+			//setAlbumImg(music);
+			new MatchLrcForMusic(getActivity(), mlLyricView, music);
+		}
 	}
 
 	
@@ -71,14 +71,16 @@ public class DetailFragmentLrc extends Fragment {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			IPlayBackService myService = PlayBackServiceManager
+						.getPlayBackService(getActivity());
+				Music music = myService.getCurrentMusic();
+			
 			if(intent.getAction().equals(ReceiverAction.ACTION_REFRESH)){
-//				IPlayBackService myService = PlayBackServiceManager
-//						.getPlayBackService(getActivity());
-//				Music music = myService.getCurrentMusic();
+				
 //				setAlbumImg(music);
-				new MatchLrcForMusic(context, mlLyricView, "01");
+				new MatchLrcForMusic(context, mlLyricView, music);
 			} else if(intent.getAction().equals(ReceiverAction.ACTION_PLAY)){
-				new MatchLrcForMusic(context, mlLyricView, "01");
+				new MatchLrcForMusic(context, mlLyricView, music);
 			}
 			
 	

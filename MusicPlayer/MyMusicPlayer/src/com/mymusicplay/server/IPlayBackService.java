@@ -8,102 +8,102 @@ import com.mymusicplay.model.Music;
 
 public interface IPlayBackService {
 	/**
-	 * ²¥·ÅÒôÀÖ
+	 * æ’­æ”¾éŸ³ä¹
 	 */
 	public void play();
 	
 	/**
-	 * ÔİÍ£²¥·Å
+	 * æš‚åœæ’­æ”¾
 	 */
 	public void pause();
 	
 	/**
-	 * Í£Ö¹²¥·Å
+	 * Í£Ö¹åœæ­¢æ’­æ”¾
 	 */
 	public void stop();
 	
 	/**
-	 * ²¥·ÅÏÂÒ»Çú
+	 * æ’­æ”¾ä¸‹ä¸€æ›²
 	 */
 	public void next();
 	
 	/**
-	 * ²¥·ÅÉÏÒ»Çú
+	 * æ’­æ”¾ä¸Šä¸€æ›²
 	 */
 	public void previouse();
 	
 	/**
-	 * °´Ë÷Òı²¥·Å
+	 * æŒ‰ç´¢å¼•æ’­æ”¾
 	 * @param index
 	 */
 	public void playAtIndex(int index);
 	
 	/**
-	 * Ìí¼ÓËùÓĞÇúÄ¿µ½²¥·Å¶ÓÁĞÖĞ
+	 * æ·»åŠ æ‰€æœ‰æ›²ç›®åˆ°æ’­æ”¾é˜Ÿåˆ—ä¸­
 	 * @param musicList
 	 */
 	public void addToPlayQueue(List<Music> musicList);
 	
 	/**
-	 * Ìí¼Óµ¥Ê×ÇúÄ¿µ½²¥·ÅÁĞ±íÖĞ
+	 * æ·»åŠ å•é¦–æ›²ç›®åˆ°æ’­æ”¾åˆ—è¡¨ä¸­
 	 * @param music
 	 */
 	public int addToPlayQuene(Music music);
 	
 	/**
-	 * »ñÈ¡µ±Ç°²¥·Å×´Ì¬
+	 * è·å–å½“å‰æ’­æ”¾çŠ¶æ€×´Ì¬
 	 * @return
 	 */
 	public int getCurrentPlayState();
 	
 	/**
-	 * »ñÈ¡µ±Ç°²¥·Å¶ÔÏó
+	 * è·å–å½“å‰æ’­æ”¾å¯¹è±¡
 	 * @return
 	 */
 	public Music getCurrentMusic();
 	
 	/**
-	 * »ñÈ¡¸èÇúÔÚ¶ÓÁĞÖĞµÄÎ»ÖÃ
-	 * @return musicÔÚ¶ÓÁĞÖĞµÄÎ»ÖÃ£¬Ã»ÕÒµ½·µ»Ø-1
+	 * è·å–æ­Œæ›²åœ¨é˜Ÿåˆ—ä¸­çš„ä½ç½®
+	 * @return musicåœ¨é˜Ÿåˆ—ä¸­çš„ä½ç½®ï¼Œæ²¡æ‰¾åˆ°è¿”å›-1
 	 */
 	public int getCurrentMusicIndex(Music music);
 	
 	/**
-	 * Çå³ı¶ÓÁĞÖĞµÄËùÓĞ¸èÇú
+	 * æ¸…é™¤é˜Ÿåˆ—ä¸­çš„æ‰€æœ‰æ­Œæ›²
 	 */
 	public void clearPlayQueue();
 	
 	/**
-	 * »ñÈ¡µ±Ç°²¥·ÅÒôÀÖµÄÎ»ÖÃ
+	 * è·å–å½“å‰æ’­æ”¾éŸ³ä¹çš„ä½ç½®
 	 */
 	public int getMusicPlayPosition();
 	
 	/**
-	 * »ñÈ¡µ±Ç°µÄMediaPlayer
+	 * è·å–å½“å‰çš„MediaPlayer
 	 * @return
 	 */
 	public MediaPlayer getMediaPlayer();
 	
 	/**
-	 * »ñÈ¡µ±Ç°²¥·Å¶ÓÁĞ
+	 * è·å–å½“å‰æ’­æ”¾é˜Ÿåˆ—
 	 * @return
 	 */
 	public List<Music> getCurrentMusicList();
 	
 	/**
-	 * »ñÈ¡µ±Ç°µÄ²¥·ÅË³Ğò
+	 * è·å–å½“å‰çš„æ’­æ”¾é¡ºåº
 	 * @return
 	 */
 	public int getCurrentPlayOrder();
 	
 	/**
-	 * ÉèÖÃµ±Ç°²¥·ÅË³Ğò
+	 * è®¾ç½®å½“å‰æ’­æ”¾é¡ºåº
 	 * @param playOrder
 	 */
 	public void setCurrentPlayOrder(int playOrder);
 	
 	/**
-	 * µ±Ç°ÒôÀÖµ½Ö¸¶¨Î»ÖÃ²¥·Å
+	 * å½“å‰éŸ³ä¹åˆ°æŒ‡å®šä½ç½®æ’­æ”¾
 	 * @param toPosition
 	 */
 	public void setMusicPlaySeekTo(int toPosition);

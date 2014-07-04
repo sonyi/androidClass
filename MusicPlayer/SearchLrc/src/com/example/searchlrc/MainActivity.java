@@ -14,11 +14,24 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		getLrcPath("Let It Go.mp3");
+	}
+	
+	
+	public String getLrcPath(String musicName){
 		File file = new File("/sdcard/");
+		String musicLrcName = musicName.substring(0, musicName.indexOf("."));
+		Log.i("search", musicLrcName);
 		searchFiles(file);
 		for(String s : it){
-			Log.i("search", s);
+			String mName = s.substring(s.lastIndexOf("/") + 1,s.lastIndexOf("."));
+			Log.i("search", s + "\r\n" + mName);
+			if(mName.equals(musicName)){
+				return s;
+			}
 		}
+		return null;
+		
 	}
 	
 	ArrayList<String> it = new ArrayList<String>();;

@@ -17,7 +17,7 @@ import com.mymusicplay.R;
 import com.mymusicplay.util.Const;
 
 public class MainActivity extends BaseActivity {
-	private String[] mMusicCatagory = new String[] { "ÎÒµÄÒôÀÖ", "×¨¼­", "×î³£Ìı" };
+	private String[] mMusicCatagory = new String[] { "æˆ‘çš„éŸ³ä¹", "ä¸“è¾‘", "æœ€å–œæ¬¢" };
 	private ViewPager mViewPager;
 	private ViewPagerAdapter mViewPagerAdapter;
 
@@ -35,12 +35,12 @@ public class MainActivity extends BaseActivity {
 		mViewPager.setOnPageChangeListener(mPageChangeListener);
 	}
 
-	// ÉèÖÃActionbar
+	// åˆå§‹åŒ–actionbar
 	private void setUpActionBar() {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setIcon(R.drawable.ic_default_art);
-		actionBar.setTitle("×Ô¼ºµÄ²¥·ÅÆ÷");
+		actionBar.setTitle("æˆ‘çš„éŸ³ä¹æ’­æ”¾å™¨");
 
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
-	// ViewPagerÊÊÅäÆ÷
+	// ViewPager
 	private class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
 		public ViewPagerAdapter(FragmentManager fm) {
@@ -86,11 +86,11 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
-	// ÉèÖÃÒ³Ãæ»¬¶¯¼àÌıÆ÷
+	// 
 	private OnPageChangeListener mPageChangeListener = new OnPageChangeListener() {
 
 		@Override
-		public void onPageSelected(int arg0) {// Ò³Ãæ»¬¶¯Ê±¸Ä±äActionbarµ¼º½Î»ÖÃ
+		public void onPageSelected(int arg0) {//
 			ActionBar actionBar = getSupportActionBar();
 			actionBar.setSelectedNavigationItem(arg0);
 		}
@@ -104,11 +104,11 @@ public class MainActivity extends BaseActivity {
 		}
 	};
 
-	// ÉèÖÃActionbarµÄtab¼àÌıÆ÷
+	// 
 	private TabListener mTabListener = new TabListener() {
 		@Override
 		public void onTabSelected(Tab tab, FragmentTransaction ft) {
-			// ¸Ä±ätabÊ±£¬ÏàÓ¦µÄÒ³ÃæÒ²×ö¸Ä±ä
+			// 
 			int position = tab.getPosition();
 			mViewPager.setCurrentItem(position);
 		}
@@ -134,10 +134,10 @@ public class MainActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_exit:
-			//¹Ø±ÕÍ¨ÖªÀ¸
+			//
 			NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 			nm.cancel(Const.NOTIFICATION_ID);
-			System.exit(0);//ÍË³öÏµÍ³
+			System.exit(0);//
 			break;
 		case R.id.action_settings:
 
