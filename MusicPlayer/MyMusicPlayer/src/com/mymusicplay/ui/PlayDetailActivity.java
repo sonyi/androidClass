@@ -59,7 +59,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		initAdapter();
 		initWidget();
 
-		// ¶¯»­Ìø×ª
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ª
 		overridePendingTransition(R.anim.anim_top_in, R.anim.anim_top_out);
 	}
 
@@ -109,7 +109,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		mSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
 		;
 
-		// ×¢²á¹ã²¥½ÓÊÕÆ÷
+		// ×¢ï¿½ï¿½ã²¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ReceiverAction.ACTION_REFRESH);
 		filter.addAction(ReceiverAction.ACTION_PAUSE);
@@ -152,7 +152,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 	private void refreshBaseActivity(IPlayBackService myService, Music music) {
 		mTitle.setText(music.getTitle());
 		mSinger.setText(music.getArtist());
-		mSeekBar.setMax((int) music.getDuration());// ÉèÖÃ½ø¶ÈÌõ×î´óÖµÎªÒôÀÖ²¥·ÅÊ±¼ä
+		mSeekBar.setMax((int) music.getDuration());// ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 
 		int duration = (int) music.getDuration();
 		int durationMin = duration / 60000;
@@ -228,7 +228,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		}
 	};
 
-	// ViewPagerÊÊÅäÆ÷
+	// ViewPagerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
 		public ViewPagerAdapter(FragmentManager fm) {
@@ -257,12 +257,12 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		}
 	}
 
-	// ½ÓÊÕ¹ã²¥
+	// ï¿½ï¿½ï¿½Õ¹ã²¥
 	private BroadcastReceiver myReceiver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			// ¸èÇúÒ³ÃæË¢ÐÂ
+			// ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Ë¢ï¿½ï¿½
 			if (intent.getAction().equals(ReceiverAction.ACTION_REFRESH)) {
 				IPlayBackService myService = PlayBackServiceManager
 						.getPlayBackService(PlayDetailActivity.this);
@@ -273,12 +273,12 @@ public class PlayDetailActivity extends ActionBarActivity implements
 				}
 			}
 
-			// ¸èÇú²¥·Å
+			// ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (intent.getAction().equals(ReceiverAction.ACTION_PLAY)) {
 				mPause.setImageResource(R.drawable.ic_pause);
 			}
 
-			// ¸èÇúÔÝÍ£
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£
 			if (intent.getAction().equals(ReceiverAction.ACTION_PAUSE)) {
 				mPause.setImageResource(R.drawable.ic_play);
 			}
@@ -302,7 +302,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 			} else if (myService.getCurrentPlayState() == PlayStaticConst.STATE_PLAYING) {
 				myService.pause();
 			} else if (myService.getCurrentPlayState() == PlayStaticConst.STATE_STOP) {
-				Toast.makeText(this, "ÏÈÑ¡Ò»ÏÂÒª²¥·ÅµÄ¸èÇúÀ²", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "ï¿½ï¿½Ñ¡Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½ÅµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		case R.id.iv_detail_next:
@@ -331,17 +331,17 @@ public class PlayDetailActivity extends ActionBarActivity implements
 		case PlayStaticConst.STATE_LOOP:
 			mPlayOrder.setImageResource(R.drawable.ic_play_random);
 			service.setCurrentPlayOrder(PlayStaticConst.STATE_RANDOM);
-			Toast.makeText(this, "Ëæ»ú²¥·Å", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_SHORT).show();
 			break;
 		case PlayStaticConst.STATE_RANDOM:
 			mPlayOrder.setImageResource(R.drawable.ic_play_cycle);
 			service.setCurrentPlayOrder(PlayStaticConst.STATE_CYCLE);
-			Toast.makeText(this, "µ¥ÇúÑ­»·", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½", Toast.LENGTH_SHORT).show();
 			break;
 		case PlayStaticConst.STATE_CYCLE:
 			mPlayOrder.setImageResource(R.drawable.ic_play_looplist);
 			service.setCurrentPlayOrder(PlayStaticConst.STATE_LOOP);
-			Toast.makeText(this, "ÁÐ±íÑ­»·", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "ï¿½Ð±ï¿½Ñ­ï¿½ï¿½", Toast.LENGTH_SHORT).show();
 			break;
 		}
 	}
@@ -384,6 +384,7 @@ public class PlayDetailActivity extends ActionBarActivity implements
 	@Override
 	protected void onStop() {
 		isrunable = false;
+		threadForSeekbar = null;
 		super.onStop();
 	}
 

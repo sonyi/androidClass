@@ -3,6 +3,8 @@ package com.mymusicplay.ui;
 import com.mymusicplay.PlayBackServiceManager;
 import com.mymusicplay.R;
 import com.mymusicplay.data.AlbumDataAccess;
+import com.mymusicplay.lrc.MatchLrcForMusic;
+import com.mymusicplay.lrc.control.LyricView;
 import com.mymusicplay.model.Music;
 import com.mymusicplay.receiver.ReceiverAction;
 import com.mymusicplay.server.IPlayBackService;
@@ -21,6 +23,7 @@ import android.widget.ImageView;
 
 public class DetailFragmentLrc extends Fragment {
 	private ImageView mBackgroundLrc;
+	private LyricView mlLyricView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,10 +36,14 @@ public class DetailFragmentLrc extends Fragment {
 
 	private View initWidget(View view) {
 		mBackgroundLrc = (ImageView) view.findViewById(R.id.iv_lrc_background);
-
-		// 注册广播接收器
+		mlLyricView = (LyricView) view.findViewById(R.id.audio_lrc);
+		
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ReceiverAction.ACTION_REFRESH);
+		filter.addAction(ReceiverAction.ACTION_PAUSE);
+		filter.addAction(ReceiverAction.ACTION_NEXT);
+		filter.addAction(ReceiverAction.ACTION_PREVIOUS);
+		filter.addAction(ReceiverAction.ACTION_PLAY);
 		getActivity().registerReceiver(myReceiver, filter);
 		return view;
 	}
@@ -46,31 +53,35 @@ public class DetailFragmentLrc extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 
-		IPlayBackService myService = PlayBackServiceManager
-				.getPlayBackService(getActivity());
-		Music music = null;
-		if (myService != null) {
-			music = myService.getCurrentMusic();
-		}
-
-		if (music != null && myService != null) {
-			setAlbumImg(music);
-		}
+//		IPlayBackService myService = PlayBackServiceManager
+//				.getPlayBackService(getActivity());
+//		Music music = null;
+//		if (myService != null) {
+//			music = myService.getCurrentMusic();
+//		}
+//
+//		if (music != null && myService != null) {
+//			setAlbumImg(music);
+			new MatchLrcForMusic(getActivity(), mlLyricView, "06");
+		//}
 	}
 
-	// 接收广播
+	
 	private BroadcastReceiver myReceiver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			// 歌曲页面刷新
-			if (intent.getAction().equals(ReceiverAction.ACTION_REFRESH)) {
-				IPlayBackService myService = PlayBackServiceManager
-						.getPlayBackService(getActivity());
-				Music music = myService.getCurrentMusic();
-
-				setAlbumImg(music);
+			if(intent.getAction().equals(ReceiverAction.ACTION_REFRESH)){
+//				IPlayBackService myService = PlayBackServiceManager
+//						.getPlayBackService(getActivity());
+//				Music music = myService.getCurrentMusic();
+//				setAlbumImg(music);
+				new MatchLrcForMusic(context, mlLyricView, "01");
+			} else if(intent.getAction().equals(ReceiverAction.ACTION_PLAY)){
+				new MatchLrcForMusic(context, mlLyricView, "01");
 			}
+			
+	
 		}
 
 	};
@@ -79,7 +90,7 @@ public class DetailFragmentLrc extends Fragment {
 		String path = new AlbumDataAccess(getActivity())
 				.getAlbumArtByAlbumId(music.getAlbumId());
 		if (path != null) {
-			new BitmapWorker(getActivity()).fetch(path, mBackgroundLrc);// 设置封面
+			new BitmapWorker(getActivity()).fetch(path, mBackgroundLrc);
 		} else {
 			mBackgroundLrc.setImageResource(R.drawable.ic_default_art);
 		}

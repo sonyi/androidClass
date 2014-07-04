@@ -2,7 +2,7 @@ package com.mymusicplay.ui;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,6 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mymusicplay.PlayBackServiceManager;
 import com.mymusicplay.R;
 import com.mymusicplay.data.AlbumDataAccess;
@@ -26,6 +25,7 @@ import com.mymusicplay.model.Music;
 import com.mymusicplay.receiver.ReceiverAction;
 import com.mymusicplay.server.IPlayBackService;
 import com.mymusicplay.server.PlayStaticConst;
+import com.mymusicplay.ui.PlayDetailActivity.myrunabe;
 import com.mymusicplay.util.BitmapWorker;
 import com.mymusicplay.util.Const;
 
@@ -65,7 +65,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
 	}
 
-	// ¶¨Òå³éÏó·½·¨£¬×ÓÀà±ØÐëµ÷ÓÃ²¢µÚÒ»¾äÒªÊÇsetContentView£¬¼ÓÔØ²¼¾ÖÎÄ¼þ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó·½·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Òªï¿½ï¿½setContentViewï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 	protected abstract void initialWidgets();
 
 	private void intiBaseActivity() {
@@ -85,7 +85,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 		mSeekBar.setOnSeekBarChangeListener(mySeekBarChangeListener);
 		view.setOnClickListener(this);
 
-		// ×¢²á¹ã²¥½ÓÊÕÆ÷
+		// ×¢ï¿½ï¿½ã²¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ReceiverAction.ACTION_REFRESH);
 		filter.addAction(ReceiverAction.ACTION_PAUSE);
@@ -111,7 +111,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 				myService.pause();
 				break;
 			case PlayStaticConst.STATE_STOP:
-				Toast.makeText(BaseActivity.this, "ÏÈÑ¡Ò»ÏÂÒª²¥·ÅµÄ¸èÇúÀ²",
+				Toast.makeText(BaseActivity.this, "ï¿½ï¿½Ñ¡Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½ÅµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½",
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -130,27 +130,30 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
 	}
 
-	// ½ÓÊÕ¹ã²¥
+	// ï¿½ï¿½ï¿½Õ¹ã²¥
 	private BroadcastReceiver myReceiver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			// ¸èÇúÒ³ÃæË¢ÐÂ
-			if (intent.getAction().equals(ReceiverAction.ACTION_REFRESH)) {
-				IPlayBackService myService = PlayBackServiceManager
+			// ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Ë¢ï¿½ï¿½
+			IPlayBackService myService = PlayBackServiceManager
 						.getPlayBackService(BaseActivity.this);
-				Music music = myService.getCurrentMusic();
+			Music music = myService.getCurrentMusic();
+			if (intent.getAction().equals(ReceiverAction.ACTION_REFRESH)) {
 				if (music != null) {
 					refreshBaseActivity(myService, music);
 				}
 			}
 
-			// ¸èÇú²¥·Å
+			// ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (intent.getAction().equals(ReceiverAction.ACTION_PLAY)) {
 				mPause.setImageResource(R.drawable.ic_pause);
+				if (music != null) {
+					refreshBaseActivity(myService, music);
+				}
 			}
 
-			// ¸èÇúÔÝÍ£
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£
 			if (intent.getAction().equals(ReceiverAction.ACTION_PAUSE)) {
 				mPause.setImageResource(R.drawable.ic_play);
 			}
@@ -161,14 +164,14 @@ public abstract class BaseActivity extends ActionBarActivity implements
 		String path = new AlbumDataAccess(this).getAlbumArtByAlbumId(music
 				.getAlbumId());
 		if (path != null && !path.equals("")) {
-			new BitmapWorker(BaseActivity.this).fetch(path, mMusicCover);// ÉèÖÃ·âÃæ
+			new BitmapWorker(BaseActivity.this).fetch(path, mMusicCover);// ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½
 		} else {
 			mMusicCover.setImageResource(R.drawable.ic_default_art);
 		}
 
 		mMusicTitle.setText(music.getTitle());
 		mMusicSinger.setText(music.getArtist());
-		mSeekBar.setMax((int) music.getDuration());// ÉèÖÃ½ø¶ÈÌõ×î´óÖµÎªÒôÀÖ²¥·ÅÊ±¼ä
+		mSeekBar.setMax((int) music.getDuration());// ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 		// Log.i("time", music.getDuration() + "");
 
 		if (myService.getCurrentPlayState() == PlayStaticConst.STATE_PAUSE) {
@@ -182,6 +185,17 @@ public abstract class BaseActivity extends ActionBarActivity implements
 			threadForSeekbar = new myrunabe(myService);
 			threadForSeekbar.start();
 		}
+		
+		
+		
+//		if (!isrunable) {
+//			isrunable = true;
+//			if(threadForSeekbar == null){
+//				threadForSeekbar = new myrunabe(myService);
+//			}
+//			
+//			threadForSeekbar.start();
+//		}
 	}
 
 	boolean isrunable = true;
@@ -213,6 +227,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 		}
 	}
 
+	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -255,6 +270,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 	@Override
 	protected void onStop() {
 		isrunable = false;
+		threadForSeekbar = null;
 		super.onStop();
 	}
 
