@@ -1,26 +1,22 @@
 package com.imcore.xbionic.ui;
 
-import com.imcore.xbionic.R;
-import com.imcore.xbionic.home.ui.HomeActivityLogin;
-import com.imcore.xbionic.home.ui.HomeActivityUnlogin;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.imcore.xbionic.R;
+import com.imcore.xbionic.home.ui.HomeActivityUnlogin;
 
 public class InstructorActivtity extends Activity implements
 		OnPageChangeListener {
@@ -37,8 +33,8 @@ public class InstructorActivtity extends Activity implements
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 
 		// 载入图片资源ID
-		imgIdArray = new int[] { R.drawable.ic_drawer_main_menu,
-				R.drawable.ic_drawer_main_logo, R.drawable.ic_drawer_list_next};
+		imgIdArray = new int[] { R.drawable.ic_instructor_welcompage1,
+				R.drawable.ic_instructor_welcompage2, R.drawable.ic_instructor_welcompage3};
 
 		// 将点点加入到ViewGroup中
 		tips = new ImageView[imgIdArray.length];

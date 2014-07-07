@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.imcore.xbionic.R;
+import com.imcore.xbionic.util.Const;
 import com.imcore.xbionic.util.ToastUtil;
 
 public class HomeActivityLogin extends FragmentActivity {
@@ -30,7 +31,9 @@ public class HomeActivityLogin extends FragmentActivity {
 	private int[] mNaviItemIcon;
 	private final static String NAVI_ITEM_TEXT = "item_text";
 	private final static String NAVI_ITEM_ICOM = "item_icom";
-	private Fragment mFragment;
+	private Fragment mFragmentHost;
+	private Fragment mFragmentUser;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +46,12 @@ public class HomeActivityLogin extends FragmentActivity {
 	}
 
 	private void initFragment() {
-		mFragment = new HomeActivityHost();
+		mFragmentHost = new HomeFragmentHost();
+		mFragmentUser = new HomeDrawerUser();
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-		ft.add(R.id.home_activity_login_fragment, mFragment);
+		ft.add(R.id.home_activity_login_fragment, mFragmentHost);
+		ft.add(R.id.drawer_fragment_user, mFragmentUser);
 		ft.commit();
 	}
 
@@ -57,11 +62,11 @@ public class HomeActivityLogin extends FragmentActivity {
 		mNaviItemText = getResources().getStringArray(
 				R.array.drawer_item_array_text);
 
-		mNaviItemIcon = new int[] { R.drawable.ic_drawer_list_icon,
-				R.drawable.ic_drawer_list_icon, R.drawable.ic_drawer_list_icon,
-				R.drawable.ic_drawer_list_icon, R.drawable.ic_drawer_list_icon,
-				R.drawable.ic_drawer_list_icon, R.drawable.ic_drawer_list_icon,
-				R.drawable.ic_drawer_list_icon, R.drawable.ic_drawer_list_icon };
+		mNaviItemIcon = new int[] { R.drawable.ic_launcher,
+				R.drawable.ic_launcher, R.drawable.ic_launcher,
+				R.drawable.ic_launcher, R.drawable.ic_launcher,
+				R.drawable.ic_launcher, R.drawable.ic_launcher,
+				R.drawable.ic_launcher, R.drawable.ic_launcher };
 		
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 		for(int i = 0; i < mNaviItemText.length; i++){

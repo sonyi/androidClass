@@ -20,7 +20,7 @@ public class HomeActivityUnlogin extends FragmentActivity{
 	}
 	
 	private void initFragment() {
-		mFragment = new HomeActivityHost();
+		mFragment = new HomeFragmentHost();
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		ft.add(R.id.home_activity_unlogin_fragment, mFragment);

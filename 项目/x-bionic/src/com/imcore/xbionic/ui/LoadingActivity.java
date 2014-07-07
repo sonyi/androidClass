@@ -11,9 +11,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,12 +25,19 @@ import com.imcore.xbionic.http.DataRequest;
 import com.imcore.xbionic.http.RequestQueueSingleton;
 
 public class LoadingActivity extends Activity {
+	private ImageView mAnimationImg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_loading);
+		mAnimationImg = (ImageView) findViewById(R.id.iv_loading_animation);
 
+		initIntent();
+
+	}
+
+	private void initIntent() {
 		// 判断用户是否是第一次登入
 		SharedPreferences sp = getSharedPreferences("loginUser",
 				Context.MODE_PRIVATE); // 私有数据
@@ -46,14 +52,28 @@ public class LoadingActivity extends Activity {
 		final Intent it = intent; // 你要转向的Activity
 		Timer timer = new Timer();
 		TimerTask task = new TimerTask() {
+			int i = 1;
+
 			@Override
 			public void run() {
-				LoadingActivity.this.finish();
-				startActivity(it); // 执行
+				// LoadingActivity.this.finish();
+				// startActivity(it); // 执行
+				while (i < 100) {
+					i++;
+					//mAnimationImg.getHeight();
+					
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+
 			}
 		};
-		timer.schedule(task, 1000 * 2); // 2秒后
-
+		timer.schedule(task, 0); // 2秒后
 	}
 
 	private void doLogin() {

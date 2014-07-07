@@ -15,20 +15,20 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#ffffff"
+        android:background="@drawable/ic_all_background"
         android:choiceMode="singleChoice" >
 
-        <include
-            android:id="@+id/drawer_include_user"
+        <FrameLayout
+            android:id="@+id/drawer_fragment_user"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            layout="@layout/view_navi_drawer_userdetail" />
+            />
 
         <ListView
             android:id="@+id/lv_drawer_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/drawer_include_user" />
+            android:layout_below="@id/drawer_fragment_user" />
     </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>
