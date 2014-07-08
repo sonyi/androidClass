@@ -8,7 +8,7 @@
         android:id="@+id/drawer_main_top_layout"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        android:background="@drawable/ic_home_login_background1"
+        android:background="@drawable/ic_home_top_background"
         android:paddingTop="7dp" >
 
         <ImageButton

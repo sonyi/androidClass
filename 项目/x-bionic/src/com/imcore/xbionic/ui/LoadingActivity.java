@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -25,13 +26,13 @@ import com.imcore.xbionic.http.DataRequest;
 import com.imcore.xbionic.http.RequestQueueSingleton;
 
 public class LoadingActivity extends Activity {
-	private ImageView mAnimationImg;
+	private ProgressBar mProgressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_loading);
-		mAnimationImg = (ImageView) findViewById(R.id.iv_loading_animation);
+		mProgressBar = (ProgressBar) findViewById(R.id.progressbar_loading_animation);
 
 		initIntent();
 
@@ -48,32 +49,32 @@ public class LoadingActivity extends Activity {
 		} else {
 			intent = new Intent(this, HomeActivityLogin.class);
 		}
+		
+		
 
 		final Intent it = intent; // 你要转向的Activity
 		Timer timer = new Timer();
 		TimerTask task = new TimerTask() {
 			int i = 1;
-
 			@Override
 			public void run() {
-				// LoadingActivity.this.finish();
-				// startActivity(it); // 执行
+				
 				while (i < 100) {
 					i++;
-					//mAnimationImg.getHeight();
+					mProgressBar.setProgress(i*2);
 					
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
 				}
-
+				
+				 LoadingActivity.this.finish();
+				 startActivity(it); // 执行
 			}
 		};
-		timer.schedule(task, 0); // 2秒后
+		timer.schedule(task, 0); // 
 	}
 
 	private void doLogin() {

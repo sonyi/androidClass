@@ -42,7 +42,7 @@ public class HomeFragmentHost extends Fragment implements OnClickListener {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				ToastUtil.showToast(getActivity(), "logo");
+				
 			}
 		});
 

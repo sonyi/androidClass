@@ -24,7 +24,7 @@ import com.imcore.xbionic.util.Const;
 import com.imcore.xbionic.util.ToastUtil;
 
 public class HomeActivityLogin extends FragmentActivity {
-	private DrawerLayout mDrawerLayout;
+	public DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	// private View mDrawerUserDetail;
 	private String[] mNaviItemText;
@@ -74,6 +74,8 @@ public class HomeActivityLogin extends FragmentActivity {
 			item.put(NAVI_ITEM_TEXT, mNaviItemText[i]);
 			item.put(NAVI_ITEM_ICOM, mNaviItemIcon[i]);
 			data.add(item);
+			
+			
 		}
 
 		String[] from = new String[] { NAVI_ITEM_ICOM, NAVI_ITEM_TEXT };
@@ -90,6 +92,8 @@ public class HomeActivityLogin extends FragmentActivity {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			ToastUtil.showToast(HomeActivityLogin.this, "item:" + arg2);
+			mDrawerLayout.closeDrawers();
+			
 
 		}
 	};
