@@ -277,8 +277,7 @@ public class LyricView extends TextView {
 		// 歌词序号
 		index = mLyric.getNowSentenceIndex(time);
 		if (index != -1) {
-
-			Sentence sen = Sentencelist.get(index);
+			Sentence sen = Sentencelist.get(index);//有时出现下标越界异常
 			sentenctTime = sen.getFromTime();
 			currentDunringTime = sen.getDuring();
 		}

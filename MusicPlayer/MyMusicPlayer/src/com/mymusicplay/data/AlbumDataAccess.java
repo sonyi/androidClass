@@ -53,7 +53,6 @@ public class AlbumDataAccess {
 		String[] selectionArgs = new String[]{albumID + ""};
 		ContentResolver cr = mContext.getContentResolver();
 		Cursor c = cr.query(uri, projection, Albums._ID + "=?", selectionArgs, null);
-		List<Album> albumList = new ArrayList<Album>();
 		String result = null;
 		while(c.moveToNext()){
 			result = c.getString(c.getColumnIndexOrThrow(Albums.ALBUM_ART));
