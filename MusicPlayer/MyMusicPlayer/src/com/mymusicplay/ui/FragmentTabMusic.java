@@ -61,7 +61,7 @@ public class FragmentTabMusic extends Fragment {
 			}
 			
 			Music music = mMusic.get(position);
-			Log.i("music", music.toString());
+			//Log.i("music", music.toString());
 			
 			vh.title.setText(music.getTitle());
 			vh.singer.setText(music.getArtist());
@@ -101,10 +101,10 @@ public class FragmentTabMusic extends Fragment {
 		@Override
 		public void onClick(View v) {
 			myService = PlayBackServiceManager.getPlayBackService(getActivity());
-//			myService.addToPlayQueue(mMusic);
-//			int index = myService.getCurrentMusicIndex(music);
+			myService.addToPlayQueue(mMusic);
+			int index = myService.getCurrentMusicIndex(music);
 			
-			int index = myService.addToPlayQuene(music);
+			//int index = myService.addToPlayQuene(music);
 			
 			//myService.stop();
 			myService.playAtIndex(index);
