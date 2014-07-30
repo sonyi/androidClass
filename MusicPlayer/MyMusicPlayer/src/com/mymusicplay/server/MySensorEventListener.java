@@ -1,5 +1,7 @@
 package com.mymusicplay.server;
 
+import java.util.Calendar;
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -7,14 +9,17 @@ import android.hardware.SensorEventListener;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.text.format.Time;
 import android.util.Log;
 
 import com.mymusicplay.PlayBackServiceManager;
 
 public class MySensorEventListener implements SensorEventListener {
 	private static final int SENSOR_SHAKE = 10;
-	Vibrator vibrator;
-	Context context;
+	private Vibrator vibrator;
+	private Context context;
+	private long oldTime = 0;
+	
 	
 	MySensorEventListener(Context context,Vibrator vibrator){
 		this.vibrator = vibrator;
@@ -28,20 +33,22 @@ public class MySensorEventListener implements SensorEventListener {
 		float x = values[0]; // x轴方向的重力加速度，向右为正
 		float y = values[1]; //  y轴方向的重力加速度，向前为正
 		float z = values[2]; //z轴方向的重力加速度，向上为正
+		//Time t=new Time();
 		
+		Calendar c = Calendar.getInstance(); 
+		long time = c.getTimeInMillis();
+		//Log.i("sign", time + "");
 		int medumValue = 15;
 		if (Math.abs(x) > medumValue || Math.abs(y) > medumValue
 				|| Math.abs(z) > medumValue) {
-			
-			Message msg = new Message();
-			msg.what = SENSOR_SHAKE;
-			handler.sendMessage(msg);
-			vibrator.vibrate(100);
-			try {
-				Thread.sleep(800);//防止一次跳几首
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			if((time - oldTime) > 1000){
+				Message msg = new Message();
+				msg.what = SENSOR_SHAKE;
+				handler.sendMessage(msg);
+				vibrator.vibrate(100);
+				
 			}
+			oldTime = time;
 		}
 	}
 	
