@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
 				saveUsr();
 			}
 		});
+		
 		btnRead.setOnClickListener(new OnClickListener() {
 			
 			@Override
